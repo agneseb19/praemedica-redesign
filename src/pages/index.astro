@@ -6,7 +6,7 @@ import { getPage, summaryOf, stripTags, fixLogo, type Block } from '../lib/conte
 import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
-import heroPhoto from '../assets/found/home-visita.jpg';
+import heroPhoto from '../assets/found/sala-attesa-4k.jpg';
 import ExamScroller from '../components/ExamScroller.astro';
 import BookBand from '../components/BookBand.astro';
 import { machines } from '../lib/machines';
@@ -65,11 +65,13 @@ const noText = reviews.reviews.filter((r) => !r.text);
 ---
 <Base title="Praemedica - Centro Diagnostico Polispecialistico" description={home.seo?.description}>
 
-  <!-- HERO: una visita in uno studio luminoso, a tutto schermo (foto 4000px, nitida anche su schermi 4K) -->
+  <!-- HERO: la sala d'attesa di Praemedica a tutto schermo, testo sopra a sinistra.
+       Foto originale 1080px ingrandita 4x con Real-ESRGAN (4320×2432), nitida anche su schermi 4K.
+       Il testo sta a destra, su una sfumatura leggera: a sinistra si vedono intatti logo e accettazione. -->
   <section class="hero" aria-labelledby="hero-t">
-    <div class="hero__bg" data-parallax="5">
-      <Picture src={heroPhoto} alt="Una dottoressa visita un ragazzo sorridente con lo stetoscopio" formats={['webp']} widths={[1000, 1600, 2400, 3200, 3840]} sizes="100vw" quality={82} loading="eager" fetchpriority="high" />
-    </div>
+    <figure class="hero__pic" data-parallax="5">
+      <Picture src={heroPhoto} alt={waitingImg.alt || "La sala d'attesa del centro Praemedica"} formats={['webp']} widths={[1000, 1600, 2400, 3200, 4320]} sizes="100vw" quality={84} loading="eager" fetchpriority="high" />
+    </figure>
     <div class="wrap hero__copy">
       <p class="hero__k" data-reveal>{h(/^CENTRO DIAGNOSTICO/)} {h(/^PRAEMEDICA/)} · Palestrina</p>
       <h1 id="hero-t" class="hero__t" data-lines>La tecnologia al servizio della tua salute.</h1>
@@ -104,7 +106,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
     <ul class="wrap pillars" role="list">
       <li data-reveal>
         <a class="pillar" href="/specializzazioni/">
-          <div class="pillar__pic"><Img src={waitingImg.src} alt={waitingImg.alt} sizes="(min-width: 900px) 33vw, 100vw" widths={[500, 1000]} /></div>
+          <div class="pillar__pic"><Img src={receptionImg.src} alt={receptionImg.alt} sizes="(min-width: 900px) 33vw, 100vw" widths={[500, 1000]} /></div>
           <h3 class="pillar__t">Visite specialistiche</h3>
           <p class="pillar__p">{specs.length} specializzazioni, dalla cardiologia all’urologia, con medici esperti.</p>
           <span class="more">Le specializzazioni</span>
@@ -355,15 +357,17 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .pillar__p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
 
   /* ================= HERO ================= */
-  .hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
-  .hero__bg { position: absolute; inset: -5% 0; z-index: -2; }
-  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(75deg, rgb(18 60 80 / 0.88) 0%, rgb(18 60 80 / 0.66) 34%, rgb(18 60 80 / 0) 60%); }
-  .hero__copy { display: grid; gap: 1.3rem; justify-items: start; padding-block: 4rem 8.5rem; }
+  .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
+  .hero__pic { position: absolute; inset: -5% 0; z-index: -3; margin: 0; }
+  .hero__pic :global(picture), .hero__pic :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 8% 45%; }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(270deg, rgb(18 60 80 / 0.78) 0%, rgb(18 60 80 / 0.62) 26%, rgb(18 60 80 / 0.28) 44%, rgb(18 60 80 / 0.06) 58%, rgb(18 60 80 / 0) 66%); }
+  .hero__copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 1.4rem 0; justify-items: start; padding-block: 4rem 8.5rem; }
+  .hero__copy > * { grid-column: 2; }
+  .hero__t, .hero__k, .hero__p { text-shadow: 0 1px 24px rgb(18 60 80 / 0.35); }
   .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
   .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.6vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: #fff; }
   .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgb(255 255 255 / 0.92); }
-  .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
+  .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem; }
 
   .facts-wrap { position: relative; z-index: 3; margin-top: -4.5rem; }
   .facts { list-style: none; display: grid; grid-template-columns: 1.35fr 1fr 1fr 1.25fr; background: #fff; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 60px -40px rgb(18 60 80 / 0.45); }
@@ -514,10 +518,11 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .why { grid-template-columns: 1fr; }
     .reha__pics { min-height: 260px; }
     .hero { min-height: 0; flex-direction: column; align-items: stretch; background: var(--deep); }
-    .hero__bg { position: relative; inset: auto; height: 46svh; }
-    .hero__bg :global(img) { object-position: 62% 30%; }
-    .hero::after { inset: auto 0 0; top: calc(46svh - 5rem); height: 5rem; background: linear-gradient(0deg, var(--deep), rgb(18 60 80 / 0)); }
-    .hero__copy { padding-block: 1.5rem 5.5rem; }
+    .hero__pic { position: relative; inset: auto; height: 44svh; }
+    .hero__pic :global(img) { object-position: 0% 50%; }
+    .hero::after { inset: auto 0 0; top: calc(44svh - 5rem); height: 5rem; background: linear-gradient(0deg, var(--deep), rgb(18 60 80 / 0)); }
+    .hero__copy { grid-template-columns: 1fr; padding-block: 1.5rem 5.5rem; }
+    .hero__copy > * { grid-column: 1; }
     .hero__btns .btn { flex: 1 1 auto; }
     .facts-wrap { margin-top: -3rem; }
     .facts { grid-template-columns: 1fr; }
