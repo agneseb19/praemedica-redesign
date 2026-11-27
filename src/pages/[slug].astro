@@ -16,6 +16,9 @@ import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/con
 import { specializzazioniMenu, altaDiagnostica } from '../data/site';
 import Icon from '../components/Icon.astro';
 import { machines, otherExams } from '../lib/machines';
+import SpecHero from '../components/spec/SpecHero.astro';
+import SpecBody from '../components/spec/SpecBody.astro';
+import { icons } from '../data/site';
 
 export function getStaticPaths() {
   const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti', 'mammografia-in-tomosintesi', 'ortopanoramica', 'radiologia']);
@@ -55,6 +58,23 @@ const team = a.sections.filter((s) => s.kind === 'team');
 const reading = a.sections.filter((s) => s.kind === 'default');
 const topics = [{ title: 'In breve' }, ...reading.map((r) => ({ title: r.titleHtml || 'Approfondimento' }))];
 const others = otherExams(href);
+
+/* ---------- specializzazioni: apertura comune in 3 varianti, contenuto in 5 impaginazioni a rotazione ---------- */
+const specIdx = specializzazioniMenu.findIndex((x) => x.href === href);
+const isSpec = !isDiag && !isPost;
+const flatB = (bs: any[]): any[] => bs.flatMap((b) => (b.type === 'carousel' ? flatB(b.slides.flat()) : [b]));
+const svSections = a.sections.filter((s) => s.kind === 'services');
+const specServices = svSections.length ? {
+  id: svSections[0].id, titleHtml: svSections[0].titleHtml,
+  items: svSections.flatMap((s) => flatB(s.blocks).filter((b) => b.type === 'iconbox').map((b) => b.title as string)),
+  book: svSections.flatMap((s) => flatB(s.blocks)).find((b) => b.type === 'button' && String(b.href).startsWith('tel:')),
+  rest: svSections.flatMap((s) => flatB(s.blocks).filter((b) => b.type !== 'iconbox' && !(b.type === 'button' && String(b.href).startsWith('tel:')))),
+} : null;
+const specQuestions = a.sections.filter((s) => s.kind === 'default').map((s) => ({ id: s.id, titleHtml: s.titleHtml || 'In breve', blocks: s.blocks }));
+const specTeam = a.sections.filter((s) => s.kind === 'team').map((s) => ({ id: s.id, titleHtml: s.titleHtml, people: s.people, blocks: s.blocks }));
+const specDoctors = specTeam.flatMap((s) => s.people ?? []).map((p) => p.name);
+const specIntro = [...introParas, ...introRest.map((b: any) => b.html ?? '')].join('\n');
+const rot = specIdx >= 0 ? specIdx : page.slug.length;
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
   {isDiag ? (
@@ -138,6 +158,35 @@ const others = otherExams(href);
         <div class="wrap">
           <div class="rel-exams"><SpecList items={others} variant="photos" /></div>
           <p class="rel__all" data-reveal><a class="btn btn--line" href="/alta-diagnostica/">Tutta l'alta diagnostica</a></p>
+        </div>
+      </section>
+    </>
+  ) : isSpec ? (
+    <>
+      <SpecHero
+        crumbs={[{ label: 'Home', href: '/' }, parent, { label: stripTags(page.title) }]}
+        title={h1}
+        lead={longTitle ? a.titleHtml : firstSentence || undefined}
+        img={hero1?.src} alt={hero1?.alt}
+        icon={icons[page.slug] ?? 'stethoscope'}
+        variant={(rot % 3) as 0 | 1 | 2}
+        services={specServices?.items.length ?? 0}
+        doctors={specDoctors}
+      />
+      <SpecBody
+        recipe={(rot % 5) as 0 | 1 | 2 | 3 | 4}
+        label={stripTags(page.title)}
+        introMore={specIntro}
+        photo={hero2 ? { src: hero2.src, alt: hero2.alt } : undefined}
+        questions={specQuestions}
+        services={specServices ? { ...specServices, book: specServices.book ? { href: specServices.book.href, text: specServices.book.text } : undefined } : null}
+        team={specTeam}
+      />
+      <section class="sec" aria-labelledby="rel-title">
+        <SectionHead id="rel-title" title="Altre specializzazioni" desc="Scopri le altre aree specialistiche del centro." />
+        <div class="wrap">
+          <SpecList items={related} variant="photos" />
+          <p class="rel__all" data-reveal><a class="btn btn--line" href="/specializzazioni/">Tutte le specializzazioni</a></p>
         </div>
       </section>
     </>

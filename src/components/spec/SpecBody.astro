@@ -1,0 +1,286 @@
+---
+/**
+ * Contenuto delle pagine di specializzazione sotto l'apertura, in cinque impaginazioni
+ * (assegnate a rotazione, così pagine vicine nel menu non si somigliano):
+ * 0 racconto · 1 prestazioni prima · 2 percorso · 3 scheda · 4 mosaico.
+ * Tutti i testi, le prestazioni e gli specialisti sono quelli originali.
+ */
+import Img from '../Img.astro';
+import Icon from '../Icon.astro';
+import Blocks from '../Blocks.astro';
+import TeamCards from '../TeamCards.astro';
+import SectionHead from '../SectionHead.astro';
+import type { Block, Person } from '../../lib/content';
+import { site } from '../../data/site';
+
+interface Q { id: string; titleHtml: string; blocks: Block[] }
+interface Services { id: string; titleHtml: string; items: string[]; book?: { href: string; text: string }; rest: Block[] }
+interface Team { id: string; titleHtml: string; people?: Person[]; blocks: Block[] }
+interface Props {
+  recipe: 0 | 1 | 2 | 3 | 4;
+  label: string;
+  introMore: string;
+  photo?: { src: string; alt: string };
+  questions: Q[];
+  services: Services | null;
+  team: Team[];
+}
+const { recipe, label, introMore, photo, questions, services, team } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+const people = team.flatMap((t) => t.people ?? []);
+const book = services?.book ?? { href: site.phone.href, text: 'Prenota ora' };
+let n = 0;
+const next = () => pad(++n);
+---
+{/* ---------------------------------------------------------------- 0 · RACCONTO */}
+{recipe === 0 && (
+  <>
+    {(introMore || photo) && (
+      <section class="sec" aria-labelledby="r0-in">
+        <SectionHead n={next()} id="r0-in" title="In breve" />
+        <div class="wrap r0-in">
+          <div class="prose r0-in__txt" data-reveal set:html={introMore} />
+          {photo && <figure class="r0-in__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 46vw, 92vw" widths={[600, 1000, 1400]} /></figure>}
+        </div>
+      </section>
+    )}
+    {services && (
+      <section id={services.id} class="sec" aria-labelledby="r0-sv">
+        <SectionHead n={next()} id="r0-sv" title={services.titleHtml} />
+        <div class="wrap">
+          <ol class="r0-sv" role="list">{services.items.map((s, i) => <li data-reveal><span class="r0-sv__n">{pad(i + 1)}</span><span>{s}</span></li>)}</ol>
+          {services.rest.length > 0 && <div class="col"><Blocks blocks={services.rest} /></div>}
+          <p class="cta-row" data-reveal><a class="btn btn--green" href={book.href}><Icon name="phone" /> {book.text}</a></p>
+        </div>
+      </section>
+    )}
+    {questions.length > 0 && (
+      <section class="sec" aria-labelledby="r0-q">
+        <SectionHead n={next()} id="r0-q" title="Domande frequenti" />
+        <div class="wrap r0-q">
+          {questions.map((q) => <article id={q.id} class="r0-q__c" data-reveal><h3 class="r0-q__t" set:html={q.titleHtml} /><div class="prose"><Blocks blocks={q.blocks} /></div></article>)}
+        </div>
+      </section>
+    )}
+  </>
+)}
+
+{/* ---------------------------------------------------------------- 1 · PRESTAZIONI PRIMA */}
+{recipe === 1 && (
+  <>
+    {services && (
+      <section id={services.id} class="r1-sv" aria-labelledby="r1-sv">
+        <div class="wrap r1-sv__in">
+          <div class="r1-sv__head">
+            <span class="r1-sv__n">{next()}</span>
+            <h2 id="r1-sv" class="r1-sv__t" data-lines set:html={services.titleHtml} />
+            <p class="r1-sv__d" data-reveal>{services.items.length} {services.items.length === 1 ? 'prestazione' : 'prestazioni'} di {label.toLowerCase()}, prenotabili online o al telefono.</p>
+            <a class="btn btn--green" href={book.href} data-reveal><Icon name="phone" /> {book.text}</a>
+          </div>
+          <ul class="r1-sv__list" role="list">{services.items.map((s) => <li data-reveal><Icon name="check" /><span>{s}</span></li>)}</ul>
+          {services.rest.length > 0 && <div class="r1-sv__rest"><Blocks blocks={services.rest} /></div>}
+        </div>
+      </section>
+    )}
+    {questions.length > 0 && (
+      <section class="sec" aria-labelledby="r1-q">
+        <SectionHead n={next()} id="r1-q" title="Da conoscere" />
+        <div class="wrap r1-q">
+          {questions.map((q) => (
+            <article id={q.id} class="r1-q__row">
+              <h3 class="r1-q__t" data-reveal set:html={q.titleHtml} />
+              <div class="prose r1-q__a" data-reveal><Blocks blocks={q.blocks} /></div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+    {(introMore || photo) && (
+      <section class="sec" aria-labelledby="r1-in">
+        <SectionHead n={next()} id="r1-in" title={`La ${label.toLowerCase()} da Praemedica`} />
+        {introMore && <div class="col"><div class="prose" data-reveal set:html={introMore} /></div>}
+        {photo && <figure class="wide-pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 1100px) 1100px, 92vw" widths={[800, 1100, 1600]} /></figure>}
+      </section>
+    )}
+  </>
+)}
+
+{/* ---------------------------------------------------------------- 2 · PERCORSO */}
+{recipe === 2 && (
+  <section class="sec" aria-labelledby="r2-t">
+    <SectionHead n={next()} id="r2-t" title="Passo dopo passo" desc={`Tutto quello che serve sapere sulla ${label.toLowerCase()}, nell'ordine giusto.`} />
+    <div class="wrap r2">
+      {photo && <figure class="r2__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 38vw, 92vw" widths={[500, 900]} /></figure>}
+      <ol class="r2__steps" role="list">
+        {introMore && <li data-reveal><span class="r2__dot">1</span><div><h3 class="r2__h">In breve</h3><div class="prose" set:html={introMore} /></div></li>}
+        {questions.map((q, i) => <li id={q.id} data-reveal><span class="r2__dot">{i + (introMore ? 2 : 1)}</span><div><h3 class="r2__h" set:html={q.titleHtml} /><div class="prose"><Blocks blocks={q.blocks} /></div></div></li>)}
+        {services && (
+          <li id={services.id} data-reveal><span class="r2__dot">{questions.length + (introMore ? 2 : 1)}</span><div>
+            <h3 class="r2__h" set:html={services.titleHtml} />
+            <ul class="r2__pills" role="list">{services.items.map((s) => <li>{s}</li>)}</ul>
+            {services.rest.length > 0 && <Blocks blocks={services.rest} />}
+            <a class="btn btn--green r2__btn" href={book.href}><Icon name="phone" /> {book.text}</a>
+          </div></li>
+        )}
+      </ol>
+    </div>
+  </section>
+)}
+
+{/* ---------------------------------------------------------------- 3 · SCHEDA */}
+{recipe === 3 && (
+  <section class="sec" aria-labelledby="r3-t">
+    <SectionHead n={next()} id="r3-t" title={`La ${label.toLowerCase()} in una pagina`} />
+    <div class="wrap r3">
+      <aside class="r3__card" data-reveal>
+        {photo && <figure class="r3__pic"><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 30vw, 92vw" widths={[400, 800]} /></figure>}
+        {services && (
+          <div id={services.id} class="r3__sv">
+            <h3 class="r3__h" set:html={services.titleHtml} />
+            <ul role="list">{services.items.map((s) => <li><Icon name="check" /><span>{s}</span></li>)}</ul>
+            {services.rest.length > 0 && <Blocks blocks={services.rest} />}
+          </div>
+        )}
+        <a class="btn btn--green" href={book.href}><Icon name="phone" /> {book.text}</a>
+        {people.length > 0 && <p class="r3__doc"><Icon name="user-heart" /> {people.map((p) => p.name).join(', ')}</p>}
+      </aside>
+      <div class="r3__read">
+        {introMore && <div class="prose r3__lead" data-reveal set:html={introMore} />}
+        {questions.map((q) => <article id={q.id} class="r3__q" data-reveal><h3 class="r3__qt" set:html={q.titleHtml} /><div class="prose"><Blocks blocks={q.blocks} /></div></article>)}
+      </div>
+    </div>
+  </section>
+)}
+
+{/* ---------------------------------------------------------------- 4 · MOSAICO */}
+{recipe === 4 && (
+  <>
+    {(introMore || photo) && (
+      <section class="sec" aria-label="In breve">
+        <div class="wrap r4-in">
+          {photo && <figure class="r4-in__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 70vw, 92vw" widths={[800, 1200, 1600]} /></figure>}
+          {introMore && <div class="r4-in__card" data-reveal><span class="r4-in__n">{next()}</span><div class="prose" set:html={introMore} /></div>}
+        </div>
+      </section>
+    )}
+    {questions.length > 0 && (
+      <section class="sec" aria-labelledby="r4-q">
+        <SectionHead n={next()} id="r4-q" title="Le risposte dello specialista" />
+        <div class="wrap r4-q">
+          {questions.map((q, i) => <article id={q.id} class="r4-q__c" data-reveal><span class="r4-q__n">{pad(i + 1)}</span><h3 class="r4-q__t" set:html={q.titleHtml} /><div class="prose"><Blocks blocks={q.blocks} /></div></article>)}
+        </div>
+      </section>
+    )}
+    {services && (
+      <section id={services.id} class="sec" aria-labelledby="r4-sv">
+        <SectionHead n={next()} id="r4-sv" title={services.titleHtml} />
+        <div class="wrap">
+          <ul class="r4-sv" role="list">{services.items.map((s) => <li data-reveal><span class="r4-sv__ic"><Icon name="stethoscope" /></span><span>{s}</span></li>)}</ul>
+          {services.rest.length > 0 && <div class="col"><Blocks blocks={services.rest} /></div>}
+          <p class="cta-row" data-reveal><a class="btn btn--green" href={book.href}><Icon name="phone" /> {book.text}</a></p>
+        </div>
+      </section>
+    )}
+  </>
+)}
+
+{/* specialisti: in tutte le impaginazioni, dopo il contenuto */}
+{team.map((t) => (
+  <section id={t.id} class="sec" aria-label={t.titleHtml.replace(/<[^>]+>/g, '')}>
+    <SectionHead n={next()} title={t.titleHtml} />
+    <div class="wrap">{t.people ? <TeamCards people={t.people} /> : <Blocks blocks={t.blocks} />}</div>
+  </section>
+))}
+
+<style>
+  .cta-row { display: flex; justify-content: center; margin-top: clamp(1.8rem, 3vw, 2.6rem); }
+
+  /* 0 racconto */
+  .r0-in { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .r0-in__pic { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); }
+  .r0-in__pic :global(picture), .r0-in__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .r0-sv { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.5rem; border-top: 1px solid var(--line); }
+  .r0-sv li { display: flex; align-items: center; gap: 1.2rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line); font-size: 1.08rem; font-weight: 500; color: var(--deep); }
+  .r0-sv__n { flex: none; font-size: 0.85rem; color: var(--green); font-variant-numeric: tabular-nums; }
+  .r0-q { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 1rem; }
+  .r0-q__c { display: grid; align-content: start; gap: 1rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--ice); border-radius: var(--r); }
+  .r0-q__t { font-size: var(--t-h3); font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; color: var(--deep); }
+
+  /* 1 prestazioni prima */
+  .r1-sv { padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); background: var(--deep); color: #fff; }
+  .r1-sv + :global(.sec) { padding-top: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); }
+  .r1-sv__in { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .r1-sv__head { display: grid; gap: 1.1rem; justify-items: start; }
+  .r1-sv__n { font-size: 0.85rem; color: #8fd69a; }
+  .r1-sv__t { font-size: var(--t-h2); font-weight: 500; line-height: 1.05; letter-spacing: -0.045em; color: #fff; }
+  .r1-sv__d { font-size: 1.02rem; line-height: 1.6; color: rgb(255 255 255 / 0.8); }
+  .r1-sv__list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+  .r1-sv__list li { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.2rem; background: rgb(255 255 255 / 0.07); border: 1px solid rgb(255 255 255 / 0.12); border-radius: 14px; font-size: 1.02rem; }
+  .r1-sv__list :global(.icon) { flex: none; width: 1.1rem; height: 1.1rem; color: #8fd69a; }
+  .r1-sv__rest { grid-column: 2; color: rgb(255 255 255 / 0.85); }
+  .r1-q { display: grid; }
+  .r1-q__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(2rem, 3.5vw, 3rem); border-top: 1px solid var(--line); }
+  .r1-q__row:last-child { border-bottom: 1px solid var(--line); }
+  .r1-q__t { position: sticky; top: 110px; align-self: start; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.035em; color: var(--deep); }
+
+  /* 2 percorso */
+  .r2 { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .r2__pic { position: sticky; top: 110px; margin: 0; aspect-ratio: 3 / 4; overflow: hidden; border-radius: var(--r); }
+  .r2__pic :global(picture), .r2__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .r2__steps { list-style: none; position: relative; display: grid; gap: clamp(2rem, 3.5vw, 3rem); }
+  .r2__steps::before { content: ''; position: absolute; left: 1.5rem; top: 1.5rem; bottom: 1.5rem; width: 2px; background: linear-gradient(var(--green), var(--azure)); }
+  .r2__steps > li { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1.4rem; }
+  .r2__dot { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--deep); color: #fff; font-weight: 600; box-shadow: 0 0 0 6px #fff; }
+  .r2__h { margin-bottom: 0.8rem; padding-top: 0.6rem; font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .r2__pills { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
+  .r2__pills li { padding: 0.65rem 1.05rem; background: var(--ice); border-radius: 999px; font-size: 0.98rem; color: var(--deep); }
+
+  /* 3 scheda */
+  .r3 { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .r3__card { position: sticky; top: 100px; display: grid; gap: 1.1rem; padding: 1.2rem 1.2rem 1.6rem; background: var(--ice); border-radius: var(--r); }
+  .r3__pic { margin: 0; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 16px; }
+  .r3__pic :global(picture), .r3__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .r3__sv { padding-inline: 0.4rem; }
+  .r3__h { margin-bottom: 0.6rem; font-size: 1.15rem; font-weight: 500; color: var(--deep); }
+  .r3__sv ul { list-style: none; display: grid; }
+  .r3__sv li { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line-2); font-size: 0.98rem; color: var(--ink); }
+  .r3__sv :global(.icon) { flex: none; width: 1rem; height: 1rem; color: var(--green); }
+  .r3__card > .btn { width: 100%; }
+  .r3__doc { display: flex; align-items: center; gap: 0.5rem; padding-inline: 0.4rem; font-size: 0.92rem; color: var(--ink-2); }
+  .r3__doc :global(.icon) { width: 1.1rem; height: 1.1rem; color: var(--green); }
+  .r3__read { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+  .r3__lead { font-size: 1.12rem; }
+  .r3__q { display: grid; gap: 1rem; padding-top: clamp(1.6rem, 3vw, 2.4rem); border-top: 2px solid var(--deep); }
+  .r3__qt { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.035em; color: var(--deep); }
+
+  /* 4 mosaico */
+  .r4-in { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: stretch; }
+  .r4-in__pic { grid-column: 1 / span 2; grid-row: 1; margin: 0; min-height: clamp(380px, 62vh, 620px); overflow: hidden; border-radius: var(--r); }
+  .r4-in__pic :global(picture), .r4-in__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .r4-in__card { grid-column: 2; grid-row: 1; position: relative; display: grid; gap: 0.8rem; align-self: center; margin: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem) clamp(2rem, 4vw, 3.5rem) 0; padding: clamp(1.6rem, 3vw, 2.4rem); background: #fff; border-radius: var(--r); box-shadow: 0 30px 60px -40px rgb(18 60 80 / 0.5); }
+  .r4-in__n { font-size: 0.85rem; color: var(--green); }
+  .r4-q { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(2rem, 5vw, 5rem); }
+  .r4-q__c { display: grid; align-content: start; gap: 0.9rem; }
+  .r4-q__n { font-size: clamp(2.4rem, 1.8rem + 1.8vw, 3.4rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--azure); }
+  .r4-q__t { font-size: var(--t-h3); font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; color: var(--deep); }
+  .r4-sv { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 0.9rem; }
+  .r4-sv li { display: grid; align-content: start; gap: 0.9rem; min-height: 150px; padding: 1.4rem; background: #fff; border: 1px solid var(--line-2); border-radius: 20px; font-size: 1.08rem; font-weight: 500; color: var(--deep); transition: border-color 0.3s, transform 0.4s var(--ease); }
+  .r4-sv li:hover { border-color: var(--green); transform: translateY(-3px); }
+  .r4-sv__ic { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ice); color: var(--green); }
+  .r4-sv__ic :global(.icon) { width: 1.3rem; height: 1.3rem; }
+
+  @media (max-width: 900px) {
+    .r0-in, .r1-sv__in, .r1-q__row, .r2, .r3 { grid-template-columns: 1fr; }
+    .r1-sv__rest { grid-column: 1; }
+    .r1-q__t, .r2__pic, .r3__card { position: static; }
+    .r2__pic { aspect-ratio: 4 / 3; }
+    .r4-in { grid-template-columns: 1fr; }
+    .r4-in__pic { grid-column: 1; min-height: 0; height: 44vh; }
+    .r4-in__card { grid-column: 1; grid-row: 2; margin: -3rem 1rem 0; }
+  }
+  @media (max-width: 640px) {
+    .r0-sv, .r1-sv__list { grid-template-columns: 1fr; }
+    .r4-sv li { min-height: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .r4-sv li:hover { transform: none; } }
+</style>
