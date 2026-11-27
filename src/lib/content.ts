@@ -173,3 +173,15 @@ export function toArticle(page: Page): Article {
   }
   return { titleHtml, title: stripTags(titleHtml), intro, heroImages, sections };
 }
+
+/**
+ * Correzioni ai loghi delle convenzioni. Sul sito originale il logo UniSalute (Unknown.jpeg,
+ * senza testo alternativo) punta per errore a fasdac.it: qui va al sito di UniSalute.
+ */
+const LOGO_FIX: Record<string, { href: string; alt: string }> = {
+  'Unknown.jpeg': { href: 'https://www.unisalute.it', alt: 'UniSalute' },
+};
+export function fixLogo<T extends { src: string; href?: string; alt: string }>(logo: T): T {
+  const fix = LOGO_FIX[logo.src.split('/').pop() ?? ''];
+  return fix ? { ...logo, href: fix.href, alt: logo.alt || fix.alt } : logo;
+}

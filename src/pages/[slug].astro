@@ -14,6 +14,9 @@ import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
 import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
 import { specializzazioniMenu, altaDiagnostica } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { Picture } from 'astro:assets';
+import { machines } from '../lib/machines';
 
 export function getStaticPaths() {
   const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti']);
@@ -42,47 +45,151 @@ let n = introFirst ? 1 : 0;
 const pool = [...specializzazioniMenu, ...altaDiagnostica].filter((x) => x.href !== href) as { label: string; href: string }[];
 const start = Math.max(0, specializzazioniMenu.findIndex((x) => x.href === href));
 const related = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 4).map((x) => summaryOf(x.href, x.label));
+
+/* ---------- pagine di alta diagnostica: apertura propria per ogni esame, servizi prima del testo ---------- */
+const DIAG_HERO: Record<string, 'split' | 'dark' | 'center' | 'photo'> = {
+  '/densitometria-ossea/': 'split', '/mammografia-in-tomosintesi/': 'dark', '/ortopanoramica/': 'center', '/radiologia/': 'photo',
+};
+const machine = machines.find((m) => m.href === href);
+const services = a.sections.filter((s) => s.kind === 'services');
+const team = a.sections.filter((s) => s.kind === 'team');
+const reading = a.sections.filter((s) => s.kind === 'default');
+const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => summaryOf(x.href!, x.label));
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
-  <PageHero
-    crumbs={[{ label: 'Home', href: '/' }, parent, { label: stripTags(page.title) }]}
-    title={h1}
-    lead={longTitle ? a.titleHtml : firstSentence || undefined}
-    img={hero1?.src} alt={hero1?.alt}
-  />
+  {isDiag ? (
+    <>
+      <PageHero
+        crumbs={[{ label: 'Home', href: '/' }, parent, { label: stripTags(page.title) }]}
+        title={h1}
+        lead={longTitle ? a.titleHtml : firstSentence || undefined}
+        img={hero1?.src} alt={hero1?.alt}
+        variant={DIAG_HERO[href] ?? 'photo'}
+      >
+        {machine && DIAG_HERO[href] !== 'center' && (
+          <ul class="dfacts" role="list" slot="extra">{machine.spec.map(([k, v]) => <li><small>{k}</small><span>{v}</span></li>)}</ul>
+        )}
+        {machine && DIAG_HERO[href] === 'center' && (
+          <div class="dshow" slot="strip">
+            <figure class="dshow__fig"><Picture src={machine.img} alt={machine.alt} formats={['webp']} widths={[600, 1000]} sizes="(min-width: 900px) 40vw, 80vw" loading="eager" /></figure>
+            <ul class="dfacts dfacts--row" role="list">{machine.spec.map(([k, v]) => <li><small>{k}</small><span>{v}</span></li>)}</ul>
+          </div>
+        )}
+      </PageHero>
 
-  {introFirst && (
-    <section class="sec" aria-labelledby="in-breve">
-      <SectionHead n="01" id="in-breve" title="In breve" desc={introLead} />
-      {introMore && <div class="col"><div class="prose" data-reveal set:html={introMore} /></div>}
-      {hero2 && <figure class="wide-pic" data-img><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 1100px) 1100px, 92vw" widths={[800, 1100, 1600]} /></figure>}
-    </section>
-  )}
+      {services.map((sv, i) => (
+        <section id={sv.id} class="sec sx--services">
+          <SectionHead n={pad(i + 1)} title={sv.titleHtml} desc={i === 0 ? firstSentence || undefined : undefined} />
+          <div class="wrap sx__body"><Blocks blocks={sv.blocks} /></div>
+        </section>
+      ))}
 
-  {a.sections.map((s) => {
-    n += 1;
-    const wide = s.kind === 'team' || s.kind === 'services';
-    return (
-      <section id={s.id} class:list={['sec', `sx--${s.kind}`]}>
-        {s.title ? <SectionHead n={pad(n)} title={s.titleHtml} /> : null}
-        <div class:list={[wide ? 'wrap' : 'col', 'sx__body']}>
-          {s.kind === 'team' && s.people ? <TeamCards people={s.people} /> : <Blocks blocks={s.blocks} />}
+      {team.map((t, i) => (
+        <section id={t.id} class="sec sx--team">
+          <SectionHead n={pad(services.length + i + 1)} title={t.titleHtml} />
+          <div class="wrap sx__body">{t.people ? <TeamCards people={t.people} /> : <Blocks blocks={t.blocks} />}</div>
+        </section>
+      ))}
+
+      <section class="sec" aria-labelledby="sapere-t">
+        <SectionHead n={pad(services.length + team.length + 1)} id="sapere-t" title="Da sapere" desc="Le informazioni sull'esame, divise per argomento: apri quello che ti interessa." />
+        <div class="col faq">
+          <details class="faq__i">
+            <summary>Cos'è l'esame <Icon name="plus" /></summary>
+            <div class="faq__body">
+              {introLead && <p set:html={introLead} />}
+              {introMore && <div class="prose" set:html={introMore} />}
+              {DIAG_HERO[href] === 'center' && hero1 && <figure class="faq__pic"><Img src={hero1.src} alt={hero1.alt} sizes="(min-width: 800px) 720px, 92vw" widths={[600, 1000]} /></figure>}
+              {hero2 && <figure class="faq__pic"><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 800px) 720px, 92vw" widths={[600, 1000]} /></figure>}
+            </div>
+          </details>
+          {reading.map((r) => (
+            <details class="faq__i" id={r.id}>
+              <summary><span set:html={r.titleHtml || 'Approfondimento'} /> <Icon name="plus" /></summary>
+              <div class="faq__body"><Blocks blocks={r.blocks} /></div>
+            </details>
+          ))}
         </div>
       </section>
-    );
-  })}
 
-  <section class="sec" aria-labelledby="rel-title">
-    <SectionHead n={pad(n + 1)} id="rel-title" title="Altre specializzazioni" desc="Scopri le altre aree specialistiche del centro." />
-    <div class="wrap">
-      <SpecList items={related} variant="photos" />
-      <p class="rel__all" data-reveal><a class="btn btn--line" href="/specializzazioni/">Tutte le specializzazioni</a></p>
-    </div>
-  </section>
+      <section class="sec" aria-labelledby="rel-title">
+        <SectionHead n={pad(services.length + team.length + 2)} id="rel-title" title="Altri esami" desc="Gli altri esami di alta diagnostica del centro." />
+        <div class="wrap">
+          <SpecList items={otherExams} variant="photos" />
+          <p class="rel__all" data-reveal><a class="btn btn--line" href="/alta-diagnostica/">Tutta l'alta diagnostica</a></p>
+        </div>
+      </section>
+    </>
+  ) : (
+    <>
+      <PageHero
+        crumbs={[{ label: 'Home', href: '/' }, parent, { label: stripTags(page.title) }]}
+        title={h1}
+        lead={longTitle ? a.titleHtml : firstSentence || undefined}
+        img={hero1?.src} alt={hero1?.alt}
+      />
+
+      {introFirst && (
+        <section class="sec" aria-labelledby="in-breve">
+          <SectionHead n="01" id="in-breve" title="In breve" desc={introLead} />
+          {introMore && <div class="col"><div class="prose" data-reveal set:html={introMore} /></div>}
+          {hero2 && <figure class="wide-pic" data-img><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 1100px) 1100px, 92vw" widths={[800, 1100, 1600]} /></figure>}
+        </section>
+      )}
+
+      {a.sections.map((s) => {
+        n += 1;
+        const wide = s.kind === 'team' || s.kind === 'services';
+        return (
+          <section id={s.id} class:list={['sec', `sx--${s.kind}`]}>
+            {s.title ? <SectionHead n={pad(n)} title={s.titleHtml} /> : null}
+            <div class:list={[wide ? 'wrap' : 'col', 'sx__body']}>
+              {s.kind === 'team' && s.people ? <TeamCards people={s.people} /> : <Blocks blocks={s.blocks} />}
+            </div>
+          </section>
+        );
+      })}
+
+      <section class="sec" aria-labelledby="rel-title">
+        <SectionHead n={pad(n + 1)} id="rel-title" title="Altre specializzazioni" desc="Scopri le altre aree specialistiche del centro." />
+        <div class="wrap">
+          <SpecList items={related} variant="photos" />
+          <p class="rel__all" data-reveal><a class="btn btn--line" href="/specializzazioni/">Tutte le specializzazioni</a></p>
+        </div>
+      </section>
+    </>
+  )}
 
   <BookBand />
 </Base>
 
 <style>
   .rel__all { display: flex; justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
+
+  /* dati tecnici nell'apertura degli esami */
+  .dfacts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 1.2rem; width: 100%; margin-top: 1.2rem; border-top: 1px solid var(--line-2); }
+  .dfacts li { display: grid; gap: 0.2rem; padding-top: 0.9rem; }
+  .dfacts small { font-size: 0.78rem; color: var(--muted); }
+  .dfacts span { font-size: 0.95rem; font-weight: 500; line-height: 1.35; color: var(--deep); }
+  :global(.ph--dark) .dfacts, :global(.ph--photo) .dfacts { border-color: rgb(255 255 255 / 0.2); }
+  :global(.ph--dark) .dfacts small, :global(.ph--photo) .dfacts small { color: rgb(255 255 255 / 0.7); }
+  :global(.ph--dark) .dfacts span, :global(.ph--photo) .dfacts span { color: #fff; }
+  .dshow { display: grid; justify-items: center; gap: 1.5rem; }
+  .dshow__fig { width: min(100%, 520px); height: clamp(260px, 36vh, 380px); margin: 0; padding: 1.5rem; background: #fff; border-radius: var(--r); }
+  .dshow__fig :global(picture) { display: contents; }
+  .dshow__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  .dfacts--row { max-width: 760px; text-align: left; }
+
+  /* "Da sapere": il testo lungo in pannelli che si aprono */
+  .faq { display: grid; gap: 0.75rem; }
+  .faq__i { background: var(--ice); border-radius: 18px; }
+  .faq__i summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem 1.4rem; font-size: 1.12rem; font-weight: 500; letter-spacing: -0.02em; color: var(--deep); cursor: pointer; list-style: none; }
+  .faq__i summary::-webkit-details-marker { display: none; }
+  .faq__i summary :global(.icon) { flex: none; width: 1.2rem; height: 1.2rem; color: var(--green); transition: transform 0.4s var(--ease); }
+  .faq__i[open] summary :global(.icon) { transform: rotate(45deg); }
+  .faq__body { padding: 0 1.4rem 1.5rem; font-size: 1rem; line-height: 1.7; color: var(--ink-2); }
+  .faq__body > * + * { margin-top: 1rem; }
+  .faq__pic { margin: 1.2rem 0 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; }
+  .faq__pic :global(picture), .faq__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .dfacts { grid-template-columns: 1fr; } }
 </style>

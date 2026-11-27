@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import Icon from '../components/Icon.astro';
-import { getPage, summaryOf, stripTags, type Block } from '../lib/content';
+import { getPage, summaryOf, stripTags, fixLogo, type Block } from '../lib/content';
 import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
@@ -20,7 +20,7 @@ const heads = of('heading');
 const h = (re: RegExp) => stripTags(heads.find((x) => re.test(x.html))!.html);
 const carousels = of('carousel');
 const flips = carousels.flatMap((c) => c.slides.flat()).filter((x) => x.type === 'flip') as Extract<Block, { type: 'flip' }>[];
-const logos = carousels.flatMap((c) => c.slides.flat()).filter((x) => x.type === 'image') as Extract<Block, { type: 'image' }>[];
+const logos = (carousels.flatMap((c) => c.slides.flat()).filter((x) => x.type === 'image') as Extract<Block, { type: 'image' }>[]).map(fixLogo);
 const tac = heroSlider.slides[0];
 
 /* ---------- specializzazioni e corpo 3D ---------- */

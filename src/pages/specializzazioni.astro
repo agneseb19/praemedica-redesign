@@ -6,10 +6,17 @@ import SpecList from '../components/SpecList.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
-import { summaryOf } from '../lib/content';
+import { getPage, summaryOf } from '../lib/content';
 import { site, specializzazioniMenu } from '../data/site';
 
 const specs = specializzazioniMenu.map((s) => summaryOf(s.href!, s.label));
+/* suggestioni della ricerca: specializzazioni (con prestazioni e medici) e medici per nome */
+const docs = getPage('medici').blocks.filter((b) => b.type === 'imagebox').map((b: any) => ({ name: b.title as string, role: b.desc as string }));
+const searchIndex = [
+  ...specs.map((s) => ({ t: s.label, k: 'Specializzazione', h: s.href, x: `${s.services.join(' ')} ${s.doctors.join(' ')}` })),
+  ...specs.flatMap((s) => s.services.map((v) => ({ t: v, k: s.label, h: s.href, x: '' }))),
+  ...docs.map((d) => ({ t: d.name, k: d.role, h: `/medici/?q=${encodeURIComponent(d.name)}`, x: '' })),
+];
 const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'].map((h) => specs.find((s) => s.href === h)!).filter(Boolean);
 ---
 <Base title="Specializzazioni" description="Le specializzazioni del centro diagnostico Praemedica a Palestrina: medici, visite ed esami.">
@@ -21,12 +28,16 @@ const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'
     book={false}
   >
     <div class="hero-find" slot="strip">
-      <label class="find">
-        <Icon name="search" />
-        <span class="sr-only">Cerca una visita, un esame o un medico</span>
-        <input type="search" placeholder="Per esempio: ecodoppler, cardiologo, Scarcella" data-jump="#all-t" data-filter-input="specs" autocomplete="off" />
-        <span class="find__n" data-filter-count="specs">{specs.length}</span>
-      </label>
+      <div class="find-box" data-search>
+        <label class="find">
+          <Icon name="search" />
+          <span class="sr-only">Cerca una visita, un esame o un medico</span>
+          <input type="search" placeholder="Per esempio: ecodoppler, cardiologo, Scarcella" data-search-input data-filter-input="specs" autocomplete="off" aria-controls="spec-res" />
+          <span class="find__n" data-filter-count="specs">{specs.length}</span>
+        </label>
+        <ul id="spec-res" class="find__res" role="list" data-search-results hidden></ul>
+        <script type="application/json" data-search-index set:html={JSON.stringify(searchIndex)} />
+      </div>
       <p class="hero-find__hint">Oppure <a href="#all-t">sfoglia tutte le specializzazioni</a> o <a href={site.doctolib.href} target="_blank" rel="noopener">prenota online</a>.</p>
     </div>
   </PageHero>
@@ -37,9 +48,7 @@ const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'
   </section>
 
   <section class="sec" aria-labelledby="all-t">
-    <SectionHead n="02" id="all-t" title="Tutte le specializzazioni" desc="Cerca per specializzazione, prestazione o nome del medico.">
-
-    </SectionHead>
+    <SectionHead n="02" id="all-t" title="Tutte le specializzazioni" desc="L'elenco completo, con le prestazioni principali di ogni area." />
     <div class="wrap">
       <SpecList items={specs} filterKey="specs" />
       <p class="empty" data-filter-empty="specs" hidden>Nessun risultato. Chiama il <a href={site.phone.href}>{site.phone.label}</a>: ti indichiamo lo specialista giusto.</p>
@@ -51,6 +60,13 @@ const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'
 
 <style>
   .hero-find { display: grid; justify-items: center; gap: 1rem; }
+  .find-box { position: relative; width: min(100%, 760px); z-index: 5; }
+  .find-box .find { width: 100%; }
+  .find__res { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 0.5rem); list-style: none; max-height: 380px; overflow: auto; padding: 0.4rem; background: #fff; border: 1px solid var(--azure); border-radius: 20px; text-align: left; box-shadow: 0 30px 60px -40px rgb(18 60 80 / 0.45); }
+  .find__res :global(a) { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; border-radius: 12px; text-decoration: none; font-size: 0.98rem; color: var(--deep); }
+  .find__res :global(a:hover), .find__res :global(a:focus-visible) { background: var(--ice); }
+  .find__res :global(small) { color: var(--muted); font-size: 0.82rem; text-align: right; }
+  .find__res :global(.empty) { padding: 0.75rem 1rem; color: var(--muted); font-size: 0.95rem; }
   .hero-find__hint { font-size: 0.95rem; color: var(--ink-2); }
   .hero-find__hint a { color: var(--blue); }
   .find { display: flex; align-items: center; gap: 0.9rem; width: min(100%, 760px); min-height: 72px; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; text-align: left; transition: border-color 0.3s, box-shadow 0.3s; }

@@ -95,7 +95,7 @@ const m = media(variant === 'photo' ? '100vw' : '(min-width: 900px) 50vw, 100vw'
   .ph--dark .ph__lead { color: rgb(255 255 255 / 0.85); }
 
   /* center: titolo centrato, fila di immagini sotto */
-  .ph--center { background: var(--ice); padding-block: clamp(3.5rem, 6vw, 6rem) clamp(2.5rem, 4vw, 4rem); text-align: center; }
+  .ph--center { z-index: 5; overflow: visible; background: var(--ice); padding-block: clamp(3.5rem, 6vw, 6rem) clamp(2.5rem, 4vw, 4rem); text-align: center; }
   .ph--center .ph__in { justify-items: center; max-width: 52rem; margin-inline: auto; }
   .ph--center .ph__crumbs { justify-content: center; }
   .ph--center .ph__act { justify-content: center; }

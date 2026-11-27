@@ -1,10 +1,10 @@
 ---
 /** Loghi delle compagnie convenzionate in griglia a linee sottili, con il link originale. */
 import Img from './Img.astro';
-import type { Block } from '../lib/content';
+import { fixLogo, type Block } from '../lib/content';
 interface Props { logos: Extract<Block, { type: 'image' }>[]; limit?: number }
 const { logos, limit } = Astro.props;
-const list = limit ? logos.slice(0, limit) : logos;
+const list = (limit ? logos.slice(0, limit) : logos).map(fixLogo);
 ---
 <ul class="lg" role="list">
   {list.map((l) => (
