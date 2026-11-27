@@ -3,7 +3,8 @@
  * una scheda tecnica di tre righe con dati presi dalle pagine originali.
  * Usati dallo scorrimento delle schede (home, pagina Alta Diagnostica) e dalla ricerca.
  */
-import { getPage, type Block } from './content';
+import { getPage, summaryOf, type Block, type Summary } from './content';
+import { altaDiagnostica } from '../data/site';
 import tacCut from '../assets/cutout/tac.png';
 import mammoCut from '../assets/cutout/mammo.png';
 import rxCut from '../assets/cutout/rx.png';
@@ -28,3 +29,18 @@ export const machines: Machine[] = [
   { exam: d[3].heading, device: 'Densitometro MOC DXA', href: '/densitometria-ossea/', img: mocCut, alt: d[3].alt,
     spec: [['Tecnica', 'MOC DXA, il gold standard'], ['Misura', 'Densità minerale ossea (BMD)'], ['Per', 'Prevenzione e monitoraggio dell’osteoporosi']] },
 ];
+
+/**
+ * "Altri esami" per le pagine di alta diagnostica: gli altri esami con foto e una riga sotto.
+ * Radiologia non ha una foto propria e le sue liste sono quelle degli altri esami:
+ * prende foto e voce delle Radiografie dalla home. Dove mancano le prestazioni, il nome del macchinario.
+ */
+export function otherExams(href: string): Summary[] {
+  const rx = d[1];
+  return [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
+    const s = summaryOf(x.href!, x.label);
+    if (x.href === '/radiologia/') return { ...s, img: rx.bg, alt: rx.alt, services: ['Radiografie', 'Radiologia generale'] };
+    const dev = machines.find((m) => m.href === x.href)?.device;
+    return s.services.length || !dev ? s : { ...s, services: [dev] };
+  });
+}

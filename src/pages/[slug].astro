@@ -12,14 +12,14 @@ import SpecList from '../components/SpecList.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
-import { allPages, getPage, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
+import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
 import { specializzazioniMenu, altaDiagnostica } from '../data/site';
 import Icon from '../components/Icon.astro';
 import { Picture } from 'astro:assets';
-import { machines } from '../lib/machines';
+import { machines, otherExams } from '../lib/machines';
 
 export function getStaticPaths() {
-  const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti']);
+  const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti', 'mammografia-in-tomosintesi']);
   return allPages().filter((p) => !CUSTOM.has(p.slug)).map((p) => ({ params: { slug: p.slug }, props: { page: p } }));
 }
 
@@ -48,21 +48,14 @@ const related = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 4).map(
 
 /* ---------- pagine di alta diagnostica: apertura propria per ogni esame, servizi prima del testo ---------- */
 const DIAG_HERO: Record<string, 'split' | 'dark' | 'center' | 'photo'> = {
-  '/densitometria-ossea/': 'split', '/mammografia-in-tomosintesi/': 'dark', '/ortopanoramica/': 'center', '/radiologia/': 'photo',
+  '/densitometria-ossea/': 'split', '/ortopanoramica/': 'center', '/radiologia/': 'photo',
 };
 const machine = machines.find((m) => m.href === href);
 const services = a.sections.filter((s) => s.kind === 'services');
 const team = a.sections.filter((s) => s.kind === 'team');
 const reading = a.sections.filter((s) => s.kind === 'default');
-/* Radiologia non ha una foto propria in apertura e le sue liste sono quelle degli altri esami: foto e voce delle Radiografie dalla home */
-const rxSlide = (getPage('home').blocks.filter((b) => b.type === 'slides')[1] as any)?.slides?.[1];
 const topics = [{ title: 'In breve' }, ...reading.map((r) => ({ title: r.titleHtml || 'Approfondimento' }))];
-const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
-  const s = summaryOf(x.href!, x.label);
-  if (x.href === '/radiologia/' && rxSlide) return { ...s, img: rxSlide.bg, alt: rxSlide.alt, services: ['Radiografie', 'Radiologia generale'] };
-  const dev = machines.find((m) => m.href === x.href)?.device;
-  return s.services.length || !dev ? s : { ...s, services: [dev] };
-});
+const others = otherExams(href);
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
   {isDiag ? (
@@ -151,7 +144,7 @@ const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologi
       <section class="sec" aria-labelledby="rel-title">
         <SectionHead n={pad(services.length + team.length + 2)} id="rel-title" title="Altri esami" desc="Gli altri esami di alta diagnostica del centro." />
         <div class="wrap">
-          <div class="rel-exams"><SpecList items={otherExams} variant="photos" /></div>
+          <div class="rel-exams"><SpecList items={others} variant="photos" /></div>
           <p class="rel__all" data-reveal><a class="btn btn--line" href="/alta-diagnostica/">Tutta l'alta diagnostica</a></p>
         </div>
       </section>

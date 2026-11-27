@@ -1,0 +1,253 @@
+---
+/**
+ * Mammografia 3D in Tomosintesi: una pagina per le donne, centrata sulla prevenzione.
+ * Toni caldi (rosa tenue accanto ai colori Praemedica), foto di persone, testi 1:1 dall'originale
+ * ordinati per domanda: quando farla, cos'è (con il confronto 2D/3D), se fa male.
+ */
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { Picture } from 'astro:assets';
+import { getPage, toArticle, stripTags, type Block } from '../lib/content';
+import { site } from '../data/site';
+import womanPhoto from '../assets/found/mammo-donna.jpg';
+
+const page = getPage('mammografia-in-tomosintesi');
+const a = toArticle(page);
+const blocks = page.blocks;
+const heads = blocks.filter((b): b is Extract<Block, { type: 'heading' }> => b.type === 'heading').map((b) => b.html);
+const texts = blocks.filter((b): b is Extract<Block, { type: 'text' }> => b.type === 'text').map((b) => b.html);
+const [imgMachine, imgScreen, imgTable] = blocks.filter((b): b is Extract<Block, { type: 'image' }> => b.type === 'image');
+const paras = (html: string) => html.match(/<p[\s\S]*?<\/p>/g) ?? [html];
+
+/* testi originali, nell'ordine della pagina */
+const [tIntro, tCose, tCome, tDolore, tQuando] = texts;
+const [hCose, hCome, hDiff, hDolore, hQuando] = heads.slice(1);
+const intro = paras(tIntro);
+const comeBefore = tCome.split('<ul>')[0];
+const comeItems = (tCome.match(/<li>([\s\S]*?)<\/li>/g) ?? []).map((li) => li.replace(/^<li>|<\/li>$/g, ''));
+const longTitle = a.title !== page.title && a.title.length > page.title.length;
+const h1 = longTitle ? page.title : a.titleHtml;
+
+/* la tabella di confronto dell'originale (un'immagine) riscritta come tabella leggibile, stesse parole */
+const table = {
+  head: ['Caratteristica', 'Mammografia 2D', 'Mammografia 3D in Tomosintesi'],
+  rows: [
+    ['Tipo di immagine', 'Bidimensionale', 'Tridimensionale'],
+    ['Accuratezza', 'Buona, ma limitata nei seni densi', 'Più elevata, migliora la diagnosi precoce'],
+    ['Rischio di falsi positivi', 'Più alto', 'Più basso'],
+    ['Comfort per la paziente', 'Simile', 'Simile'],
+    ['Dose di radiazioni', 'Bassa', 'Leggermente superiore ma nei limiti di sicurezza'],
+  ],
+};
+const benefitIcons = ['zoom-in', 'stack-2', 'mood-smile'];
+---
+<Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
+  <!-- Apertura: foto di una donna a sinistra, testo a destra, su rosa tenue -->
+  <section class="mh">
+    <div class="wrap mh__grid">
+      <div class="mh__media">
+        <figure class="mh__pic" data-img>
+          <Picture src={womanPhoto} alt="Una donna sorridente all'aperto" formats={['webp']} widths={[600, 900, 1300]} sizes="(min-width: 900px) 42vw, 92vw" loading="eager" fetchpriority="high" />
+        </figure>
+        <p class="mh__badge" data-reveal><Icon name="calendar-heart" /><span><strong>Dai 40 anni</strong> ogni anno, per la prevenzione</span></p>
+      </div>
+      <div class="mh__in">
+        <nav class="mh__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/alta-diagnostica/">Alta Diagnostica</a><span aria-hidden="true">/</span><span aria-current="page">{stripTags(page.title)}</span></nav>
+        <p class="mh__eye">Prevenzione del tumore al seno</p>
+        <h1 class="mh__t" data-lines set:html={h1} />
+        {longTitle && <p class="mh__sub" data-reveal set:html={a.titleHtml} />}
+        <div class="mh__act" data-reveal>
+          <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota la mammografia</a>
+          <a class="btn btn--line" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+        </div>
+        <p class="mh__unit" data-reveal><Icon name="ribbon-health" /> Con i senologi della Breast Unit dell'Azienda Ospedaliera San Camillo Forlanini</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Quando farla: la prevenzione per età -->
+  <section class="sec" aria-labelledby="quando-t">
+    <SectionHead n="01" id="quando-t" title={hQuando} desc="La prevenzione cambia con l'età: ecco quando è consigliata." />
+    <div class="wrap">
+      <ol class="age" role="list">
+        <li class="age__i" data-reveal><span class="age__k">Prima dei 40 anni</span><span class="age__v">Se a rischio</span><span class="age__d">In caso di familiarità, mutazioni BRCA1/BRCA2 o seno denso</span></li>
+        <li class="age__i age__i--on" data-reveal><span class="age__k">Tra i 40 e i 50 anni</span><span class="age__v">Ogni anno</span><span class="age__d">Screening annuale</span></li>
+        <li class="age__i" data-reveal><span class="age__k">Dopo i 50 anni</span><span class="age__v">Ogni 1-2 anni</span><span class="age__d">Secondo le indicazioni del medico</span></li>
+      </ol>
+      <p class="age__tip" data-reveal><Icon name="calendar-event" /> <span>Il momento migliore è <strong>dopo il ciclo mestruale</strong>, quando il seno è meno sensibile.</span></p>
+      <details class="rd">
+        <summary><span>Leggi di più</span> <Icon name="chevron-down" /></summary>
+        <div class="rd__body prose">
+          <div set:html={[intro[1], paras(tQuando)[0]].join('')} />
+          <div set:html={paras(tQuando).slice(1).join('')} />
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 02 Cos'è, come funziona e differenze con la 2D -->
+  <section class="sec" aria-labelledby="cose-t">
+    <SectionHead n="02" id="cose-t" title={hCose} />
+    <div class="wrap what">
+      <div class="what__pics">
+        <figure class="what__a" data-img><Img src={imgMachine.src} alt={imgMachine.alt} sizes="(min-width: 900px) 30vw, 70vw" widths={[500, 900]} /></figure>
+        <figure class="what__b" data-img><Img src={imgScreen.src} alt={imgScreen.alt} sizes="(min-width: 900px) 18vw, 40vw" widths={[360, 600]} /></figure>
+      </div>
+      <div class="what__txt prose" data-reveal>
+        <div set:html={tCose} />
+        <h3 class="what__h" set:html={hCome} />
+        <div set:html={comeBefore} />
+      </div>
+    </div>
+    <ul class="wrap gain" role="list">
+      {comeItems.map((li, i) => (
+        <li class="gain__i" data-reveal><span class="gain__ic"><Icon name={benefitIcons[i] ?? 'check'} /></span><p set:html={li} /></li>
+      ))}
+    </ul>
+    <div class="wrap cmp-wrap">
+      <h3 class="cmp__t" data-reveal set:html={hDiff} />
+      <div class="cmp" data-reveal>
+        <table>
+          <caption class="sr-only">{imgTable?.alt ?? stripTags(hDiff)}</caption>
+          <thead><tr>{table.head.map((h, i) => <th scope="col" class:list={{ cmp__3d: i === 2 }}>{h}</th>)}</tr></thead>
+          <tbody>{table.rows.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td class="cmp__3d">{r[2]}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <details class="rd">
+        <summary><span>Leggi di più</span> <Icon name="chevron-down" /></summary>
+        <div class="rd__body prose">
+          <div set:html={intro[0]} />
+          <div set:html={intro.slice(2).join('')} />
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 03 Fa male? -->
+  <section class="sec" aria-labelledby="dolore-t">
+    <SectionHead n="03" id="dolore-t" title={hDolore} desc="Un lieve fastidio, per pochi secondi." />
+    <div class="wrap">
+      <ul class="pain" role="list">
+        <li data-reveal><strong>10-15</strong><span>secondi per ogni proiezione</span></li>
+        <li data-reveal><strong>&lt; 10</strong><span>minuti per l'intero esame</span></li>
+        <li data-reveal><strong>Ben tollerato</strong><span>solo un lieve fastidio temporaneo</span></li>
+      </ul>
+      <details class="rd">
+        <summary><span>Leggi di più</span> <Icon name="chevron-down" /></summary>
+        <div class="rd__body prose">
+          <div set:html={paras(tDolore).slice(0, 2).join('')} />
+          <div set:html={paras(tDolore).slice(2).join('')} />
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  /* accento solo di questa pagina: il rosa tenue della prevenzione del seno, accanto al blu Praemedica */
+  :global(:root) { --rose: #f8eeee; --rose-2: #efd8da; --rose-ink: #a0485a; }
+
+  /* apertura */
+  .mh { background: var(--rose); }
+  .mh__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: clamp(2rem, 5vw, 5.5rem); padding-block: clamp(2rem, 4vw, 4rem); }
+  .mh__media { position: relative; }
+  .mh__pic { margin: 0; height: clamp(420px, 74vh, 720px); overflow: hidden; border-radius: var(--r); }
+  .mh__pic :global(picture), .mh__pic :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+  .mh__badge { position: absolute; right: -1.2rem; bottom: 2.2rem; display: flex; align-items: center; gap: 0.8rem; max-width: 18rem; padding: 1rem 1.2rem; background: #fff; border-radius: 18px; box-shadow: 0 24px 50px -30px rgb(160 72 90 / 0.5); font-size: 0.95rem; line-height: 1.4; color: var(--ink-2); }
+  .mh__badge strong { color: var(--deep); }
+  .mh__badge :global(.icon) { flex: none; width: 1.6rem; height: 1.6rem; color: var(--rose-ink); }
+  .mh__in { display: grid; gap: 1.2rem; justify-items: start; }
+  .mh__crumbs { display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); }
+  .mh__crumbs a { color: inherit; text-decoration: none; }
+  .mh__crumbs a:hover { text-decoration: underline; }
+  .mh__eye { font-size: 0.95rem; font-weight: 500; color: var(--rose-ink); }
+  .mh__t { max-width: 14ch; font-size: clamp(2.5rem, 1.3rem + 3.6vw, 4.8rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.05em; color: var(--deep); }
+  .mh__sub { font-size: 1.15rem; color: var(--deep); }
+  .mh__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .mh__act .btn--line { background: #fff; border-color: var(--rose-2); }
+  .mh__unit { display: flex; align-items: center; gap: 0.6rem; padding-top: 1.1rem; border-top: 1px solid var(--rose-2); font-size: 0.92rem; color: var(--ink-2); }
+  .mh__unit :global(.icon) { flex: none; width: 1.3rem; height: 1.3rem; color: var(--rose-ink); }
+
+  /* 01 età */
+  .age { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+  .age__i { display: grid; align-content: start; gap: 0.5rem; padding: clamp(1.5rem, 2.5vw, 2.2rem); background: var(--rose); border-radius: var(--r); }
+  .age__i::before { content: ''; display: block; width: 2.6rem; height: 4px; margin-bottom: 0.8rem; border-radius: 4px; background: var(--rose-2); }
+  .age__i--on { background: var(--deep); }
+  .age__i--on::before { background: #e9a7b2; }
+  .age__k { font-size: 0.95rem; color: var(--rose-ink); }
+  .age__v { font-size: clamp(1.6rem, 1.2rem + 1.3vw, 2.4rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.035em; color: var(--deep); }
+  .age__d { font-size: 0.98rem; line-height: 1.5; color: var(--ink-2); }
+  .age__i--on .age__k { color: #f0bcc5; }
+  .age__i--on .age__v { color: #fff; }
+  .age__i--on .age__d { color: rgb(255 255 255 / 0.85); }
+  .age__tip { display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.4rem; font-size: 1.02rem; color: var(--ink-2); text-align: center; }
+  .age__tip strong { color: var(--deep); }
+  .age__tip :global(.icon) { flex: none; width: 1.3rem; height: 1.3rem; color: var(--rose-ink); }
+
+  /* 02 cos'è */
+  .what { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .what__pics { position: relative; padding-bottom: 12%; }
+  .what__a { width: 78%; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r); }
+  .what__b { position: absolute; right: 0; bottom: 0; width: 44%; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 6px solid #fff; border-radius: 20px; }
+  .what__a :global(picture), .what__a :global(img), .what__b :global(picture), .what__b :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .what__txt > div > :global(* + *) { margin-top: 1em; }
+  .what__txt > * + * { margin-top: 1em; }
+  .what__txt > .what__h { margin-top: 1.8rem; font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .gain { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; margin-top: clamp(2.5rem, 4vw, 3.5rem); }
+  .gain__i { display: grid; align-content: start; gap: 1rem; padding: clamp(1.4rem, 2.5vw, 2rem); background: var(--ice); border-radius: var(--r); font-size: 1.02rem; line-height: 1.55; color: var(--ink-2); }
+  .gain__i p { font-size: 1.1rem; line-height: 1.55; }
+  .gain__i :global(strong) { font-weight: 600; color: var(--deep); }
+  .gain__ic { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .gain__ic :global(.icon) { width: 1.4rem; height: 1.4rem; }
+
+  /* confronto 2D / 3D */
+  .cmp-wrap { margin-top: clamp(3rem, 5vw, 4.5rem); }
+  .cmp__t { margin-bottom: 1.4rem; font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; text-align: center; color: var(--deep); }
+  .cmp { overflow-x: auto; border: 1px solid var(--line-2); border-radius: var(--r); }
+  .cmp table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 1rem; }
+  .cmp th, .cmp td { padding: 1.1rem 1.4rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); line-height: 1.45; }
+  .cmp tbody tr:last-child > * { border-bottom: 0; }
+  .cmp thead th { font-size: 0.9rem; font-weight: 500; color: var(--muted); background: var(--ice); }
+  .cmp tbody th { font-weight: 500; color: var(--deep); }
+  .cmp td { color: var(--ink-2); }
+  .cmp .cmp__3d { background: var(--rose); color: var(--deep); font-weight: 500; }
+  .cmp thead .cmp__3d { background: var(--deep); color: #fff; }
+
+  /* fa male? */
+  .pain { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+  .pain li { display: grid; gap: 0.4rem; padding: clamp(1.4rem, 2.5vw, 2rem); background: var(--rose); border-radius: var(--r); }
+  .pain strong { font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.04em; color: var(--deep); }
+  .pain span { font-size: 0.98rem; color: var(--ink-2); }
+
+  /* "Leggi di più": il testo completo dell'originale, chiuso */
+  .rd { margin-top: 1.6rem; }
+  .rd summary { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: max-content; min-height: 48px; margin-inline: auto; padding: 0 1.4rem; border: 1px solid var(--line-2); border-radius: 999px; font-size: 0.98rem; font-weight: 500; color: var(--deep); cursor: pointer; list-style: none; transition: background-color 0.3s; }
+  .rd summary::-webkit-details-marker { display: none; }
+  .rd summary:hover { background: var(--ice); }
+  .rd summary :global(.icon) { width: 1.1rem; height: 1.1rem; color: var(--green); transition: transform 0.4s var(--ease); }
+  .rd[open] summary :global(.icon) { transform: rotate(180deg); }
+  .rd[open] summary span { font-size: 0; }
+  .rd[open] summary span::after { content: 'Chiudi'; font-size: 0.98rem; }
+  .rd__body { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); max-width: none; margin-top: 1.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  .rd__body > div { margin: 0; }
+  .rd__body > div > :global(* + *) { margin-top: 1em; }
+
+
+
+  @media (max-width: 900px) {
+    .mh__grid, .what { grid-template-columns: 1fr; }
+    .mh__media { order: 2; }
+    .mh__pic { height: 46vh; }
+    .mh__badge { right: 0.8rem; }
+    .age, .gain, .pain, .rd__body { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .mh__act, .mh__act .btn { width: 100%; }
+    .age__tip { justify-content: flex-start; text-align: left; }
+  }
+</style>
