@@ -93,6 +93,20 @@ $$<HTMLInputElement>('[data-filter-input]').forEach((inp) => {
     if (count) count.textContent = String(visible);
     window.dispatchEvent(new CustomEvent('pm:filtered'));
   });
+  // ricerca nell'apertura: dopo le prime lettere (o con Invio) la pagina scende ai risultati, una volta sola
+  const jump = inp.dataset.jump ? $(inp.dataset.jump) : null;
+  let jumped = false;
+  const goToResults = () => {
+    if (!jump || jumped) return;
+    jumped = true;
+    const l = lenis();
+    if (l) l.scrollTo(jump, { offset: -110 }); else jump.scrollIntoView({ behavior: 'smooth' });
+  };
+  if (jump) {
+    let t: number | undefined;
+    inp.addEventListener('input', () => { clearTimeout(t); if (inp.value.trim().length >= 2) t = window.setTimeout(goToResults, 700); });
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); goToResults(); } });
+  }
   // ricerca arrivata dalla home (/specializzazioni/?q=…)
   const q = new URLSearchParams(location.search).get('q');
   if (q) { inp.value = q; inp.dispatchEvent(new Event('input')); }

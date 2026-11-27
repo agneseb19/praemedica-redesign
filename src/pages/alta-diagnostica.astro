@@ -8,7 +8,7 @@ import Icon from '../components/Icon.astro';
 import { Picture } from 'astro:assets';
 import { machines } from '../lib/machines';
 import { getPage, stripTags, type Block } from '../lib/content';
-import tacCut from '../assets/cutout/tac.png';
+import teamPhoto from '../assets/found/diagnostica-team.jpg';
 
 const home = getPage('home');
 const [heroSlider] = home.blocks.filter((b) => b.type === 'slides') as Extract<Block, { type: 'slides' }>[];
@@ -17,7 +17,13 @@ const claim = stripTags((home.blocks.find((b) => b.type === 'heading' && /^Alta 
 const tac = heroSlider.slides[0];
 ---
 <Base title="Alta Diagnostica" description={claim}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Alta Diagnostica' }]} eyebrow={tac.heading} title={claim} pic={tacCut} alt={tac.alt || tac.heading} variant="cutout" lead="TAC, mammografia 3D, radiografie, ortopanoramica e MOC con tecnologie di ultima generazione." />
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Alta Diagnostica' }]} eyebrow="Diagnostica per immagini" title={claim} pic={teamPhoto} alt="Due medici esaminano immagini diagnostiche sui monitor" variant="dark" lead="Esami di alta qualità con tecnologie di ultima generazione, tempi di attesa ridotti e tariffe competitive.">
+    <ul class="facts" role="list" slot="extra">
+      <li><strong>128 strati</strong><span>{tac.heading.replace(/\s*128 strati$/i, '')}</span></li>
+      <li><strong>3D</strong><span>Mammografia in tomosintesi</span></li>
+      <li><strong>DXA</strong><span>Densitometria ossea (MOC)</span></li>
+    </ul>
+  </PageHero>
 
   <section class="sec" aria-labelledby="intro-t">
     <SectionHead n="01" id="intro-t" title="Esami diagnostici di alta qualità" desc="Tecnologie avanzate e di ultima generazione, per risultati precisi e tempestivi." />
@@ -50,6 +56,10 @@ const tac = heroSlider.slides[0];
 </Base>
 
 <style>
+  .facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; margin-top: 1.2rem; border-top: 1px solid rgb(255 255 255 / 0.18); }
+  .facts li { display: grid; gap: 0.2rem; padding: 1rem 1rem 0 0; }
+  .facts strong { font-size: 1.4rem; font-weight: 500; letter-spacing: -0.03em; color: #8fd69a; }
+  .facts span { font-size: 0.85rem; line-height: 1.4; color: rgb(255 255 255 / 0.8); }
   .bento { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.9rem, 1.5vw, 1.25rem); }
   .tile a { display: flex; flex-direction: column; height: 100%; padding: clamp(0.9rem, 1.2vw, 1.1rem); background: var(--ice); border-radius: var(--r); text-decoration: none; transition: background-color 0.4s, transform 0.5s var(--ease); }
   .tile a:hover { background: #e6eff1; transform: translateY(-3px); }

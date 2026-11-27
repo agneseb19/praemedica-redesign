@@ -3,8 +3,9 @@
  * Apertura delle pagine interne, in quattro varianti (stesso stile della home):
  * - photo:  foto a tutto schermo con velo blu e titolo bianco (pagine di specializzazioni ed esami)
  * - split:  testo a sinistra, foto arrotondata a destra, su fondo ghiaccio
- * - cutout: testo a sinistra, macchinario scontornato a destra, come un prodotto
- * - center: titolo centrato; sotto, nello slot, una fila di immagini (ritratti, loghi, foto)
+ * - dark:   fondo blu profondo, testo bianco a sinistra, foto arrotondata a destra
+ * - center: titolo centrato; sotto, nello slot "strip", un contenuto proprio della pagina
+ * Lo slot "extra" aggiunge contenuto sotto i pulsanti (es. dati tecnici).
  */
 import Img from './Img.astro';
 import Icon from './Icon.astro';
@@ -16,7 +17,7 @@ interface Crumb { label: string; href?: string }
 interface Props {
   crumbs: Crumb[]; title: string; eyebrow?: string; lead?: string;
   img?: string; pic?: ImageMetadata; alt?: string; book?: boolean;
-  variant?: 'photo' | 'split' | 'cutout' | 'center';
+  variant?: 'photo' | 'split' | 'dark' | 'center';
 }
 const { crumbs, title, eyebrow, lead, img, pic, alt = '', book = true, variant = 'photo' } = Astro.props;
 const media = (sizes: string, eager = true) =>
@@ -41,11 +42,12 @@ const m = media(variant === 'photo' ? '100vw' : '(min-width: 900px) 50vw, 100vw'
       {book && (
         <div class="ph__act" data-reveal>
           <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota una visita</a>
-          <a class:list={['btn', variant === 'photo' ? 'btn--white' : 'btn--line']} href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+          <a class:list={['btn', variant === 'photo' || variant === 'dark' ? 'btn--white' : 'btn--line']} href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
         </div>
       )}
+      <slot name="extra" />
     </div>
-    {(variant === 'split' || variant === 'cutout') && (
+    {(variant === 'split' || variant === 'dark') && (
       <figure class="ph__media" data-img>
         {m.kind === 'img' ? <Img src={img!} alt={alt} loading="eager" fetchpriority="high" sizes={m.sizes} widths={[700, 1100, 1600]} />
           : <Picture src={pic ?? heroPhoto} alt={alt} formats={['webp']} widths={[700, 1100, 1600]} sizes={m.sizes} loading="eager" fetchpriority="high" />}
@@ -81,13 +83,16 @@ const m = media(variant === 'photo' ? '100vw' : '(min-width: 900px) 50vw, 100vw'
   .ph--photo .ph__lead { color: rgb(255 255 255 / 0.9); }
   .ph--photo .ph__lead :global(a) { color: #fff; }
 
-  /* split e cutout: due colonne su ghiaccio */
-  .ph--split, .ph--cutout { background: var(--ice); }
-  .ph--split .ph__grid, .ph--cutout .ph__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); padding-block: clamp(2.5rem, 5vw, 4.5rem); }
-  .ph--split .ph__media { height: clamp(360px, 60vh, 600px); overflow: hidden; border-radius: var(--r); }
-  .ph--split .ph__media :global(img) { object-fit: cover; }
-  .ph--cutout .ph__media { height: clamp(320px, 52vh, 540px); }
-  .ph--cutout .ph__media :global(img) { object-fit: contain; }
+  /* split (ghiaccio) e dark (blu profondo): due colonne, foto arrotondata a destra */
+  .ph--split { background: var(--ice); }
+  .ph--dark { background: var(--deep); color: #fff; }
+  .ph--split .ph__grid, .ph--dark .ph__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+  .ph--split .ph__media, .ph--dark .ph__media { height: clamp(360px, 60vh, 600px); overflow: hidden; border-radius: var(--r); }
+  .ph--split .ph__media :global(img), .ph--dark .ph__media :global(img) { object-fit: cover; }
+  .ph--dark .ph__crumbs { color: rgb(255 255 255 / 0.7); }
+  .ph--dark .ph__eye { color: var(--azure); }
+  .ph--dark .ph__t { color: #fff; }
+  .ph--dark .ph__lead { color: rgb(255 255 255 / 0.85); }
 
   /* center: titolo centrato, fila di immagini sotto */
   .ph--center { background: var(--ice); padding-block: clamp(3.5rem, 6vw, 6rem) clamp(2.5rem, 4vw, 4rem); text-align: center; }
@@ -97,9 +102,8 @@ const m = media(variant === 'photo' ? '100vw' : '(min-width: 900px) 50vw, 100vw'
   .ph__strip { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
 
   @media (max-width: 900px) {
-    .ph--split .ph__grid, .ph--cutout .ph__grid { grid-template-columns: 1fr; }
-    .ph--split .ph__media { height: 46vh; }
-    .ph--cutout .ph__media { height: 34vh; }
+    .ph--split .ph__grid, .ph--dark .ph__grid { grid-template-columns: 1fr; }
+    .ph--split .ph__media, .ph--dark .ph__media { height: 46vh; }
   }
   @media (max-width: 760px) {
     .ph--photo { min-height: 78svh; }

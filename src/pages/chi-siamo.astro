@@ -7,6 +7,7 @@ import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
 import { getPage, stripTags, type Block } from '../lib/content';
+import { specializzazioniMenu } from '../data/site';
 import { Picture } from 'astro:assets';
 import chiPhoto from '../assets/found/chi-visita.jpg';
 import missionPhoto from '../assets/found/mission-cura.jpg';
@@ -25,7 +26,16 @@ const introHtml = homeIntro.html.replace(/un forte\s*<a[^>]*>\s*know-how\s*<\/a>
 const nice = (s: string) => s.charAt(0) + s.slice(1).toLowerCase();
 ---
 <Base title={page.seo?.title ?? 'Chi Siamo'} description={page.seo?.description}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Chi Siamo' }]} eyebrow={hBrand} title={hPartner} img={imgs[0].src} alt={imgs[0].alt} variant="split" lead="Visite specialistiche, alta diagnostica e riabilitazione in un unico centro, a Palestrina." />
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Chi Siamo' }]} eyebrow={hBrand} title={hPartner} lead="Visite specialistiche, alta diagnostica e riabilitazione in un unico centro, a Palestrina." variant="center">
+    <div class="intro" slot="strip">
+      <figure class="intro__pic"><Img src={imgs[0].src} alt={imgs[0].alt} sizes="(min-width: 1360px) 1360px, 100vw" widths={[800, 1366]} loading="eager" /></figure>
+      <ul class="intro__facts" role="list">
+        <li><strong>2025</strong><span>nasce Praemedica</span></li>
+        <li><strong>{specializzazioniMenu.length}</strong><span>specializzazioni</span></li>
+        <li><strong>2</strong><span>sale di fisioterapia e riabilitazione</span></li>
+      </ul>
+    </div>
+  </PageHero>
 
   <!-- 01: testo a sinistra, foto a destra che resta in vista -->
   <section class="sec" aria-labelledby="chi-t">
@@ -67,6 +77,15 @@ const nice = (s: string) => s.charAt(0) + s.slice(1).toLowerCase();
 </Base>
 
 <style>
+  .intro { position: relative; }
+  .intro__pic { margin: 0; aspect-ratio: 21 / 7; overflow: hidden; border-radius: var(--r); }
+  .intro__pic :global(picture), .intro__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .intro__facts { list-style: none; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: min(92%, 860px); margin: -3.5rem auto 0; background: #fff; border-radius: var(--r); box-shadow: 0 30px 60px -40px rgb(18 60 80 / 0.45); }
+  .intro__facts li { display: grid; gap: 0.25rem; padding: 1.4rem 1rem; border-left: 1px solid var(--line); }
+  .intro__facts li:first-child { border-left: 0; }
+  .intro__facts strong { font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: var(--green); }
+  .intro__facts span { font-size: 0.9rem; color: var(--ink-2); }
+  @media (max-width: 640px) { .intro__pic { aspect-ratio: 4 / 3; } .intro__facts { grid-template-columns: 1fr; margin-top: -2rem; } .intro__facts li { border-left: 0; border-top: 1px solid var(--line); } .intro__facts li:first-child { border-top: 0; } }
   .split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 4vw, 4rem); align-items: stretch; padding: clamp(1rem, 1.5vw, 1.25rem); background: var(--ice); border-radius: var(--r); }
   .split__text { align-self: center; max-width: 62ch; padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem); font-size: 1.05rem; line-height: 1.75; }
   .split__pic { position: relative; margin: 0; min-height: 380px; overflow: hidden; border-radius: 16px; }

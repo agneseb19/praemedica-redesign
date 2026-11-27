@@ -7,6 +7,7 @@ import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
 import { getPage, stripTags, type Block } from '../lib/content';
+import { specializzazioniMenu } from '../data/site';
 
 const page = getPage('medici');
 const heading = page.blocks.find((b) => b.type === 'heading') as Extract<Block, { type: 'heading' }>;
@@ -18,9 +19,11 @@ for (const b of page.blocks) {
 }
 ---
 <Base title={page.seo?.title ?? 'Medici'} description={page.seo?.description}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Medici' }]} title={stripTags(heading.html)} lead={`${docs.length} medici e professionisti, dalla cardiologia alla fisioterapia.`} variant="center">
-    <ul class="faces" role="list" slot="strip">
-      {docs.slice(0, 7).map((d) => <li><span class="faces__pic"><Img src={d.img} alt={d.alt} sizes="160px" widths={[200, 400]} loading="eager" /></span><span class="faces__n">{d.name}</span></li>)}
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Medici' }]} title={stripTags(heading.html)} lead="Specialisti dinamici ed esperti, a tua disposizione in un unico centro a Palestrina." variant="center">
+    <ul class="stats" role="list" slot="strip">
+      <li><strong>{docs.length}</strong><span>medici e professionisti</span></li>
+      <li><strong>{specializzazioniMenu.length}</strong><span>specializzazioni</span></li>
+      <li><strong>{docs.filter((d) => d.cv).length}</strong><span>curriculum consultabili</span></li>
     </ul>
   </PageHero>
 
@@ -52,12 +55,12 @@ for (const b of page.blocks) {
 </Base>
 
 <style>
-  .faces { list-style: none; display: flex; justify-content: center; gap: clamp(0.6rem, 1.2vw, 1rem); }
-  .faces li { width: clamp(110px, 12vw, 160px); display: grid; gap: 0.5rem; }
-  .faces__pic { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 18px; background: #fff; }
-  .faces__pic :global(picture), .faces__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .faces__n { font-size: 0.8rem; color: var(--ink-2); line-height: 1.3; }
-  @media (max-width: 760px) { .faces { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--pad)); padding-inline: var(--pad); } .faces li { flex: none; width: 30vw; } }
+  .stats { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 900px; margin-inline: auto; background: #fff; border-radius: var(--r); }
+  .stats li { display: grid; gap: 0.3rem; padding: clamp(1.4rem, 2.5vw, 2rem) 1rem; border-left: 1px solid var(--line); }
+  .stats li:first-child { border-left: 0; }
+  .stats strong { font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--green); }
+  .stats span { font-size: 0.95rem; color: var(--ink-2); }
+  @media (max-width: 560px) { .stats { grid-template-columns: 1fr; } .stats li { border-left: 0; border-top: 1px solid var(--line); } .stats li:first-child { border-top: 0; } }
   .find { display: flex; align-items: center; gap: 0.9rem; width: min(100%, 620px); min-height: 64px; margin-top: 1rem; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; text-align: left; transition: border-color 0.3s, box-shadow 0.3s; }
   .find:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(56 124 145 / 0.14); }
   .find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1.05rem; }
