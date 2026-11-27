@@ -31,8 +31,8 @@ const { recipe, label, intro, photo, questions, services, team } = Astro.props;
 const pad = (n: number) => String(n).padStart(2, '0');
 const people = team.flatMap((t) => t.people ?? []);
 const book = services?.book ?? { href: site.phone.href, text: 'Prenota ora' };
-const hasIntro = Boolean(intro.short || photo);
 const lower = label.toLowerCase();
+const gallery = questions.flatMap((q) => q.images);
 let n = 0;
 const next = () => pad(++n);
 ---
@@ -103,16 +103,16 @@ const next = () => pad(++n);
   </section>
 )}
 
-{/* ======================= IN BREVE (compatto, foto affiancata e di misura normale) ======================= */}
-{hasIntro && recipe !== 2 && (
+{/* ======================= IN BREVE: una frase essenziale, centrata, senza foto accanto ======================= */}
+{intro.short && recipe !== 2 && (
   <section class="sec" aria-labelledby="in-t">
-    <SectionHead n={next()} id="in-t" title="In breve" />
-    <div class:list={['wrap', 'in', `in--${recipe}`, { 'in--nopic': !photo || recipe === 3 }]}>
-      <div class="in__txt" data-reveal>
-        <div class="prose in__lead" set:html={intro.short} />
-        <ReadMore html={intro.restHtml} />
+    <div class="wrap">
+      <div class="in" data-reveal>
+        <span class="in__n">{next()}</span>
+        <h2 id="in-t" class="in__t">In breve</h2>
+        <p class="in__lead" set:html={intro.short} />
+        <ReadMore html={intro.restHtml} blocks={photo && recipe !== 3 ? [{ type: 'image', src: photo.src, alt: photo.alt } as Block] : []} />
       </div>
-      {photo && recipe !== 3 && <figure class="in__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 34vw, 92vw" widths={[500, 900, 1300]} /></figure>}
     </div>
   </section>
 )}
@@ -126,7 +126,6 @@ const next = () => pad(++n);
         <article id={q.id} class="q0__c" data-reveal>
           <h3 class="q-h" set:html={q.titleHtml} />
           <div class="prose" set:html={q.short} />
-          {q.images.length > 0 && <div class="thumbs">{q.images.map((im) => <figure><Img src={im.src} alt={im.alt} sizes="200px" widths={[240, 480]} /></figure>)}</div>}
           <ReadMore html={q.restHtml} blocks={q.restBlocks} />
         </article>
       ))}
@@ -142,7 +141,6 @@ const next = () => pad(++n);
           <h3 class="q-h q1__t" data-reveal set:html={q.titleHtml} />
           <div data-reveal>
             <div class="prose" set:html={q.short} />
-            {q.images.length > 0 && <div class="thumbs">{q.images.map((im) => <figure><Img src={im.src} alt={im.alt} sizes="200px" widths={[240, 480]} /></figure>)}</div>}
             <ReadMore html={q.restHtml} blocks={q.restBlocks} />
           </div>
         </article>
@@ -150,7 +148,7 @@ const next = () => pad(++n);
     </div>
   </section>
 )}
-{(questions.length > 0 || hasIntro) && recipe === 2 && (
+{(questions.length > 0 || intro.short) && recipe === 2 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Passo dopo passo" desc={`Quello che serve sapere sulla ${lower}, nell'ordine giusto.`} />
     <div class="wrap q2">
@@ -161,7 +159,6 @@ const next = () => pad(++n);
           <li id={q.id} data-reveal><span class="q2__dot">{i + (intro.short ? 2 : 1)}</span><div>
             <h3 class="q-h" set:html={q.titleHtml} />
             <div class="prose" set:html={q.short} />
-            {q.images.length > 0 && <div class="thumbs">{q.images.map((im) => <figure><Img src={im.src} alt={im.alt} sizes="200px" widths={[240, 480]} /></figure>)}</div>}
             <ReadMore html={q.restHtml} blocks={q.restBlocks} />
           </div></li>
         ))}
@@ -172,14 +169,13 @@ const next = () => pad(++n);
 {questions.length > 0 && recipe === 3 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Le domande più comuni" />
-    <div class="wrap q3">
+    <div class="wrap q3" style={`--cols:${questions.length % 3 === 0 ? 3 : questions.length % 2 === 0 ? 2 : Math.min(questions.length, 3)}`}>
       {questions.map((q, i) => (
         <article id={q.id} class="q3__c" data-reveal>
           <span class="q3__n">{pad(i + 1)}</span>
           <div>
             <h3 class="q-h" set:html={q.titleHtml} />
             <div class="prose" set:html={q.short} />
-            {q.images.length > 0 && <div class="thumbs">{q.images.map((im) => <figure><Img src={im.src} alt={im.alt} sizes="200px" widths={[240, 480]} /></figure>)}</div>}
             <ReadMore html={q.restHtml} blocks={q.restBlocks} />
           </div>
         </article>
@@ -196,12 +192,18 @@ const next = () => pad(++n);
           <span class="q4__n">{pad(i + 1)}</span>
           <h3 class="q-h" set:html={q.titleHtml} />
           <div class="prose" set:html={q.short} />
-          {q.images.length > 0 && <div class="thumbs">{q.images.map((im) => <figure><Img src={im.src} alt={im.alt} sizes="200px" widths={[240, 480]} /></figure>)}</div>}
           <ReadMore html={q.restHtml} blocks={q.restBlocks} />
         </article>
       ))}
     </div>
   </section>
+)}
+
+{/* foto delle domande: una fila larga sotto, mai foto enormi né colonne strette */}
+{gallery.length > 0 && (
+  <div class="wrap gal" style={`--g:${Math.min(gallery.length, 3)}`}>
+    {gallery.map((im) => <figure data-img><Img src={im.src} alt={im.alt} sizes="(min-width: 900px) 33vw, 92vw" widths={[500, 900, 1300]} /></figure>)}
+  </div>
 )}
 
 {/* ======================= SPECIALISTI ======================= */}
@@ -215,9 +217,9 @@ const next = () => pad(++n);
 <style>
   .cta-row { display: flex; justify-content: center; margin-top: clamp(1.8rem, 3vw, 2.6rem); }
   .q-h { font-size: var(--t-h3); font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; color: var(--deep); }
-  .thumbs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
-  .thumbs figure { width: 160px; height: 120px; margin: 0; overflow: hidden; border-radius: 12px; }
-  .thumbs :global(picture), .thumbs :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .gal { display: grid; grid-template-columns: repeat(var(--g), minmax(0, 1fr)); gap: 1rem; margin-top: calc(-1 * clamp(1rem, 2vw, 2rem)); padding-bottom: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); }
+  .gal figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r); }
+  .gal :global(picture), .gal :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
   /* prestazioni 0: righe numerate in due colonne */
   .sv0 { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.5rem; border-top: 1px solid var(--line); }
@@ -261,16 +263,14 @@ const next = () => pad(++n);
   .sv4__ic { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ice); color: var(--green); }
   .sv4__ic :global(.icon) { width: 1.3rem; height: 1.3rem; }
 
-  /* in breve: testo e foto affiancati, foto di misura normale */
-  .in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-  .in--1 { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  .in--1 .in__pic { order: -1; }
-  .in--nopic { grid-template-columns: minmax(0, 1fr); max-width: 52rem; margin-inline: auto; text-align: left; }
-  .in__lead { font-size: 1.15rem; line-height: 1.65; }
-  .in--4 .in__lead { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.5; color: var(--deep); }
-  .in__pic { margin: 0; aspect-ratio: 4 / 3; max-height: 420px; overflow: hidden; border-radius: var(--r); }
-  .in--4 .in__pic { aspect-ratio: 4 / 5; }
-  .in__pic :global(picture), .in__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* in breve: frase centrata su ghiaccio */
+  .in { display: grid; justify-items: center; gap: 1rem; max-width: 980px; margin-inline: auto; padding: clamp(2.2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4.5rem); background: var(--ice); border-radius: var(--r); text-align: center; }
+  .in__n { font-size: 0.85rem; color: var(--green); font-variant-numeric: tabular-nums; }
+  .in__t { font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; color: var(--blue); }
+  .in__lead { max-width: 40ch; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.45; letter-spacing: -0.02em; color: var(--deep); }
+  .in__lead :global(strong) { font-weight: 600; }
+  .in :global(.rm) { text-align: left; width: 100%; }
+  .in :global(.rm summary) { display: flex; justify-content: center; }
 
   /* domande 0: schede ghiaccio */
   .q0 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 1rem; }
@@ -289,7 +289,7 @@ const next = () => pad(++n);
   .q2__steps .q-h { margin-bottom: 0.7rem; padding-top: 0.55rem; }
   .q2__dot { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--deep); color: #fff; font-weight: 600; box-shadow: 0 0 0 6px #fff; }
   /* domande 3: elenco numerato su due colonne */
-  .q3 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 4rem); }
+  .q3 { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 4rem); }
   .q3__c { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.2rem; padding-block: 1.8rem; border-top: 2px solid var(--deep); }
   .q3__c .q-h { margin-bottom: 0.7rem; }
   .q3__n { font-size: 0.9rem; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
@@ -299,13 +299,12 @@ const next = () => pad(++n);
   .q4__n { font-size: clamp(2.4rem, 1.8rem + 1.8vw, 3.4rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--azure); }
 
   @media (max-width: 900px) {
-    .sv1__in, .sv3, .in, .in--1, .q1__row, .q2, .q3 { grid-template-columns: 1fr; }
+    .sv1__in, .sv3, .q1__row, .q2, .q3 { grid-template-columns: 1fr; }
     .sv1__rest { grid-column: 1; }
-    .in--1 .in__pic { order: 0; }
     .q2__pic { position: static; aspect-ratio: 4 / 3; }
   }
   @media (max-width: 640px) {
-    .sv0, .sv1__list { grid-template-columns: 1fr; }
+    .sv0, .sv1__list, .gal { grid-template-columns: 1fr; }
     .sv4 li { min-height: 0; }
     .sv2__foot { justify-content: center; text-align: center; }
   }

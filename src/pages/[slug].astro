@@ -19,6 +19,7 @@ import { machines, otherExams } from '../lib/machines';
 import SpecHero from '../components/spec/SpecHero.astro';
 import SpecBody from '../components/spec/SpecBody.astro';
 import { icons } from '../data/site';
+import { essenziali } from '../data/essenziali';
 
 export function getStaticPaths() {
   const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti', 'mammografia-in-tomosintesi', 'ortopanoramica', 'radiologia']);
@@ -71,21 +72,24 @@ const specServices = svSections.length ? {
   rest: svSections.flatMap((s) => flatB(s.blocks).filter((b) => b.type !== 'iconbox' && !(b.type === 'button' && String(b.href).startsWith('tel:')))),
 } : null;
 /* testi essenziali: in vista il primo paragrafo, il resto (testo, elenchi, pulsanti) dietro "Leggi tutto"; le foto a parte, piccole */
-const splitShort = (blocks: any[]) => {
+const ess = essenziali[page.slug];
+const splitShort = (blocks: any[], essential?: string) => {
   const fl = flatB(blocks);
   const firstText = fl.findIndex((b) => b.type === 'text');
   const paras = firstText >= 0 ? (fl[firstText].html.match(/<(p|ul|ol)[\s\S]*?<\/\1>/g) ?? [fl[firstText].html]) : [];
   return {
-    short: paras[0] ?? '',
-    restHtml: paras.slice(1).join(''),
+    short: essential ?? paras[0] ?? '',
+    restHtml: (essential ? paras : paras.slice(1)).join(''),
     restBlocks: fl.filter((b, i) => i !== firstText && b.type !== 'image'),
     images: fl.filter((b) => b.type === 'image').map((b) => ({ src: b.src, alt: b.alt })),
   };
 };
-const specQuestions = a.sections.filter((s) => s.kind === 'default').map((s) => ({ id: s.id, titleHtml: s.titleHtml || 'In breve', ...splitShort(s.blocks) }));
+const specQuestions = a.sections.filter((s) => s.kind === 'default').map((s, i) => ({ id: s.id, titleHtml: s.titleHtml || 'In breve', ...splitShort(s.blocks, ess?.q[i]) }));
 const specTeam = a.sections.filter((s) => s.kind === 'team').map((s) => ({ id: s.id, titleHtml: s.titleHtml, people: s.people, blocks: s.blocks }));
 const specDoctors = specTeam.flatMap((s) => s.people ?? []).map((p) => p.name);
-const specIntro = { short: introParas[0] ?? '', restHtml: [...introParas.slice(1), ...introRest.map((b: any) => b.html ?? '')].join('\n') };
+const specIntro = ess
+  ? { short: ess.intro, restHtml: [...introParas, ...introRest.map((b: any) => b.html ?? '')].join('\n') }
+  : { short: introParas[0] ?? '', restHtml: [...introParas.slice(1), ...introRest.map((b: any) => b.html ?? '')].join('\n') };
 const rot = specIdx >= 0 ? specIdx : page.slug.length;
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
