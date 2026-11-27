@@ -73,8 +73,8 @@ const steps = [
     <div class="wrap">
       <ul class="dist" role="list">
         {districts.map((d) => <li data-reveal><span class="dist__ic"><Icon name={d.icon} /></span><span>{d.t}</span></li>)}
-        <li class="dist__mdc" data-reveal><Icon name="circle-check" /><span>TAC <strong>con o senza</strong> mezzo di contrasto</span></li>
       </ul>
+      <p class="dist__note" data-reveal><Icon name="circle-check" /><span>Ogni esame si può eseguire <strong>con o senza mezzo di contrasto</strong>, secondo l’indicazione del medico.</span></p>
     </div>
   </section>
 
@@ -146,13 +146,13 @@ const steps = [
   .th__sub strong { font-weight: 500; color: var(--deep); }
 
   /* ---------- 01 esami ---------- */
-  .dist { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+  .dist { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 0.8rem; }
   .dist li { display: flex; align-items: center; gap: 1rem; min-height: 84px; padding: 1rem 1.3rem; background: var(--ice); border-radius: 18px; font-size: 1.12rem; font-weight: 500; letter-spacing: -0.015em; color: var(--deep); }
   .dist__ic { display: grid; place-items: center; flex: none; width: 3rem; height: 3rem; border-radius: 50%; background: #fff; color: var(--green); }
   .dist__ic :global(.icon) { width: 1.5rem; height: 1.5rem; }
-  .dist .dist__mdc { background: var(--deep); color: #fff; font-weight: 400; }
-  .dist__mdc strong { font-weight: 600; color: #8fd69a; }
-  .dist__mdc :global(.icon) { flex: none; width: 1.6rem; height: 1.6rem; color: #8fd69a; }
+  .dist__note { display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.6rem; font-size: 1.05rem; color: var(--ink-2); text-align: center; }
+  .dist__note strong { font-weight: 600; color: var(--deep); }
+  .dist__note :global(.icon) { flex: none; width: 1.4rem; height: 1.4rem; color: var(--green); }
   .th__stat { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem; width: 100%; margin-block: 0.6rem; padding-block: 1.2rem; border-block: 1px solid var(--line); }
   .th__stat strong { font-size: clamp(3rem, 2rem + 3vw, 4.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.06em; color: var(--green); font-variant-numeric: tabular-nums; }
   .th__stat span { max-width: 18ch; font-size: 1rem; line-height: 1.4; color: var(--ink-2); }
