@@ -1,0 +1,118 @@
+{
+  "slug": "urologia",
+  "type": "page",
+  "title": "Urologia",
+  "date": "2025-01-27T09:55:33",
+  "seo": {
+    "title": "Urologia - Praemedica",
+    "description": "Praemedica offre servizi di urologia con diagnosi e trattamenti personalizzati per disturbi del sistema urinario e riproduttivo."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Urologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>urologia</strong> è la specialità medica che si occupa della diagnosi e del trattamento delle patologie che riguardano il sistema urinario, sia maschile che femminile, e il sistema riproduttivo maschile. Gli specialisti in urologia trattano una vasta gamma di disturbi, tra cui infezioni urinarie, calcoli renali, problemi alla prostata, disfunzione erettile, incontinenza urinaria, e cancro della vescica, dei reni e della prostata.</p><p>L’urologia include anche la gestione di condizioni come l’ipertrofia prostatica benigna, l’infertilità maschile e le malformazioni congenite del tratto urinario. Grazie ai progressi nelle tecnologie e alle tecniche chirurgiche minimamente invasive, le cure in urologia sono oggi più efficaci e meno dolorose. Se avverti sintomi come dolore durante la minzione, difficoltà erettile o frequenti infezioni urinarie, è fondamentale consultare un urologo per una diagnosi e un trattamento tempestivi.</p><p><strong>Praemedica</strong> offre consulenze e trattamenti personalizzati in <strong>urologia</strong>, con professionisti esperti e tecnologie avanzate per il miglior approccio terapeutico.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-urologica.jpg",
+      "alt": "Urologo che esegue una visita per la valutazione della salute del sistema urinario e sessuale, un esame fondamentale nell'ambito dell'urologia"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/urologia.jpg",
+      "alt": "urologia, la specialità medica che si occupa della diagnosi e del trattamento delle patologie del sistema urinario e riproduttivo maschile e femminile"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando si va da un urologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>È fondamentale consultare un <strong>urologo</strong> quando si manifestano sintomi legati al sistema urinario o riproduttivo maschile. Tra i principali segnali che richiedono una visita urologica ci sono dolore o difficoltà durante la minzione, frequenti infezioni urinarie, sangue nelle urine, incontinenza urinaria e <a href=\"https://it.wikipedia.org/wiki/Disfunzione_erettile\" target=\"_blank\" rel=\"noopener\">disfunzione erettile</a>. Se si sospetta la presenza di <strong>calcoli renali</strong> o si hanno problemi alla prostata, rivolgersi a uno <strong>specialista in urologia</strong> è essenziale per una diagnosi precoce e un trattamento adeguato.</p><p>Le visite periodiche dall’urologo sono raccomandate anche per monitorare condizioni come l’ipertrofia prostatica benigna o per la prevenzione del cancro alla prostata. Non ignorare sintomi che potrebbero indicare disfunzioni urologiche: una diagnosi tempestiva può prevenire complicazioni gravi.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che differenza c'è tra urologo e andrologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La differenza principale tra <strong>urologo</strong> e <strong>andrologo</strong> riguarda le aree di specializzazione.</p><p>L’<strong>urologo</strong> è un medico che si occupa della diagnosi e del trattamento delle patologie del sistema urinario, sia maschile che femminile, trattando disturbi come infezioni urinarie, calcoli renali, incontinenza urinaria e problemi alla prostata.</p><p>L’<strong>andrologo</strong>, invece, è uno specialista focalizzato esclusivamente sul sistema riproduttivo maschile e sulle problematiche sessuali, come disfunzione erettile, infertilità maschile, ipogonadismo e altre malattie sessualmente trasmissibili.</p><p>In sintesi, mentre l’urologo tratta una gamma più ampia di patologie che riguardano il sistema urinario di entrambi i sessi, l’andrologo si concentra sulla salute riproduttiva e sessuale maschile. Se hai sintomi come difficoltà erettile, problemi di fertilità o alterazioni ormonali, un consulto con un andrologo è consigliato. Se invece hai disturbi urinari, prostata ingrossata o malattie del tratto urinario, è meglio rivolgersi a un urologo.</p><p>Gli specialisti di <strong>praemedica</strong> offrono trattamenti personalizzati in <strong>urologia</strong> e <strong>andrologia</strong>&nbsp;per garantire il massimo benessere sia del sistema urinario che riproduttivo maschile.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Urologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + uroflussimetria"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia prostatica sovrapubica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecocolodoppler testicolare"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/francesco-attisani-urologo.jpg",
+      "alt": "dr Francesco Attisani specialista in urologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Francesco Attisani</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-francesco-attisani.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/urologia.jpg",
+    "alt": "urologia, la specialità medica che si occupa della diagnosi e del trattamento delle patologie del sistema urinario e riproduttivo maschile e femminile"
+  }
+}

@@ -1,0 +1,110 @@
+---
+import '@fontsource-variable/geist';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+interface Props { title?: string; description?: string; image?: string }
+const { title, description, image } = Astro.props;
+const pageTitle = title ? (title.includes('Praemedica') ? title : `${title} - Praemedica`) : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image ?? '/brand/og.jpg', Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  name: 'Praemedica',
+  url: 'https://praemedica.it/',
+  logo: 'https://praemedica.it/brand/logo.png',
+  telephone: '+39 06 69451836',
+  email: site.email.label,
+  address: { '@type': 'PostalAddress', streetAddress: site.address.street, postalCode: '00036', addressLocality: 'Palestrina', addressRegion: 'RM', addressCountry: 'IT' },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '13:00' },
+  ],
+  sameAs: [site.social.facebook, site.social.instagram],
+};
+---
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:site_name" content="Praemedica" />
+    <meta property="og:title" content={pageTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
+        try { var t = localStorage.getItem('pm-text'); if (t) d.dataset.text = t; } catch (e) {}
+        setTimeout(function () { if (!window.__pmMotion) d.classList.add('reduced'); }, 4000);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+
+    <a class="doctolib" href={site.doctolib.floatingHref} target="_blank" rel="noopener" data-doctolib>
+      <span>{site.doctolib.floatingLabel}</span>
+      <img src={site.doctolib.logo} alt="Doctolib" width="80" height="16" loading="lazy" />
+    </a>
+
+    <nav class="quickbar" aria-label="Azioni rapide">
+      <a href={site.phone.href}><Icon name="phone" /> Chiama</a>
+      <a href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /> WhatsApp</a>
+      <a class="is-main" href={site.doctolib.href} target="_blank" rel="noopener"><Icon name="calendar-plus" /> Prenota</a>
+    </nav>
+
+    <script>
+      import '../scripts/ui';
+      import '../scripts/motion';
+
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .doctolib {
+    position: fixed; right: 20px; bottom: 20px; z-index: 90;
+    display: inline-flex; align-items: center; gap: 0.7rem; min-height: 52px; padding: 0 1.3rem;
+    border-radius: 999px; background: #107aca; color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transform: translateY(160%); transition: transform 0.6s var(--ease), background-color 0.3s;
+  }
+  .doctolib.is-visible { transform: none; }
+  .doctolib:hover { background: #0b62a6; }
+  .doctolib img { height: 15px; width: auto; }
+  .quickbar { display: none; }
+  @media (max-width: 900px) {
+    .doctolib { display: none; }
+    body { padding-bottom: 74px; }
+    .quickbar {
+      position: fixed; inset: auto 0 0 0; z-index: 95; display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 6px;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); background: rgb(255 255 255 / 0.97); border-top: 1px solid var(--line);
+    }
+    .quickbar a {
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 54px; border-radius: 999px;
+      border: 1px solid var(--line-2); color: var(--ink); font-weight: 500; text-decoration: none; font-size: 0.95rem;
+    }
+    .quickbar a.is-main { background: var(--green-ink); border-color: var(--green-ink); color: #fff; }
+    .quickbar .icon { width: 1.15em; height: 1.15em; }
+  }
+</style>

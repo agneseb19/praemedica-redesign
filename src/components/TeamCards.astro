@@ -1,0 +1,28 @@
+---
+/** Specialisti: ritratto, ruolo in maiuscolo, nome (link a /medici/ come sull'originale), CV. */
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import type { Person } from '../lib/content';
+interface Props { people: Person[] }
+const { people } = Astro.props;
+---
+<ul class="team" role="list">
+  {people.map((p) => (
+    <li data-reveal>
+      <div class="pic team__pic">{p.img && <Img src={p.img} alt={p.alt ?? p.name} sizes="(min-width: 900px) 280px, 60vw" widths={[300, 560]} />}</div>
+      {p.role && <p class="label team__r">{p.role}</p>}
+      <h3 class="team__n" set:html={p.nameHtml || p.name} />
+      {p.cv && <a class="more team__cv" href={p.cv} target="_blank" rel="noopener">Curriculum V. <Icon name="arrow-up-right" /></a>}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .team { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 2.2rem 1.2rem; }
+  .team > li { width: clamp(220px, calc(25% - 1rem), 290px); }
+  .team__pic { aspect-ratio: 4 / 5; border-radius: var(--r); background: var(--ice); }
+  .team__r { margin-top: 0.9rem; font-size: 0.82rem; letter-spacing: 0.04em; color: var(--muted); text-transform: none; }
+  .team__n { margin-top: 0.2rem; font-size: 1.05rem; font-weight: 500; letter-spacing: -0.015em; color: var(--deep); }
+  .team__n :global(a) { text-decoration: none; }
+  .team__cv { margin-top: 0.7rem; }
+</style>

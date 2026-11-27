@@ -1,0 +1,636 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import { getPage, summaryOf, stripTags, type Block } from '../lib/content';
+import { site } from '../data/site';
+import reviews from '../data/reviews.json';
+import { Picture } from 'astro:assets';
+import heroPhoto from '../assets/found/visita-diagnostica.jpg';
+import tacCut from '../assets/cutout/tac.png';
+import mammoCut from '../assets/cutout/mammo.png';
+import rxCut from '../assets/cutout/rx.png';
+import optCut from '../assets/cutout/opt.png';
+import mocCut from '../assets/cutout/moc.png';
+
+const home = getPage('home');
+const B = home.blocks;
+const of = <T extends Block['type']>(t: T) => B.filter((b) => b.type === t) as Extract<Block, { type: T }>[];
+const [heroSlider, diagSlider] = of('slides');
+const [receptionImg, waitingImg, fisioImg, palestraImg] = of('image');
+const heads = of('heading');
+const h = (re: RegExp) => stripTags(heads.find((x) => re.test(x.html))!.html);
+const carousels = of('carousel');
+const flips = carousels.flatMap((c) => c.slides.flat()).filter((x) => x.type === 'flip') as Extract<Block, { type: 'flip' }>[];
+const logos = carousels.flatMap((c) => c.slides.flat()).filter((x) => x.type === 'image') as Extract<Block, { type: 'image' }>[];
+const tac = heroSlider.slides[0];
+
+/* ---------- specializzazioni e corpo 3D ---------- */
+const specs = flips.map((f) => summaryOf(f.href, f.front));
+/* organo del modello 3D (nome della mesh in praemedica-corpo.glb) per ogni specializzazione che ne ha uno */
+const SPOTS: Record<string, { zone: string; mesh: string }> = {
+  '/neurologia-neurochirurgia/': { zone: 'Encefalo', mesh: 'encefalo' },
+  '/oculistica/': { zone: 'Occhi', mesh: 'occhio_destro' },
+  '/otorinolaringoiatria/': { zone: 'Gola', mesh: 'trachea' },
+  '/endocrinologia/': { zone: 'Ghiandole surrenali', mesh: 'surrene_destro' },
+  '/diabetologia/': { zone: 'Pancreas', mesh: 'pancreas' },
+  '/pneumologia/': { zone: 'Polmoni', mesh: 'polmone_destro' },
+  '/cardiologia/': { zone: 'Cuore', mesh: 'cuore' },
+  '/angiologia/': { zone: 'Vasi sanguigni', mesh: 'aorta' },
+  '/gastroenterologia/': { zone: 'Stomaco e intestino', mesh: 'stomaco' },
+  '/nefrologia/': { zone: 'Reni', mesh: 'rene_sinistro' },
+  '/urologia/': { zone: 'Vescica', mesh: 'vescica' },
+  '/ortopedia/': { zone: 'Ossa', mesh: 'osso_left_femur' },
+  '/reumatologia/': { zone: 'Articolazioni', mesh: 'osso_right_patella' },
+};
+const spotted = specs.filter((s) => SPOTS[s.href]).map((s) => ({ ...s, ...SPOTS[s.href] }));
+const firstSpot = Math.max(0, spotted.findIndex((s) => s.href === '/cardiologia/'));
+
+/* ---------- alta diagnostica: l'esame in grande, il macchinario in piccolo; dati dalle pagine originali ---------- */
+const machines = [
+  { exam: 'TAC', device: tac.heading, href: '/alta-diagnostica/', img: tacCut, alt: tac.alt || tac.heading,
+    spec: [['Esame', 'Tomografia computerizzata'], ['Acquisizione', '128 strati'], ['Tecnologia', 'Siemens Healthineers']] },
+  { exam: diagSlider.slides[0].heading, device: 'Mammografo 3D con tomosintesi', href: '/mammografia-in-tomosintesi/', img: mammoCut, alt: diagSlider.slides[0].alt,
+    spec: [['Immagini', 'Tridimensionali ad alta risoluzione'], ['Dose', 'Proiezioni a bassa dose da diverse angolazioni'], ['Indicata', 'Per le donne sopra i 40 anni']] },
+  { exam: diagSlider.slides[1].heading, device: 'Radiologia generale', href: '/radiologia/', img: rxCut, alt: diagSlider.slides[1].alt,
+    spec: [['Servizio', 'Radiologia generale'], ['Tecnologia', 'Di ultima generazione'], ['Tempi', 'Diagnosi rapide, senza lunghe liste d’attesa']] },
+  { exam: diagSlider.slides[2].heading, device: 'Ortopantomografo', href: '/ortopanoramica/', img: optCut, alt: diagSlider.slides[2].alt,
+    spec: [['Esame', 'Radiografia panoramica dentale'], ['Area', 'Arcate dentarie, ossa mascellari, seni paranasali'], ['Paziente', 'Non invasiva, sicura e rapida']] },
+  { exam: diagSlider.slides[3].heading, device: 'Densitometro MOC DXA', href: '/densitometria-ossea/', img: mocCut, alt: diagSlider.slides[3].alt,
+    spec: [['Tecnica', 'MOC DXA, il gold standard'], ['Misura', 'Densità minerale ossea (BMD)'], ['Per', 'Prevenzione e monitoraggio dell’osteoporosi']] },
+];
+
+/* ---------- medici ---------- */
+const medici = getPage('medici');
+type Doc = { name: string; role: string; img: string; alt: string };
+const docs: Doc[] = medici.blocks.filter((b) => b.type === 'imagebox').map((b: any) => ({ name: b.title, role: b.desc, img: b.src, alt: b.alt }));
+const team = docs.slice(0, 10);
+
+/* ---------- ricerca ---------- */
+const searchIndex = [
+  ...specs.map((s) => ({ t: s.label, k: 'Specializzazione', h: s.href, x: s.doctors.join(' ') + ' ' + s.services.join(' ') })),
+  ...machines.map((m) => ({ t: m.exam, k: 'Alta diagnostica', h: m.href, x: m.device })),
+  { t: 'Fisioterapia', k: 'Riabilitazione', h: '/fisioterapia/', x: 'tecarterapia laserterapia massoterapia' },
+  { t: 'Palestra Riabilitativa', k: 'Riabilitazione', h: '/palestra-riabilitativa/', x: 'ginnastica posturale rieducazione' },
+  ...docs.map((d) => ({ t: d.name, k: d.role, h: `/medici/?q=${encodeURIComponent(d.name)}`, x: '' })),
+];
+
+const withText = reviews.reviews.filter((r) => r.text);
+const noText = reviews.reviews.filter((r) => !r.text);
+---
+<Base title="Praemedica - Centro Diagnostico Polispecialistico" description={home.seo?.description}>
+
+  <!-- HERO: una visita, a tutto schermo -->
+  <section class="hero" aria-labelledby="hero-t">
+    <div class="hero__bg" data-parallax="6">
+      <Picture src={heroPhoto} alt="Una dottoressa spiega l'esame a una paziente accanto al macchinario" formats={['webp']} widths={[960, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="wrap hero__copy">
+      <p class="hero__k" data-reveal>{h(/^CENTRO DIAGNOSTICO/)} {h(/^PRAEMEDICA/)} · Palestrina</p>
+      <h1 id="hero-t" class="hero__t" data-lines>La tecnologia al servizio della tua salute.</h1>
+      <p class="hero__p" data-reveal>Il punto di riferimento per la tua salute: visite specialistiche, alta diagnostica e riabilitazione in un unico centro.</p>
+      <div class="hero__btns" data-reveal>
+        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota una visita</a>
+        <a class="btn btn--white" href="#esplora">Esplora le prestazioni</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- informazioni pratiche, appoggiate sotto la hero -->
+  <div class="wrap facts-wrap">
+    <ul class="facts" role="list">
+      <li class="fact" data-open-badge>
+        <Icon name="clock" />
+        <span><strong data-open-text>Orari di apertura</strong><small>{site.hours.footer.map((x) => x.replace('Orari: ', '')).join(' · ')}</small></span>
+      </li>
+      <li class="fact"><a href={site.phone.href}><Icon name="phone" /><span><strong>{site.phone.label}</strong><small>Chiama per prenotare</small></span></a></li>
+      <li class="fact"><a href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /><span><strong>{site.whatsapp.label}</strong><small>Scrivici su WhatsApp</small></span></a></li>
+      <li class="fact"><a href={site.address.maps} target="_blank" rel="noopener"><Icon name="map-pin" /><span><strong>{site.address.street}</strong><small>{site.address.city}</small></span></a></li>
+    </ul>
+  </div>
+
+  <!-- 01 · CHI È PRAEMEDICA: cosa trovi al centro, in tre parti -->
+  <section class="sec" aria-labelledby="chi-t">
+    <header class="wrap sh">
+      <span class="sh__n">01</span>
+      <h2 id="chi-t" class="sh__t" data-lines>Chi è Praemedica</h2>
+      <p class="sh__d" data-reveal>Praemedica è un centro diagnostico polispecialistico a Palestrina. Nasce dall’unione di due realtà di eccellenza nel settore medico e ortopedico, con un’esperienza consolidata e competenze solide. Visite specialistiche, alta diagnostica e riabilitazione, in un unico centro.</p>
+    </header>
+    <ul class="wrap pillars" role="list">
+      <li data-reveal>
+        <a class="pillar" href="/specializzazioni/">
+          <div class="pillar__pic"><Img src={waitingImg.src} alt={waitingImg.alt} sizes="(min-width: 900px) 33vw, 100vw" widths={[500, 1000]} /></div>
+          <h3 class="pillar__t">Visite specialistiche</h3>
+          <p class="pillar__p">{specs.length} specializzazioni, dalla cardiologia all’urologia, con medici esperti.</p>
+          <span class="more">Le specializzazioni</span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="pillar" href="/alta-diagnostica/">
+          <div class="pillar__pic"><Img src="wp/2026/09/TAC-scaled.jpg" alt={tac.alt || tac.heading} sizes="(min-width: 900px) 33vw, 100vw" widths={[500, 1000]} /></div>
+          <h3 class="pillar__t">Alta diagnostica</h3>
+          <p class="pillar__p">TAC, mammografia 3D, radiografie, ortopanoramica e MOC con tecnologie di ultima generazione.</p>
+          <span class="more">Gli esami</span>
+        </a>
+      </li>
+      <li data-reveal>
+        <a class="pillar" href="/fisioterapia/">
+          <div class="pillar__pic"><Img src="wp/2025/02/palestra-riabilitativa-praemedica-centro-diagnostico.jpg" alt="Palestra riabilitativa del centro Praemedica" sizes="(min-width: 900px) 33vw, 100vw" widths={[500, 1000]} /></div>
+          <h3 class="pillar__t">Riabilitazione</h3>
+          <p class="pillar__p">Fisioterapia e palestra riabilitativa per il recupero della mobilità.</p>
+          <span class="more">La riabilitazione</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 02 · PERCHÉ SCEGLIERE PRAEMEDICA (dalla pagina Chi siamo e dalla home originali) -->
+  <section class="sec" aria-labelledby="why-t">
+    <header class="wrap sh">
+      <span class="sh__n">02</span>
+      <h2 id="why-t" class="sh__t" data-lines>Perché scegliere Praemedica</h2>
+      <p class="sh__d" data-reveal>Il paziente è il fulcro della nostra attività: un servizio attento e scrupoloso, con assistenza a 360°.</p>
+    </header>
+    <ul class="wrap why" role="list">
+      <li data-reveal><Icon name="users-group" /><h3>Specialisti esperti</h3><p>Un team di specialisti dinamici ed esperti, per {specs.length} specializzazioni.</p></li>
+      <li data-reveal><Icon name="device-heart-monitor" /><h3>Tecnologie innovative</h3><p>Apparecchiature di ultima generazione, come la Tac Somatom go.Top 128 strati.</p></li>
+      <li data-reveal><Icon name="clock-hour-4" /><h3>Tempi di attesa ridotti</h3><p>Diagnosi rapide e tempi di risposta brevi, senza lunghe liste d’attesa.</p></li>
+      <li data-reveal><Icon name="receipt-euro" /><h3>Tariffe competitive</h3><p>Una valida alternativa al Servizio Sanitario Nazionale (SSN), con prestazioni di alta qualità.</p></li>
+      <li data-reveal><Icon name="building-hospital" /><h3>Tutto in un unico centro</h3><p>Un approccio multidisciplinare e integrato: visite, esami e riabilitazione.</p></li>
+      <li data-reveal><Icon name="shield-check" /><h3>Convenzioni assicurative</h3><p>Convenzioni con {logos.length} tra assicurazioni e casse sanitarie.</p></li>
+    </ul>
+  </section>
+
+  <!-- 03 · SPECIALIZZAZIONI -->
+  <section class="sec" id="esplora" aria-labelledby="body-t">
+    <header class="wrap sh">
+      <span class="sh__n">03</span>
+      <h2 id="body-t" class="sh__t" data-lines>{h(/^Specializzazioni/)}</h2>
+      <p class="sh__d" data-reveal>Cerca una visita o uno specialista, scegli dall'elenco oppure tocca un punto del corpo.</p>
+      <div class="find__box" data-search data-reveal>
+        <label class="find__field">
+          <Icon name="search" />
+          <span class="sr-only">Cerca una visita, un esame o uno specialista</span>
+          <input type="search" placeholder="Cerca una visita, un esame o uno specialista" autocomplete="off" data-search-input aria-controls="find-res" />
+        </label>
+        <ul id="find-res" class="find__res" role="list" data-search-results hidden></ul>
+        <script type="application/json" data-search-index set:html={JSON.stringify(searchIndex)} />
+      </div>
+    </header>
+    <div class="wrap body__grid">
+      <ul class="body__list" role="list" data-reveal>
+        {specs.map((s) => {
+          const k = spotted.findIndex((x) => x.href === s.href);
+          return <li><a href={s.href} data-spot-link={k >= 0 ? k : undefined}>{s.label}</a></li>;
+        })}
+      </ul>
+
+      <div class="body__stage" data-body data-body-first={firstSpot} data-spots={JSON.stringify(spotted.map((s) => s.mesh))}>
+        <canvas class="body__canvas" aria-hidden="true"></canvas>
+        <div class="body__spots">
+          {spotted.map((s, i) => (
+            <button type="button" class:list={['spot', { 'is-on': i === firstSpot }]} data-spot={i} aria-pressed={i === firstSpot ? 'true' : 'false'} aria-label={`${s.zone}: ${s.label}`}>
+              <span class="spot__tag">{s.zone}</span>
+            </button>
+          ))}
+        </div>
+        <p class="body__hint" aria-hidden="true"><Icon name="hand-move" /> Trascina per ruotare</p>
+        <p class="body__credit">Modello: <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html" target="_blank" rel="noopener">BodyParts3D</a>, © The Database Center for Life Science, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Geometrie adattate.</p>
+      </div>
+
+      <div class="body__panel" aria-live="polite">
+        {spotted.map((s, i) => (
+          <article class:list={['pane', { 'is-on': i === firstSpot }]} data-spot-pane={i} hidden={i !== firstSpot}>
+            <p class="pane__k">{s.zone}</p>
+            <h3 class="pane__t">{s.label}</h3>
+            {s.firstSentence && <p class="pane__p">{s.firstSentence}</p>}
+            {s.services.length > 0 && (
+              <ul class="pane__list" role="list">{s.services.slice(0, 4).map((x) => <li>{x}</li>)}</ul>
+            )}
+            {s.doctors.length > 0 && <p class="pane__docs">{s.doctors.join(', ')}</p>}
+            <div class="pane__act">
+              <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
+              <a class="more" href={s.href}>Scopri di più</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · ALTA DIAGNOSTICA -->
+  <section class="sec sec--top" aria-labelledby="diag-t">
+    <header class="wrap sh">
+      <span class="sh__n">04</span>
+      <h2 id="diag-t" class="sh__t" data-lines>Alta diagnostica</h2>
+      <div class="sh__d" data-reveal>
+        <p>{h(/^Alta Diagnostica/)} TAC, mammografia 3D, radiografie, ortopanoramica e MOC con tecnologie di ultima generazione, tempi di attesa ridotti e tariffe competitive.</p>
+        <a class="more" href="/alta-diagnostica/">Tutti gli esami</a>
+      </div>
+    </header>
+  </section>
+  <section class="prod" aria-label="Gli esami di alta diagnostica" data-prod style={`--n:${machines.length}`}>
+    <div class="prod__pin">
+      <div class="wrap prod__list">
+        {machines.map((m, i) => (
+          <article class:list={['prod__item', { 'is-on': i === 0 }]} data-prod-item>
+            <div class="prod__info">
+              <span class="prod__i">{String(i + 1).padStart(2, '0')} / {String(machines.length).padStart(2, '0')}</span>
+              <h3 class="prod__t"><a href={m.href}>{m.exam}</a></h3>
+              <p class="prod__dev">{m.device}</p>
+              <dl class="prod__spec">
+                {m.spec.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+              </dl>
+              <div class="prod__act">
+                <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
+                <a class="more" href={m.href}>Scopri di più</a>
+              </div>
+            </div>
+            <figure class="prod__fig">
+              <Picture src={m.img} alt={m.alt} formats={['webp']} widths={[600, 1000, Math.min(1500, m.img.width)]} sizes="(min-width: 1025px) 50vw, 90vw" />
+            </figure>
+          </article>
+        ))}
+      </div>
+      <div class="wrap prod__nav" aria-hidden="true">
+        {machines.map((m, i) => <span class:list={['prod__dot', { 'is-on': i === 0 }]} data-prod-dot>{m.exam}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · SPECIALISTI -->
+  <section class="sec" aria-labelledby="team-t">
+    <header class="wrap sh">
+      <span class="sh__n">05</span>
+      <h2 id="team-t" class="sh__t" data-lines>I nostri specialisti</h2>
+      <div class="sh__d" data-reveal>
+        <p>I {docs.length} medici e professionisti del centro, dalla cardiologia alla fisioterapia.</p>
+        <a class="more" href="/medici/">Tutti i medici</a>
+      </div>
+    </header>
+    <ul class="rail team__row" role="list" data-rail="team">
+      {team.map((d) => (
+        <li class="doc">
+          <a href={`/medici/?q=${encodeURIComponent(d.name)}`}>
+            <div class="doc__pic"><Img src={d.img} alt={d.alt} sizes="(min-width: 1024px) 20vw, 60vw" widths={[320, 600]} /></div>
+            <p class="doc__n">{d.name}</p>
+            <p class="doc__r">{d.role}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="wrap rail-nav">
+      <button type="button" data-rail-prev="team" aria-label="Medici precedenti"><Icon name="arrow-left" /></button>
+      <button type="button" data-rail-next="team" aria-label="Medici successivi"><Icon name="arrow-right" /></button>
+    </div>
+  </section>
+
+  <!-- 06 · RIABILITAZIONE -->
+  <section class="sec" aria-labelledby="reha-t">
+    <header class="wrap sh">
+      <span class="sh__n">06</span>
+      <h2 id="reha-t" class="sh__t" data-lines>Riabilitazione</h2>
+      <p class="sh__d" data-reveal>Fisioterapia e palestra riabilitativa: percorsi personalizzati per il recupero della mobilità, con specialisti esperti e tecnologie moderne.</p>
+    </header>
+    <div class="wrap reha" data-switch>
+      <div class="reha__list">
+        <a class="reha__item is-on" href="/fisioterapia/" data-switch-btn="0">
+          <span class="reha__n">01</span>
+          <span class="reha__body">
+            <h3 class="reha__t">{h(/^Fisioterapia/)}</h3>
+            <span class="reha__p">Tecarterapia, laserterapia, terapia manuale, pressoterapia, magnetoterapia, elettroterapia, ultrasuoni e massoterapia.</span>
+            <span class="more">Fisioterapia</span>
+          </span>
+        </a>
+        <a class="reha__item" href="/palestra-riabilitativa/" data-switch-btn="1">
+          <span class="reha__n">02</span>
+          <span class="reha__body">
+            <h3 class="reha__t">{h(/^Palestra Riabilitativa/)}</h3>
+            <span class="reha__p">Esercizio terapeutico, ginnastica correttiva e posturale, rieducazione neuromotoria.</span>
+            <span class="more">Palestra Riabilitativa</span>
+          </span>
+        </a>
+      </div>
+      <div class="reha__pics">
+        <figure class="reha__pic is-on" data-switch-pane="0"><Img src={fisioImg.src} alt={fisioImg.alt} sizes="(min-width: 900px) 58vw, 100vw" widths={[700, 1366]} /></figure>
+        <figure class="reha__pic" data-switch-pane="1"><Img src={palestraImg.src} alt={palestraImg.alt} sizes="(min-width: 900px) 58vw, 100vw" widths={[700, 1366]} /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · RECENSIONI -->
+  <section class="sec" aria-labelledby="voci-t">
+    <header class="wrap sh">
+      <span class="sh__n">07</span>
+      <h2 id="voci-t" class="sh__t" data-lines>{h(/Dicono di Noi/)}</h2>
+      <div class="score" data-reveal>
+        <p class="score__big">{reviews.label}</p>
+        <p class="score__meta"><span class="stars" aria-label="5 stelle su 5">{Array.from({ length: 5 }, () => <Icon name="star-filled" />)}</span> {reviews.count} su <Icon name="brand-google" label="Google" /></p>
+      </div>
+    </header>
+    <ul class="rail voci__row" role="list" data-rail="voci">
+      {withText.map((r) => (
+        <li class="voce">
+          <span class="stars" aria-label="5 stelle su 5">{Array.from({ length: 5 }, () => <Icon name="star-filled" />)}</span>
+          <blockquote><p>{r.text.split('\n').map((l, k) => (k ? <><br />{' '}{l}</> : l))}</p></blockquote>
+          <p class="voce__by"><img src={r.avatar} alt={`${r.name} profile picture`} width="40" height="40" loading="lazy" /><span><strong>{r.name}</strong><span>Pubblicato su Google</span></span></p>
+        </li>
+      ))}
+    </ul>
+    <div class="wrap rail-nav">
+      <button type="button" data-rail-prev="voci" aria-label="Recensioni precedenti"><Icon name="arrow-left" /></button>
+      <button type="button" data-rail-next="voci" aria-label="Recensioni successive"><Icon name="arrow-right" /></button>
+    </div>
+    <p class="wrap voci__note">5 stelle anche da {noText.map((r, i) => <>{i ? ' e ' : ''}<img src={r.avatar} alt={`${r.name} profile picture`} width="18" height="18" loading="lazy" /> {r.name}</>)}. {reviews.verified} Verificato da Trustindex: Trustindex ha verificato che queste recensioni sono state pubblicate sul Profilo dell'attività su Google di <a href={site.address.maps} target="_blank" rel="noopener">Praemedica</a>. <a href="https://www.trustindex.io/?a=sys&c=wp-verified-badge&url=/review-platform-verification/" target="_blank" rel="noopener">Scopri di più</a></p>
+  </section>
+
+  <!-- 08 · CONVENZIONI -->
+  <section class="sec sec--short" aria-labelledby="conv-t">
+    <header class="wrap sh">
+      <span class="sh__n">08</span>
+      <h2 id="conv-t" class="sh__t" data-lines>Convenzioni Assicurative</h2>
+      <div class="sh__d" data-reveal><p>Praemedica è convenzionata con le principali assicurazioni e casse sanitarie.</p><a class="more" href="/convenzioni/">Tutte le convenzioni</a></div>
+    </header>
+    <div class="wrap">
+      <ul class="conv__logos" role="list" data-reveal>
+        {logos.map((l) => <li><a href={l.href} target="_blank" rel="noopener"><Img src={l.src} alt={l.alt || 'UniSalute'} sizes="140px" widths={[140, 280]} /></a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRENOTA -->
+  <section class="book" aria-labelledby="book-t">
+    <div class="wrap">
+      <div class="book__top">
+        <h2 id="book-t" class="book__t" data-lines>Prenota la tua prossima visita.</h2>
+        <div class="book__act" data-reveal>
+          <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
+          <a class="btn btn--line-white" href={site.phone.href}>{site.phone.label}</a>
+        </div>
+      </div>
+      <div class="book__row" data-reveal>
+        <p><span class="book__k">Dove siamo</span>{site.address.street}<br />{site.address.building}<br />{site.address.city}</p>
+        <p><span class="book__k">Orari</span>{site.hours.contacts.map((x, i) => (i ? <><br />{x}</> : x))}</p>
+        <p><span class="book__k">Contatti</span><a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp {site.whatsapp.label}</a><br /><a href={site.email.href}>{site.email.label}</a><br /><a href={site.address.maps} target="_blank" rel="noopener">Indicazioni stradali</a></p>
+      </div>
+      <p class="book__credit">Foto di apertura: <a href="https://unsplash.com/it/foto/un-medico-che-parla-con-un-paziente-AaVTg7jXUew" target="_blank" rel="noopener">Accuray su Unsplash</a></p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import '../scripts/body3d';
+  /* file scorrevoli (medici, recensioni): frecce che avanzano di una "pagina" */
+  document.querySelectorAll<HTMLElement>('[data-rail]').forEach((rail) => {
+    const key = rail.dataset.rail;
+    const step = (dir: number) => rail.scrollBy({ left: dir * rail.clientWidth * 0.8, behavior: 'smooth' });
+    document.querySelector(`[data-rail-prev="${key}"]`)?.addEventListener('click', () => step(-1));
+    document.querySelector(`[data-rail-next="${key}"]`)?.addEventListener('click', () => step(1));
+  });
+</script>
+
+<style>
+  /* ============ schema comune a ogni sezione: numero · etichetta e titolo · spiegazione ============ */
+  .sec { padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); }
+  .sec + .sec, .prod + .sec { padding-top: 0; }
+  .sec--short { padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); }
+  .sec--top { padding-bottom: 0; display: flow-root; }
+  .sec--top .sh { margin-bottom: 0; padding-bottom: clamp(2rem, 3vw, 3rem); }
+  .sh { display: grid; justify-items: center; gap: 1rem; max-width: 60rem; margin: 0 auto clamp(2.5rem, 4vw, 3.5rem); text-align: center; }
+  .sh__n { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--green); }
+  .sh__n::before, .sh__n::after { content: ''; width: 2rem; height: 1px; background: currentColor; opacity: 0.5; }
+  .sh__t { font-size: clamp(2.2rem, 1.4rem + 2.4vw, 3.6rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.045em; color: var(--deep); }
+  .sh__d { max-width: 58ch; font-size: 1.02rem; line-height: 1.6; color: var(--ink-2); }
+  .sh .more { margin-top: 0.2rem; }
+
+  /* 01 · tre colonne: cosa trovi al centro */
+  .pillars { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .pillar { display: grid; gap: 0.8rem; justify-items: start; text-decoration: none; }
+  .pillar__pic { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 24px; margin-bottom: 0.4rem; }
+  .pillar__pic :global(picture), .pillar__pic :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .pillar:hover .pillar__pic :global(img) { transform: scale(1.04); }
+  .pillar__t { font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.7rem); font-weight: 500; letter-spacing: -0.03em; color: var(--deep); }
+  .pillar__p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
+
+  /* ================= HERO ================= */
+  .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
+  .hero__bg { position: absolute; inset: -6% 0; z-index: -2; }
+  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(18 60 80 / 0.78) 0%, rgb(18 60 80 / 0.5) 42%, rgb(18 60 80 / 0.05) 70%); }
+  .hero__copy { display: grid; gap: 1.5rem; justify-items: start; padding-block: 4rem 9rem; }
+  .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
+  .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.8vw, 5.2rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: #fff; }
+  .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgb(255 255 255 / 0.9); }
+  .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
+
+  .facts-wrap { position: relative; z-index: 3; margin-top: -4.5rem; }
+  .facts { list-style: none; display: grid; grid-template-columns: 1.35fr 1fr 1fr 1.25fr; background: #fff; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 60px -40px rgb(18 60 80 / 0.45); }
+  .fact { display: flex; align-items: center; gap: 0.9rem; padding: 1.4rem 1.5rem; border-left: 1px solid var(--line); }
+  .fact:first-child { border-left: 0; }
+  .fact > a { display: flex; align-items: center; gap: 0.9rem; width: 100%; margin: -1.4rem -1.5rem; padding: 1.4rem 1.5rem; text-decoration: none; transition: background-color 0.3s; }
+  .fact > a:hover { background: var(--ice); }
+  .fact :global(.icon) { flex: none; width: 2.6rem; height: 2.6rem; padding: 0.7rem; border-radius: 50%; background: var(--ice); color: var(--blue); }
+  .fact span { display: grid; gap: 0.1rem; min-width: 0; }
+  .fact strong { font-size: 0.98rem; font-weight: 500; color: var(--deep); }
+  .fact small { font-size: 0.82rem; color: var(--muted); }
+  .fact:global(.is-open) :global(.icon) { background: rgb(41 146 52 / 0.12); color: var(--green); }
+
+  /* ================= RICERCA ================= */
+  .find__box { position: relative; width: min(100%, 720px); margin-top: 1rem; text-align: left; }
+  .find__field { display: flex; align-items: center; gap: 0.9rem; min-height: 64px; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; transition: border-color 0.3s, box-shadow 0.3s; }
+  .find__field:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(56 124 145 / 0.14); }
+  .find__field :global(.icon) { width: 1.25rem; height: 1.25rem; color: var(--blue); }
+  .find__field input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 1.05rem; color: var(--ink); }
+  .find__res { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 0.5rem); list-style: none; max-height: 360px; overflow: auto; padding: 0.4rem; background: #fff; border: 1px solid var(--azure); border-radius: 20px; }
+  .find__res :global(a) { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; border-radius: 12px; text-decoration: none; font-size: 0.98rem; }
+  .find__res :global(a:hover), .find__res :global(a:focus-visible) { background: var(--ice); }
+  .find__res :global(small) { color: var(--muted); font-size: 0.82rem; text-align: right; }
+  .find__res :global(.empty) { padding: 0.75rem 1rem; color: var(--muted); font-size: 0.95rem; }
+
+  /* ================= 02 · CORPO ================= */
+  .body__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 3.6fr); gap: clamp(1.5rem, 1rem + 2vw, 3rem); align-items: start; }
+  .body__list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; border-top: 1px solid var(--line); }
+  .body__list li { border-bottom: 1px solid var(--line); }
+  .body__list a { display: block; padding: 0.55rem 0; font-size: 0.88rem; text-decoration: none; transition: color 0.2s; }
+  .body__list a:hover, .body__list a:global(.is-on) { color: var(--blue); }
+  .body__stage { position: relative; height: min(78vh, 720px); min-height: 500px; border-radius: 24px; background: var(--ice); overflow: hidden; touch-action: pan-y; cursor: grab; }
+  .body__stage:active { cursor: grabbing; }
+  .body__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .body__spots { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.8s; }
+  .body__stage:global(.is-ready) .body__spots { opacity: 1; }
+  .spot { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border: 0; border-radius: 50%; background: none; pointer-events: auto; cursor: pointer; transition: opacity 0.3s; }
+  .spot::before { content: ''; position: absolute; inset: 15px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 5px rgb(56 124 145 / 0.16); transition: background-color 0.3s, transform 0.3s var(--ease); }
+  .spot::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid rgb(56 124 145 / 0.4); animation: ping 2.4s var(--ease) infinite; }
+  .spot:global(.is-on)::before, .spot:hover::before { background: var(--green); transform: scale(1.2); box-shadow: 0 0 0 6px rgb(41 146 52 / 0.18); }
+  .spot:global(.is-on)::after { border-color: rgb(41 146 52 / 0.55); }
+  .spot:global(.is-back) { opacity: 0.15; pointer-events: none; }
+  .spot__tag { position: absolute; left: 40px; top: 50%; translate: 0 -50%; padding: 0.25rem 0.65rem; border-radius: 999px; background: #fff; color: var(--deep); font-size: 0.78rem; font-weight: 500; white-space: nowrap; opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+  .spot:hover .spot__tag, .spot:global(.is-on) .spot__tag, .spot:focus-visible .spot__tag { opacity: 1; }
+  @keyframes ping { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+  .body__hint { position: absolute; left: 1.2rem; bottom: 1.1rem; display: flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--muted); }
+  .body__hint :global(.icon) { width: 1rem; height: 1rem; }
+  .body__credit { position: absolute; right: 1rem; bottom: 0.8rem; max-width: 19rem; font-size: 0.66rem; line-height: 1.4; text-align: right; color: var(--muted); }
+  .body__credit a { color: inherit; }
+  :global(html:not(.webgl)) .body__hint, :global(html:not(.webgl)) .body__spots { display: none; }
+  .body__panel { display: grid; }
+  .pane { grid-area: 1 / 1; display: grid; gap: 0.9rem; align-content: start; }
+  .pane[hidden] { display: none; }
+  .pane:global(.is-on) { animation: paneIn 0.6s var(--ease); }
+  @keyframes paneIn { from { opacity: 0; transform: translateY(12px); } }
+  .pane__k { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+  .pane__t { font-size: clamp(1.5rem, 1.1rem + 1vw, 2.1rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; color: var(--deep); }
+  .pane__p { color: var(--ink-2); font-size: 0.92rem; }
+  .pane__list { list-style: none; border-top: 1px solid var(--line); }
+  .pane__list li { padding: 0.45rem 0; border-bottom: 1px solid var(--line); font-size: 0.86rem; }
+  .pane__docs { font-size: 0.84rem; color: var(--muted); }
+  .pane__act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; margin-top: 0.3rem; }
+
+  /* ================= 03 · ALTA DIAGNOSTICA ================= */
+  .prod { background: #fff; padding-block: 0 clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); overflow-x: clip; }
+  .prod__list { display: grid; gap: 1.5rem; }
+  .prod__item { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding: clamp(1.5rem, 3vw, 3rem); background: var(--ice); border-radius: 24px; }
+  .prod__i { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--green); }
+  .prod__t { margin-top: 0.7rem; font-size: clamp(1.9rem, 1.3rem + 1.8vw, 3rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.02; color: var(--deep); }
+  .prod__t a { text-decoration: none; }
+  .prod__dev { margin-top: 0.5rem; font-size: 0.92rem; color: var(--muted); }
+  .prod__spec { margin: 1.6rem 0; border-top: 1px solid var(--line); }
+  .prod__spec div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+  .prod__spec dt { font-size: 0.8rem; color: var(--muted); }
+  .prod__spec dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
+  .prod__act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; }
+  .prod__fig { margin: 0; height: clamp(280px, 50vh, 560px); }
+  .prod__fig :global(picture) { display: contents; }
+  .prod__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  .prod__nav { display: none; }
+  @media (min-width: 1025px) {
+    :global(html.js:not(.reduced)) .prod { height: calc(var(--n) * 85svh + 30svh); padding: 0; }
+    :global(html.js:not(.reduced)) .prod__pin { position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); display: flex; flex-direction: column; justify-content: center; gap: 2.5vh; padding-block: 4vh; }
+    :global(html.js:not(.reduced)) .prod__list { position: relative; flex: 1; display: grid; }
+    :global(html.js:not(.reduced)) .prod__item { grid-area: 1 / 1; visibility: hidden; transition: visibility 0s 0.8s; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) { visibility: visible; transition-delay: 0s; }
+    :global(html.js:not(.reduced)) .prod__info { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); }
+    :global(html.js:not(.reduced)) .prod__fig { height: min(56vh, 600px); opacity: 0; transform: translateX(10%) scale(0.92); transition: opacity 0.7s var(--ease), transform 1.1s var(--ease); }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__info { opacity: 1; transform: none; transition-delay: 0.15s; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__fig { opacity: 1; transform: none; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-past) .prod__fig { transform: translateX(-10%) scale(0.92); }
+    :global(html.js:not(.reduced)) .prod__nav { display: flex; gap: 0.4rem; padding-right: calc(var(--pad) + 22rem); }
+    .prod__dot { flex: 1; padding-top: 0.7rem; border-top: 2px solid var(--azure); font-size: 0.78rem; color: var(--muted); transition: border-color 0.4s, color 0.4s; }
+    .prod__dot:global(.is-on) { border-color: var(--deep); color: var(--deep); }
+  }
+
+  /* ================= file scorrevoli (medici, recensioni) ================= */
+  .rail { list-style: none; display: flex; gap: clamp(1rem, 1.5vw, 1.25rem); padding: 0 var(--pad) 0.5rem max(var(--pad), calc((100vw - var(--max)) / 2)); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: max(var(--pad), calc((100vw - var(--max)) / 2)); scrollbar-width: none; }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > li { flex: none; scroll-snap-align: start; }
+  .rail-nav { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1.6rem; }
+  .rail-nav button { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--azure); background: #fff; color: var(--deep); transition: background-color 0.3s, color 0.3s; }
+  .rail-nav button:hover { background: var(--deep); color: #fff; }
+  .rail-nav :global(.icon) { width: 1rem; height: 1rem; }
+
+  /* ================= 04 · SPECIALISTI ================= */
+  .doc { width: clamp(220px, 19vw, 280px); }
+  .doc a { display: block; text-decoration: none; }
+  .doc__pic { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 24px; background: var(--ice); }
+  .doc__pic :global(picture), .doc__pic :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .doc a:hover .doc__pic :global(img) { transform: scale(1.04); }
+  .doc__n { margin-top: 0.9rem; font-size: 1rem; font-weight: 500; letter-spacing: -0.015em; color: var(--deep); }
+  .doc__r { font-size: 0.84rem; color: var(--muted); }
+
+  /* ================= PERCHÉ SCEGLIERCI ================= */
+  .why { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .why li { display: grid; gap: 0.6rem; align-content: start; padding: clamp(1.5rem, 2.5vw, 2rem); background: var(--ice); border-radius: 24px; }
+  .why :global(.icon) { width: 2.9rem; height: 2.9rem; padding: 0.7rem; margin-bottom: 0.4rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .why h3 { font-size: 1.2rem; font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .why p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
+
+  /* ================= RIABILITAZIONE: elenco a sinistra, foto a destra ================= */
+  .reha { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: stretch; }
+  .reha__list { display: grid; align-content: center; border-top: 1px solid var(--line); }
+  .reha__item { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: clamp(1.4rem, 2.5vw, 2rem) 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .reha__n { padding-top: 0.45rem; font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--muted); transition: color 0.3s; }
+  .reha__body { display: grid; gap: 0.7rem; justify-items: start; }
+  .reha__t { font-size: clamp(1.35rem, 1.1rem + 0.7vw, 1.8rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.035em; color: var(--muted); transition: color 0.3s; }
+  .reha__p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+  .reha__item:global(.is-on) .reha__t { color: var(--deep); }
+  .reha__item:global(.is-on) .reha__n { color: var(--green); }
+  .reha__pics { position: relative; min-height: clamp(360px, 60vh, 600px); overflow: hidden; border-radius: 24px; }
+  .reha__pic { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 0.6s var(--ease); }
+  .reha__pic:global(.is-on) { opacity: 1; }
+  .reha__pic :global(picture), .reha__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ================= 06 · RECENSIONI ================= */
+  .score { display: grid; justify-items: center; gap: 0.5rem; margin-top: 0.4rem; }
+  .score__big { font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--deep); text-transform: lowercase; }
+  .score__big::first-letter { text-transform: uppercase; }
+  .score__meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.45rem; font-size: 0.9rem; }
+  .score__meta :global(.icon) { width: 1rem; height: 1rem; color: #4285f4; }
+  .stars { display: inline-flex; gap: 2px; }
+  .stars :global(.icon) { width: 1rem; height: 1rem; color: #e0a91b; }
+  .voce { display: flex; flex-direction: column; gap: 1.1rem; width: clamp(280px, 30vw, 420px); padding: clamp(1.5rem, 2.5vw, 2rem); background: var(--ice); border-radius: 24px; }
+  .voce blockquote { flex: 1; margin: 0; font-size: 1.02rem; line-height: 1.6; color: var(--ink); }
+  .voce__by { display: flex; align-items: center; gap: 0.8rem; padding-top: 1.1rem; border-top: 1px solid var(--azure); }
+  .voce__by img { border-radius: 50%; }
+  .voce__by > span { display: grid; font-size: 0.8rem; color: var(--muted); }
+  .voce__by strong { font-weight: 500; font-size: 0.95rem; color: var(--deep); }
+  .voci__note { margin-top: 2.5rem; font-size: 0.75rem; line-height: 1.6; color: var(--muted); }
+  .voci__note img { display: inline-block; vertical-align: middle; border-radius: 50%; }
+  .voci__note a { color: inherit; }
+
+  /* ================= 07 · CONVENZIONI ================= */
+  .conv__logos { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.4rem 3rem; }
+  .conv__logos a { display: block; height: 56px; }
+  .conv__logos :global(picture), .conv__logos :global(img) { height: 100%; width: auto; transition: transform 0.4s var(--ease); }
+  .conv__logos a:hover :global(img) { transform: scale(1.06); }
+
+  /* ================= PRENOTA ================= */
+  .book { padding-block: clamp(4rem, 3rem + 4vw, 7rem); background: var(--deep); color: #cfe0e5; }
+  .book__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem 3rem; }
+  .book__t { max-width: 13ch; font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.8rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: #fff; }
+  .book__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .book__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: clamp(3rem, 5vw, 4.5rem); padding-top: 2rem; border-top: 1px solid rgb(255 255 255 / 0.14); font-size: 0.92rem; line-height: 1.7; }
+  .book__k { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--azure); }
+  .book__row a, .book__credit a { color: #fff; text-decoration: none; }
+  .book__row a:hover { text-decoration: underline; }
+  .book__credit { margin-top: 2.5rem; font-size: 0.72rem; color: #8fb0bb; }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 1200px) {
+    .body__grid { grid-template-columns: 1fr 1fr; }
+    .body__list { grid-column: 1 / -1; grid-template-columns: repeat(4, 1fr); order: 3; }
+  }
+  @media (max-width: 1024px) {
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .pillars li:last-child { grid-column: 1 / -1; }
+    .why { grid-template-columns: 1fr 1fr; }
+    .reha { grid-template-columns: 1fr; }
+    .reha__pics { order: -1; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(3) { border-left: 0; }
+    .fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .prod__list { gap: 1rem; }
+    .prod__item { grid-template-columns: 1fr; }
+    .prod__fig { order: -1; height: clamp(240px, 56vw, 440px); }
+    .body__list { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .pillars { grid-template-columns: 1fr; }
+    .why { grid-template-columns: 1fr; }
+    .reha__pics { min-height: 260px; }
+    .hero { min-height: 88svh; align-items: flex-end; }
+    .hero__bg :global(img) { object-position: 74% 30%; }
+    .hero::after { background: linear-gradient(0deg, rgb(18 60 80 / 0.85) 0%, rgb(18 60 80 / 0.55) 55%, rgb(18 60 80 / 0.15) 100%); }
+    .hero__copy { padding-block: 3rem 6.5rem; }
+    .hero__btns .btn { flex: 1 1 auto; }
+    .facts-wrap { margin-top: -3rem; }
+    .facts { grid-template-columns: 1fr; }
+    .fact { border-left: 0; }
+    .fact:nth-child(n + 2) { border-top: 1px solid var(--line); }
+    .body__grid { grid-template-columns: 1fr; }
+    .body__list { grid-template-columns: 1fr 1fr; }
+    .body__stage { height: 68svh; min-height: 420px; }
+    .rail { padding-left: var(--pad); scroll-padding-left: var(--pad); }
+    .doc { width: 64vw; }
+    .voce { width: 82vw; }
+    .book__row { grid-template-columns: 1fr; }
+  }
+</style>

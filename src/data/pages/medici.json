@@ -1,0 +1,295 @@
+{
+  "slug": "medici",
+  "type": "page",
+  "title": "Medici",
+  "date": "2025-01-15T10:46:36",
+  "seo": {
+    "title": "Medici - Praemedica",
+    "description": "Prenota ora la tua Visita Specialistica con i medici di Praemedica, affidati ai migliori specialisti per la tua prevenzione."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/scarcella.jpg",
+      "alt": "Giorgio scarcella specialista in cardiologia",
+      "title": "Dr. Giorgio Scarcella",
+      "desc": "Cardiologo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/02/cv-giorgio-scarcella.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/francesco-attisani-urologo.jpg",
+      "alt": "dr Francesco Attisani specialista in urologia",
+      "title": "Dr. Francesco Attisani",
+      "desc": "Urologo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-francesco-attisani.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/10/francesca-svegliati.png",
+      "alt": "francesca-svegliati-senologa",
+      "title": "Dr.ssa Francesca Svegliati",
+      "desc": "Senologa"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/04/giuseppe-perrone.jpg",
+      "alt": "dr Giuseppe Perrone specialista in chirurgia protesica",
+      "title": "Dr. Giuseppe Parrone",
+      "desc": "Chirurgo protesico"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/01/nardone.jpg",
+      "alt": "dr. Antonio Nardone neurochirurgo",
+      "title": "Dr. Antonio Nardone",
+      "desc": "Neurochirurgo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-antonio-nardone.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/lea-panepuccia.jpg",
+      "alt": "dottoressa Lea Panepuccia specialista in ginecologia",
+      "title": "Dr.ssa Lea Panepuccia",
+      "desc": "Ginecologa"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-lea-panepuccia.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/dr-leonardo-coccia.jpg",
+      "alt": "dott. Leonardo coccia specialista in angiologia",
+      "title": "Dr. Leonardo Coccia",
+      "desc": "Angiologo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-leonardo-coccia-1.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/cancilleri-ortopedico.png",
+      "alt": "dr Francesco Cancilleri specialista in ortopedia",
+      "title": "Dr. Francesco Cancilleri",
+      "desc": "Ortopedico"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-cancilleri.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/05/stefano-pivanti-senologo.jpg",
+      "alt": "stefano pivanti specialista in senologia",
+      "title": "Dr. Stefano Pivanti",
+      "desc": "Senologo"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/05/cristini-franco.jpg",
+      "alt": "Dr. Franco Cristini specialista in gastroenterologia e chirurgo",
+      "title": "Dr. Franco Cristini",
+      "desc": "Gastroenterologo - Chirurgo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-cristini.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/06/giorgio-santiemma.jpg",
+      "alt": "dr. Giorgio Santiemma specialista in Otorinolaringoiatria",
+      "title": "Dr. Giorgio Santiemma",
+      "desc": "Otorinolaringoiatra"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/06/onofri-alessandro.jpg",
+      "alt": "dr. Alessandro Onofri specialista in endocrinologia",
+      "title": "Dr. Alessandro Onofri",
+      "desc": "Endocrinologo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-alessandro-onofri.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/verginelli.jpg",
+      "alt": "Dr. Antonio Verginelli specialista in medicina dello sport",
+      "title": "Dr. Antonio Verginelli",
+      "desc": "Medico dello Sport"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/dr.tommaso-addonisio.png",
+      "alt": "Dr. Tommaso Addonisio specialista in dermatologia",
+      "title": "Dr. Tommaso Addonisio",
+      "desc": "Dermatologo"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-addonisio.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/dr-stefano-verri.png",
+      "alt": "dr Stefano Verri specialista in pneumologia",
+      "title": "Dr. Stefano Verri",
+      "desc": "Pneumologo"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/02/alessandro-ciardiello.jpg",
+      "alt": "alessandro ciardiello specialista in oculistica",
+      "title": "Dr. Alessandro Ciardiello",
+      "desc": "Oculista"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/04/claudio-pilati.jpg",
+      "alt": "Dr. Claudio Pilati specialista in fisiatria",
+      "title": "Dr. Claudio Pilati",
+      "desc": "Fisiatra"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-pilati.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/04/veronica-rita-nutrizionista.jpg",
+      "alt": "Dr.ssa Veronica Rita specialista in scienza dell'alimentazione",
+      "title": "Dr.ssa Veronica Rita",
+      "desc": "Nutrizionista"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/05/ferrara-rosetta.jpg",
+      "alt": "rosetta ferrara specialista in allergologia",
+      "title": "Dr.ssa Rosetta Ferrara",
+      "desc": "Allergologa"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/05/ilaria-duca.jpg",
+      "alt": "dr.ssa Ilaria Duca socialista in reumatologia",
+      "title": "Dr.ssa Ilaria Duca",
+      "desc": "Reumatologa"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/06/david-micarelli.jpg",
+      "alt": "David micarelli specialista in nefrologia",
+      "title": "Dr. David Micarelli",
+      "desc": "Nefrologo"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/07/puliti-roberto.jpg",
+      "alt": "dr. Roberto Puliti specialista in medicina estetica",
+      "title": "Dr. Roberto Puliti",
+      "desc": "Medico Estetico"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/09/emanuela-lena-fisiatra.jpg",
+      "alt": "dr.ssa Emanuela Lena specialista in fisiatria presso praemedica",
+      "title": "Dr.ssa Emanuela Lena",
+      "desc": "Fisiatra"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/11/dr-riccardo-pella.jpg",
+      "alt": "dr Riccardo pella specialista in medicina sportiva",
+      "title": "Dr. Riccardo Pella",
+      "desc": "Medico dello sport"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/12/pierluigi-scaccia.png",
+      "alt": "Pierluigi scaccia specialista in fisioterapia",
+      "title": "FT. Pierluigi Scaccia",
+      "desc": "Fisioterapista"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/12/francesca-pichi.png",
+      "alt": "francesca pochi specialista in osteopatia",
+      "title": "Dr.ssa Francesca Pichi",
+      "desc": "Osteopata"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/03/michela-bernassola.png",
+      "alt": "Michela Bernassola ginecologa",
+      "title": "Dr.ssa Michela Bernassola",
+      "desc": "Ginecologa"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2025/03/pagliarusco-pietro-ecografista.jpg",
+      "alt": "dott. Pietro Pagliarusco specialista in ecografia",
+      "title": "Dr. Pietro Pagliarusco",
+      "desc": "Ecografista"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/03/PSICOLOGIA.jpg",
+      "alt": "",
+      "title": "Dr.ssa Maria Laura Cellini",
+      "desc": "Psicologa Clinica"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/04/allergologo.png",
+      "alt": "",
+      "title": "Dr. Walter Marocco",
+      "desc": "Allergologo"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/08/eugenio-maggi.jpg",
+      "alt": "",
+      "title": "Dr. Eugenio Maggi",
+      "desc": "Ginecologo"
+    },
+    {
+      "type": "imagebox",
+      "src": "wp/2026/08/andrea-zanotto.png",
+      "alt": "",
+      "title": "Dr. Andrea Zanotto",
+      "desc": "Medico Sportivo"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/LOGO-SOCIAL.png",
+    "alt": "logo-praemedica"
+  }
+}

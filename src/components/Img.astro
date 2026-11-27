@@ -1,0 +1,47 @@
+---
+/**
+ * Immagine responsive (WebP + fallback) a partire da una chiave estratta: "wp/2025/01/foto.jpg".
+ */
+import { Picture } from 'astro:assets';
+import { getImage } from '../lib/content';
+
+interface Props {
+  src: string;
+  alt?: string;
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+const {
+  src,
+  alt = '',
+  sizes = '(min-width: 1024px) 50vw, 100vw',
+  widths = [480, 800, 1200, 1600],
+  class: cls,
+  loading = 'lazy',
+  fetchpriority,
+} = Astro.props;
+
+const meta = getImage(src);
+const usable = meta ? widths.filter((w) => w < meta.width) : [];
+if (meta && !usable.includes(meta.width) && meta.width <= Math.max(...widths)) usable.push(meta.width);
+if (meta && usable.length === 0) usable.push(meta.width);
+---
+{meta ? (
+  <Picture
+    src={meta}
+    alt={alt}
+    formats={['webp']}
+    widths={usable}
+    sizes={sizes}
+    quality={78}
+    class={cls}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+) : (
+  <img src={src} alt={alt} class={cls} loading={loading} decoding="async" />
+)}

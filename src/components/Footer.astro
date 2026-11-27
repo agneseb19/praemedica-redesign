@@ -1,0 +1,74 @@
+---
+/** Footer a colonne: contatti, orari, alta diagnostica, pagine, note legali. */
+import { site, specializzazioniMenu } from '../data/site';
+---
+
+<footer class="foot">
+  <div class="wrap foot__top">
+    <a class="foot__logo" href="/" aria-label="Praemedica, home"><img src="/brand/logo.png" alt="logo praemedica scontornato" width="617" height="124" loading="lazy" /></a>
+    <div class="foot__social">
+      <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
+      <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="wrap foot__grid">
+    <div>
+      <h2 class="foot__h">Contatti</h2>
+      <address class="foot__l">
+        <a href={site.address.maps} target="_blank" rel="noopener">{site.address.street}<br />{site.address.building}<br />{site.address.city}</a>
+        <a href={site.phone.href}>Telefono: {site.phone.footer}</a>
+        <a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp: {site.whatsapp.label}</a>
+        <a href={site.email.href}>Email: {site.email.label}</a>
+      </address>
+    </div>
+    <div>
+      <h2 class="foot__h">Orari</h2>
+      <p class="foot__l">{site.hours.footer.map((h) => <span>{h}</span>)}</p>
+    </div>
+    <div>
+      <h2 class="foot__h">Alta Diagnostica</h2>
+      <ul class="foot__l">
+        <li><a href="/densitometria-ossea/">Moc</a></li>
+        <li><a href="/mammografia-in-tomosintesi/">Mammografia in Tomosintesi</a></li>
+        <li><a href="/ortopanoramica/">Ortopanoramica</a></li>
+        <li><a href="/radiologia/">Radiologia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="foot__h">Praemedica</h2>
+      <ul class="foot__l">
+        <li><a href="/chi-siamo/">Chi Siamo</a></li>
+        <li><a href="/specializzazioni/">Specializzazioni</a></li>
+        <li><a href="/medici/">Medici</a></li>
+        <li><a href="/convenzioni/">Convenzioni</a></li>
+        <li><a href="/contatti/">Contatti</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot__end">
+    <p>{site.copyright} <a href={site.credits.href} target="_blank" rel="noopener">{site.credits.label}</a></p>
+    <p class="foot__legal"><span class="foot__h foot__h--inline">Privacy</span> <a href={site.privacy.policy.href} target="_blank" rel="noopener">{site.privacy.policy.label}</a> <a href={site.privacy.cookie.href} target="_blank" rel="noopener">{site.privacy.cookie.label}</a></p>
+  </div>
+</footer>
+
+<style>
+
+  .foot { background: var(--night); color: #c3ccd5; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: #fff; }
+  .foot__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 3.5rem 2.5rem; border-bottom: 1px solid rgb(255 255 255 / 0.1); }
+  .foot__logo { display: block; padding: 0.9rem 1.2rem; background: #fff; border-radius: var(--r); }
+  .foot__logo img { height: 34px; width: auto; }
+  .foot__social { display: flex; gap: 1.6rem; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+  .foot__grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 2.5rem; padding-block: 3rem; }
+  .foot__h { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; margin-bottom: 1.1rem; }
+  .foot__h--inline { display: inline; margin: 0 0.8rem 0 0; }
+  .foot__l { list-style: none; display: grid; gap: 0.5rem; font-style: normal; font-size: var(--t-sm); font-weight: 300; }
+  .foot__l a, .foot__l span { display: inline-block; }
+  .foot__end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem 2rem; padding-block: 1.6rem 2.4rem; border-top: 1px solid rgb(255 255 255 / 0.1); font-size: 0.8rem; color: #8c99a6; }
+  .foot__end a { text-decoration: underline; text-underline-offset: 0.2em; }
+  .foot__legal a { margin-right: 1rem; }
+  .foot__credit { flex-basis: 100%; }
+  @media (max-width: 900px) { .foot__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .foot__grid { grid-template-columns: 1fr; } }
+</style>

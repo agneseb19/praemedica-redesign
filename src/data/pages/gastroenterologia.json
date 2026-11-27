@@ -1,0 +1,117 @@
+{
+  "slug": "gastroenterologia",
+  "type": "page",
+  "title": "Gastroenterologia",
+  "date": "2025-01-15T14:14:26",
+  "seo": {
+    "title": "Gastroenterologia - Praemedica",
+    "description": "Scopri i servizi di gastroenterologia offerti da Praemedica: diagnosi e trattamento delle patologie dell’apparato digerente."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Gastroenterologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>gastroenterologia</strong> è una disciplina medica che si dedica allo studio, alla diagnosi e alla cura delle malattie dell’apparato digerente, che comprende organi fondamentali come stomaco, intestino, fegato, pancreas ed esofago. Presso <strong>Praemedica</strong>, il nostro obiettivo è fornire un’assistenza specialistica di alta qualità per affrontare e risolvere problemi comuni e complessi legati al sistema gastrointestinale. Tra cui reflusso gastroesofageo, la gastrite, la colite, le malattie epatiche, i disturbi intestinali e altre condizioni che possono compromettere il benessere e la qualità della vita. Grazie a un team di medici gastroenterologi altamente qualificati, garantiamo un approccio personalizzato e attento alle esigenze di ogni paziente, combinando competenze cliniche avanzate con un’attenzione particolare al comfort e alla sicurezza.&nbsp;</p><p>Affidati a <strong>Praemedica</strong> per il monitoraggio e la cura della tua salute digestiva, migliorando il tuo benessere in modo efficace e professionale.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/gastroenterologia.png",
+      "alt": "llustrazione dell'apparato digerente umano, utilizzata in gastroenterologia per spiegare le funzioni dello stomaco, intestino e fegato"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-gastroenterologica.png",
+      "alt": "Medico gastroenterologo durante una consultazione per diagnosticare disturbi digestivi"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che cosa fa il Gastroenterologo?"
+    },
+    {
+      "type": "text",
+      "html": "Il gastroenterologo è uno specialista medico che si occupa di prevenzione, diagnosi e trattamento delle malattie dell’apparato digerente, comprese le patologie di stomaco, intestino, fegato, pancreas ed esofago.&nbsp;Questo esperto è il punto di riferimento per affrontare disturbi comuni come reflusso gastroesofageo, gastriti, coliti e malattie epatiche, ma anche condizioni croniche o complesse che interessano il sistema gastrointestinale. Il gastroenterologo esegue valutazioni approfondite, identifica le cause dei sintomi digestivi e propone percorsi terapeutici mirati per migliorare la salute e il benessere generale del paziente.&nbsp;Presso <strong>Praemedica</strong>, i nostri specialisti in gastroenterologia utilizzano un approccio personalizzato per offrire cure efficaci e sicure, mettendo il paziente al centro di ogni decisione. Affidarsi a un gastroenterologo è il primo passo per prendersi cura del proprio sistema digestivo con la massima professionalità."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando consultare un Gastroenterologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Rivolgersi a un gastroenterologo è fondamentale quando si manifestano sintomi persistenti o ricorrenti legati all’apparato digerente. Problemi come reflusso gastroesofageo, bruciore di stomaco, gonfiore, dolore addominale, diarrea, stitichezza o difficoltà nella digestione possono indicare patologie che richiedono l’intervento di uno specialista in <strong>gastroenterologia</strong>.</p><p>È importante consultare un gastroenterologo anche in caso di alterazioni delle funzioni intestinali, sospetti di intolleranze alimentari o familiarità con malattie gastrointestinali come colite ulcerosa, <a href=\"https://it.wikipedia.org/wiki/Malattia_di_Crohn\" target=\"_blank\" rel=\"noopener\">morbo di Crohn</a> o patologie epatiche.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Gastroenterologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Chirurgica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Proctologica"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/cristini-franco.jpg",
+      "alt": "Dr. Franco Cristini specialista in gastroenterologia e chirurgo"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Franco Cristini</a>"
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "html": "<a href=\"/medici/\">Gastroenterologo - Chirurgo</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-cristini.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/gastroenterologia.png",
+    "alt": "llustrazione dell'apparato digerente umano, utilizzata in gastroenterologia per spiegare le funzioni dello stomaco, intestino e fegato"
+  }
+}

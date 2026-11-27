@@ -1,0 +1,75 @@
+{
+  "slug": "diabetologia",
+  "type": "page",
+  "title": "Diabetologia",
+  "date": "2025-02-06T20:26:25",
+  "seo": {
+    "title": "Diabetologia - Praemedica",
+    "description": "Praemedica offre soluzioni specialistiche in diabetologia con trattamenti personalizzati per una gestione ottimale del diabete."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Diabetologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>diabetologia</strong> è la disciplina medica specializzata nella diagnosi, nella cura e nella prevenzione del diabete, una patologia cronica che colpisce circa l’8,5% della popolazione adulta a livello globale. Grazie ai progressi nella ricerca e nelle terapie, oggi è possibile gestire efficacemente la malattia, migliorando la qualità della vita dei pazienti.</p><p>Tra le diverse forme di diabete, quella più diffusa a livello mondiale è il <strong>diabete di tipo 2</strong>, che rappresenta circa il <strong>90-95% dei casi</strong> globali di diabete. Questa forma della malattia è strettamente legata a fattori come <strong>sedentarietà, alimentazione scorretta, sovrappeso e predisposizione genetica</strong>. A differenza del diabete di tipo 1, che è una malattia autoimmune, il diabete di tipo 2 si sviluppa gradualmente e spesso può essere prevenuto o gestito attraverso <strong>uno stile di vita sano, una dieta equilibrata e l’attività fisica regolare</strong></p><p>Presso Praemedica offriamo un approccio specialistico e personalizzato in diabetologia, mettendo a disposizione dei pazienti le migliori soluzioni diagnostiche e terapeutiche per una gestione del diabete.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/02/visita-diabetologica.jpg",
+      "alt": "Specialista in diabetologia che misura la glicemia a un paziente durante una visita di controllo per il diabete"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/02/diabetologia.jpg",
+      "alt": "paziente mentre si misura la glicemia sul dito con il glucometro"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali sono i sintomi del diabete?"
+    },
+    {
+      "type": "text",
+      "html": "<p>I sintomi del diabete possono variare a seconda del tipo di diabete e della gravità della condizione.</p><p><strong>Tra i segnali più comuni troviamo</strong> sete intensa (polidipsia), <a href=\"https://it.wikipedia.org/wiki/Poliuria\" target=\"_blank\" rel=\"noopener\">minzione frequente</a> (poliuria), fame eccessiva (polifagia), affaticamento, perdita di peso inspiegabile, vista offuscata e lenta guarigione delle ferite. Altri sintomi possono includere formicolio alle estremità e infezioni ricorrenti.</p><p>Riconoscere tempestivamente questi segnali è fondamentale per una diagnosi precoce e una gestione efficace della malattia. Se riscontri uno o più di questi sintomi, è consigliabile consultare uno specialista in diabetologia per un controllo approfondito.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Come abbassare velocemente la glicemia"
+    },
+    {
+      "type": "text",
+      "html": "<p>Abbassare rapidamente la glicemia è fondamentale in caso di iperglicemia per prevenire complicazioni.</p><p>Alcuni metodi efficaci includono l’assunzione di acqua per favorire l’eliminazione del glucosio in eccesso, l’attività fisica moderata come una camminata di 15-30 minuti e il consumo di alimenti a basso indice glicemico, come verdure a foglia verde e proteine magre.</p><p>Anche tecniche di respirazione e rilassamento possono contribuire a ridurre lo stress, che influisce sui livelli di zucchero nel sangue. Tuttavia, in caso di glicemia molto elevata, è fondamentale consultare immediatamente un medico per ricevere indicazioni personalizzate e un trattamento adeguato.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Diabetologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ]
+      ]
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/02/diabetologia.jpg",
+    "alt": "paziente mentre si misura la glicemia sul dito con il glucometro"
+  }
+}

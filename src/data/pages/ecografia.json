@@ -1,0 +1,185 @@
+{
+  "slug": "ecografia",
+  "type": "page",
+  "title": "Ecografia",
+  "date": "2025-01-27T12:06:53",
+  "seo": {
+    "title": "Ecografia - Praemedica",
+    "description": "Scopri i servizi di ecografia di alta qualità presso Praemedica, con tecnologie avanzate per diagnosi precise e sicure."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Ecografia"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>ecografia</strong> è uno degli esami diagnostici non invasivi più utilizzati in medicina. Grazie all’uso di onde sonore ad alta frequenza, l’ecografia permette di visualizzare gli organi interni, come cuore, fegato, reni e anche per monitorare la gravidanza e lo sviluppo del feto. L’esame ecografico è sicuro, senza radiazioni, e fornisce risultati immediati, rendendolo ideale per una diagnosi rapida e precisa. Utilizzata in numerosi settori medici,&nbsp;questa tecnica offre vantaggi significativi in termini di efficienza e sicurezza. La tecnologia ecografica moderna ha reso possibile analizzare anche strutture molto piccole, migliorando la qualità delle diagnosi.</p><p>Se desideri un esame ecografico preciso e professionale, scegli <strong>Praemedica</strong> per un servizio all’avanguardia e affidabile.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ecografia-1.jpg",
+      "alt": "Ecografista che esegue un'ecografia dei tessuti moll"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ecografista.jpg",
+      "alt": "Ecografia prenatale che visualizza il feto e monitora lo sviluppo durante la gravidanza"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quanto è affidabile un'ecografia?"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>ecografia</strong> è una delle tecniche diagnostiche più affidabili e sicure, utilizzata per valutare la salute di organi interni, tessuti e monitorare la gravidanza. <strong>Grazie ai nostr</strong>i&nbsp;<strong>ecografi di ultima generazione</strong>, l’affidabilità dell’ecografia è oggi garantita al 100%, con immagini estremamente precise e dettagliate. Questi dispositivi avanzati riducono al minimo il rischio di errori diagnostici, migliorando la visibilità anche in situazioni complesse.</p><p>Sebbene in alcuni casi la visibilità possa essere influenzata da fattori come l’obesità o la posizione dell’organo da esaminare, l’ecografia rimane una delle tecniche più efficaci per diagnosticare patologie, come malformazioni fetali, problemi cardiovascolari e patologie renali.&nbsp;</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa si può vedere da un'ecografia?"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>ecografia</strong> è una delle tecniche diagnostiche più versatili e sicure, in grado di fornire immagini dettagliate di molteplici strutture interne del corpo umano. Questo esame è utilizzato per visualizzare <strong>organi vitali come il cuore, i reni, il fegato, la vescica e la milza</strong>, permettendo di monitorare la loro salute e rilevare eventuali anomalie. Durante la gravidanza, l’ecografia è essenziale per osservare <strong>il feto</strong>, monitorando il battito cardiaco e verificando la sua crescita, la posizione e lo sviluppo.</p>\n<p>E’ molto utile per esaminare i <strong>tessuti molli, come muscoli, tendini e legamenti</strong>, ed è frequentemente impiegata per diagnosticare patologie muscoloscheletriche, tra cui <strong><a href=\"https://it.wikipedia.org/wiki/Strappo_muscolare\" target=\"_blank\" rel=\"noopener\">strappi</a> e infiammazioni</strong>. In ambito cardiovascolare, questo esame consente di monitorare la <strong>circolazione sanguigna</strong> e identificare anomalie nei vasi sanguigni o nel cuore. Inoltre, è un valido strumento per rilevare <strong>cisti, tumori o lesioni nei vari organi</strong>, nonché per valutare la salute del <strong>sistema linfatico</strong>.</p>\n<p>Grazie alla sua capacità di fornire immagini in tempo reale, l’ecografia è uno degli esami più affidabili per diagnosticare patologie e monitorare lo stato di salute. Per una diagnosi precisa e sicura, è fondamentale rivolgersi a professionisti qualificati e strutture equipaggiate con tecnologie moderne.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia addome completo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia addome superiore"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia addome inferiore"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia anche neonatali"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia collo del piede"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia cute e sottocute"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia del capo e del collo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia epatica e vie biliari"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia ghiandole salivari"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia linfonodi"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia milza"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia muscolare articolare"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia pancreatica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia reno-vescicale"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia tessuti molli"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia testicolare"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia tiroide"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/pagliarusco-pietro-ecografista.jpg",
+      "alt": "dott. Pietro Pagliarusco specialista in ecografia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Pietro Pagliarusco</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/ecografia-1.jpg",
+    "alt": "Ecografista che esegue un'ecografia dei tessuti moll"
+  }
+}

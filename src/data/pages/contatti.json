@@ -1,0 +1,119 @@
+{
+  "slug": "contatti",
+  "type": "page",
+  "title": "Contatti",
+  "date": "2025-01-22T09:52:58",
+  "seo": {
+    "title": "Contatti - Praemedica",
+    "description": "Contatta Praemedica: Via Prenestina Nuova 307/A, Palestrina (RM). Tel: 0669451836 - Email: info@praemedica.it. Seguici sui social!"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Contatti"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Indirizzo"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Via Prenestina Nuova 307/A"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Presso edificio ITOP Officine Ortopediche"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "00036, Palestrina (RM)"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Contatti"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "06.69451836",
+          "href": "tel:0669451836"
+        },
+        {
+          "text": "3294715527",
+          "href": "https://api.whatsapp.com/send?phone=393294715527"
+        },
+        {
+          "text": "info@praemedica.it",
+          "href": "mailto:info@praemedica.it"
+        },
+        {
+          "text": "praemedica",
+          "href": "https://www.facebook.com/share/1RmPanRawR/?mibextid=wwXIfr"
+        },
+        {
+          "text": "praemedica",
+          "href": "https://www.instagram.com/praemedica?igsh=MTY3dHVoZ2c1YzZ0"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Orari"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Lunedì / Venerdì 9.00 - 20.00"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Sabato 9.00 - 13.00"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Domenica chiusi"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Richiedi Informazioni"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Ti ricontatteremo nel più breve tempo possibile!"
+    },
+    {
+      "type": "form",
+      "labels": [
+        "o dei Trattamento",
+        "Nome",
+        "Cognome",
+        "Telefono *",
+        "Email",
+        "Commento o Messaggio",
+        "Autorizzo al trattamento dei miei dati personali"
+      ],
+      "submit": "Invia"
+    },
+    {
+      "type": "map",
+      "src": "https://maps.google.com/maps?q=praemedica&t=m&z=14&output=embed&iwloc=near",
+      "title": "praemedica"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/LOGO-SOCIAL.png",
+    "alt": "logo-praemedica"
+  }
+}

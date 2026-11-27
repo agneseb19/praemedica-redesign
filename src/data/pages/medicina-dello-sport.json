@@ -1,0 +1,115 @@
+{
+  "slug": "medicina-dello-sport",
+  "type": "page",
+  "title": "Medicina dello Sport",
+  "date": "2025-03-28T10:16:17",
+  "seo": {
+    "title": "Medicina dello Sport - Praemedica",
+    "description": "Praemedica offre valutazioni preventive complete per ogni tipo di atleta, garantendo una pratica sportiva sicura e senza rischi per la salute"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Medicina dello Sport"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>medicina dello sport</strong> è una specializzazione che si occupa della salute e del benessere degli atleti e di chi pratica attività fisica in generale. Si focalizza sulla prevenzione, diagnosi e trattamento degli infortuni legati all’esercizio fisico, mirando a migliorare le prestazioni sportive e a ridurre i rischi associati all’attività fisica. Grazie all’approccio integrato di medici sportivi, fisioterapisti e nutrizionisti, la medicina dello sport offre soluzioni personalizzate per ogni tipo di esigenza, dal recupero dopo un infortunio alla preparazione atletica. Questa disciplina è fondamentale per garantire che gli sportivi, professionisti o amatori, possano praticare l’attività fisica in sicurezza, migliorando la loro qualità della vita e prevenendo eventuali problematiche future.</p><p><strong>Praemedica</strong> offre, tramite visite specialistiche ed esami strumentali, valutazioni preventive che permettono di praticare qualsiasi attività sportiva minimizzando i rischi per la salute.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/visita-medico-sportiva.jpg",
+      "alt": "visita medico sportiva effettuata dallo specialista in medicina dello sport"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/medicina-dello-sport.jpg",
+      "alt": "Esercizio fisico in palestra sotto la supervisione di un medico sportivo per ottimizzare le prestazioni e la sicurezza"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa fa il medico di medicina dello sport?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il medico di medicina dello sport si occupa della prevenzione, diagnosi e trattamento di infortuni legati all’attività fisica. Grazie alla sua esperienza, offre consulenze personalizzate per atleti professionisti e amatori, monitorando la salute fisica durante l’allenamento e la competizione.</p><p>Il medico sportivo <strong>rilascia</strong> anche <strong>il</strong> <strong>certificato medico per praticare attività fisica</strong>, essenziale per garantire che l’individuo sia in buona salute e pronto a sostenere sforzi fisici in sicurezza. Inoltre, il medico esegue valutazioni cliniche, esami diagnostici e consiglia programmi di allenamento adeguati alle esigenze individuali, occupandosi anche della riabilitazione post-infortunio e della gestione di patologie muscolo-scheletriche.&nbsp;</p><p>Con il supporto del medico di medicina dello sport, ogni sportivo può allenarsi e gareggiare in totale sicurezza, mantenendo un alto livello di benessere fisico.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Come si svolge la visita medico sportiva?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>visita medico sportiva</strong> è un controllo completo della salute fisica, essenziale per chi pratica attività sportiva. Durante la visita, il medico sportivo esegue una serie di esami per valutare l’idoneità fisica del paziente. Inizialmente, viene raccolta la storia clinica, con particolare attenzione a eventuali precedenti infortuni o patologie.</p><p>Successivamente, si effettua un esame fisico, che include la misurazione dei parametri vitali come la pressione sanguigna, la frequenza cardiaca e la valutazione della postura e dei movimenti articolari. A seconda dell’attività sportiva praticata, il medico può anche prescrivere test specifici come l’elettrocardiogramma (ECG)&nbsp;o&nbsp;il test da sforzo per valutare la risposta del cuore all’esercizio fisico.</p><p>Al termine della visita, il medico fornirà indicazioni sullo stato di salute del paziente e, in base a queste, rilascerà o meno il certificato medico per l’attività sportiva, garantendo che l’atleta sia in condizioni adeguate per praticare sport in sicurezza.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Certificati Agonistici"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Certificati non Agonistici"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/verginelli.jpg",
+      "alt": "Dr. Antonio Verginelli specialista in medicina dello sport"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Antonio Verginelli</a>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/08/andrea-zanotto.png",
+      "alt": ""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Andrea Zanotto</a>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/11/dr-riccardo-pella.jpg",
+      "alt": "dr Riccardo pella specialista in medicina sportiva"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Riccardo Pella</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/03/medicina-dello-sport.jpg",
+    "alt": "Esercizio fisico in palestra sotto la supervisione di un medico sportivo per ottimizzare le prestazioni e la sicurezza"
+  }
+}

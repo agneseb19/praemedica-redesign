@@ -1,0 +1,540 @@
+{
+  "slug": "home",
+  "type": "page",
+  "title": "Home",
+  "date": "2025-01-08T09:30:32",
+  "seo": {
+    "title": "Praemedica - Centro Diagnostico Polispecialistico",
+    "description": "Praemedica è un centro diagnostico polispecialistico a Palestrina. Radiologia Generale, Cardiologia, Fisioterapia, Ecografie, e molto altro."
+  },
+  "blocks": [
+    {
+      "type": "slides",
+      "slides": [
+        {
+          "id": "elementor-repeater-item-59ba3c0",
+          "alt": "TAC",
+          "heading": "Tac Somatom go.Top 128 strati",
+          "description": "",
+          "button": "",
+          "bg": "wp/2026/09/TAC-scaled.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-4987ca2",
+          "alt": "servizi di cardiologia presso il centro diagnostico praemedica",
+          "heading": "Cardiologia",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/cardiologia/",
+          "bg": "wp/2025/02/cardiologia-home.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-24432ed",
+          "alt": "paziente con fiocco rosa sul seno in segno di prevenzione del tumore alla mammella",
+          "heading": "Senologia",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/senologia/",
+          "bg": "wp/2025/02/senologia-eccellenza-praemedica-centro-diagnostico.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-6793be4",
+          "alt": "ecografia",
+          "heading": "Ecografia",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/ecografia/",
+          "bg": "wp/2025/04/ecografia-slide.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-9579dd3",
+          "alt": "angiologia",
+          "heading": "Angiologia",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/angiologia/",
+          "bg": "wp/2025/04/angiologia-slide.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-3bf8ef3",
+          "alt": "immagine radiografica presso centro diagnostico praemedica",
+          "heading": "Radiologia Generale",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/radiologia/",
+          "bg": "wp/2025/01/radiologia-centro-diagnostico-praemedica.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-1a1bf0e",
+          "alt": "Trattamento fisioterapico personalizzato eseguito nel centro diagnostico Praemedica per il recupero funzionale e il miglioramento del benessere del paziente",
+          "heading": "Fisioterapia",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/fisioterapia/",
+          "bg": "wp/2025/01/trattamento-fisioterapico-praemedica.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-c0fbe12",
+          "alt": "Palestra riabilitativa nel nostro centro diagnostico: esercizio terapeutico e rieducazione motoria",
+          "heading": "Palestra Riabilitativa",
+          "description": "",
+          "button": "Scopri di più",
+          "href": "/palestra-riabilitativa/",
+          "bg": "wp/2025/01/Palestra-riabilitativa-centro-diagnostico-praemedica.jpg"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "CENTRO DIAGNOSTICO"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "PRAEMEDICA"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>Praemedica è il centro diagnostico polispecialistico</strong> punto di riferimento per la tua salute. Nasce dall’unione di<strong> due realtà di eccellenza nel settore medico e ortopedico</strong>, con un’esperienza consolidata e un forte <a href=\"https://it.wikipedia.org/wiki/Know-how\" target=\"_blank\" rel=\"noopener\">know-how</a>.</p><p>Questa sinergia ci consente di offrire un’ampia gamma di servizi medici, diagnostici e riabilitativi, supportati da tecnologie all’avanguardia e da un team di specialisti altamente qualificati. Il nostro approccio multidisciplinare assicura diagnosi accurate, trattamenti su misura e percorsi riabilitativi efficaci, riducendo al minimo i tempi di attesa.</p><p><strong>Praemedica</strong> è una valida alternativa al Servizio Sanitario Nazionale (SSN), offrendo prestazioni di alta qualità, tempi di risposta rapidi e tariffe competitive.</p><p>Se cerchi un centro diagnostico moderno e affidabile, scegli Praemedica: la tua salute è la nostra priorità.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/praemedica-centro-diagnostico.jpg",
+      "alt": "Centro diagnostico Praemedica che offre servizi di diagnostica avanzata"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/diagnostica-medica-praemedica.jpg",
+      "alt": "Esami medici e diagnostici presso Praemedica, centro medico di eccellenza"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Specializzazioni"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "flip",
+            "front": "Allergologia",
+            "back": "Allergologia",
+            "btn": "Scopri di più",
+            "href": "/allergologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Angiologia",
+            "back": "Angiologia",
+            "btn": "Scopri di più",
+            "href": "/angiologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Cardiologia",
+            "back": "Cardiologia",
+            "btn": "Scopri di più",
+            "href": "/cardiologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Dermatologia",
+            "back": "Dermatologia",
+            "btn": "Scopri di più",
+            "href": "/dermatologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Diabetologia",
+            "back": "Diabetologia",
+            "btn": "Scopri di più",
+            "href": "/diabetologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Endocrinologia",
+            "back": "Endocrinologia",
+            "btn": "Scopri di più",
+            "href": "/endocrinologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Ecografia",
+            "back": "Ecografia",
+            "btn": "Scopri di più",
+            "href": "/ecografia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Gastroenterologia",
+            "back": "Gastroenterologia",
+            "btn": "Scopri di più",
+            "href": "/gastroenterologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Ginecologia",
+            "back": "Ginecologia",
+            "btn": "Scopri di più",
+            "href": "/ginecologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Medicina dello Sport",
+            "back": "Medicina dello Sport",
+            "btn": "Scopri di più",
+            "href": "/medicina-dello-sport/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Neurologia e Neurochirurgia",
+            "back": "Neurologia e Neurochirurgia",
+            "btn": "Scopri di più",
+            "href": "/neurologia-neurochirurgia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Nefrologia",
+            "back": "Nefrologia",
+            "btn": "Scopri di più",
+            "href": "/nefrologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Fisiatria",
+            "back": "Fisiatria",
+            "btn": "Scopri di più",
+            "href": "/fisiatria/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Oculistica",
+            "back": "Oculistica",
+            "btn": "Scopri di più",
+            "href": "/oculistica/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Ortopedia",
+            "back": "Ortopedia",
+            "btn": "Scopri di più",
+            "href": "/ortopedia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Otorinolaringoiatria",
+            "back": "Otorinolaringoiatria",
+            "btn": "Scopri di più",
+            "href": "/otorinolaringoiatria/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Pneumologia",
+            "back": "Pneumologia",
+            "btn": "Scopri di più",
+            "href": "/pneumologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Scienza dell'Alimentazione",
+            "back": "Scienza dell'Alimentazione",
+            "btn": "Scopri di più",
+            "href": "/scienza-dellalimentazione/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Senologia",
+            "back": "Senologia",
+            "btn": "Scopri di più",
+            "href": "/senologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Radiologia",
+            "back": "Radiologia",
+            "btn": "Scopri di più",
+            "href": "/radiologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Reumatologia",
+            "back": "Reumatologia",
+            "btn": "Scopri di più",
+            "href": "/reumatologia/"
+          }
+        ],
+        [
+          {
+            "type": "flip",
+            "front": "Urologia",
+            "back": "Urologia",
+            "btn": "Scopri di più",
+            "href": "/urologia/"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Alta Diagnostica: servizi avanzati per la tua salute."
+    },
+    {
+      "type": "text",
+      "html": "<p>Offriamo esami diagnostici di alta qualità grazie all’uso di tecnologie avanzate e di ultima generazione, che ci consentono di garantire risultati precisi e tempestivi. I nostri servizi comprendono<a href=\"/mammografia-in-tomosintesi/\"> <strong>Mammografia 3D in Tomosintesi</strong></a>,&nbsp;<strong>Radiografie, <a href=\"/ortopanoramica/\">Ortopanoramica</a> e<a href=\"/densitometria-ossea/\"> Moc</a></strong>, tutte eseguite con apparecchiature moderne e professionisti esperti che assicurano una diagnosi accurata.&nbsp;</p><p>Grazie alla nostra esperienza nel settore, siamo in grado di fornirti un servizio rapido e affidabile, che ti permette di ricevere il trattamento più appropriato nel minor tempo possibile. Ogni esame diagnostico è progettato per ridurre al minimo i tempi di attesa, offrendo un servizio efficiente e senza lunghe attese, per garantirti la massima tranquillità.</p>"
+    },
+    {
+      "type": "slides",
+      "slides": [
+        {
+          "id": "elementor-repeater-item-8973fbc",
+          "alt": "Mammografia 3D in tomosintesi presso il centro diagnostico Praemedica, esame avanzato per immagini tridimensionali.",
+          "heading": "Mammografia 3D in Tomosintesi",
+          "description": "",
+          "button": "",
+          "bg": "wp/2025/01/mammografia-3d-tomosintesi-centro-diagnostico.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-ab2845c",
+          "alt": "radiografie presso centro diagnostico Praemedica, esame radiologico per un'analisi approfondita del corpo.",
+          "heading": "Radiografie",
+          "description": "",
+          "button": "",
+          "bg": "wp/2025/01/rx-centro-diagnostico-praemedica.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-2351e7f",
+          "alt": "Ortopanoramica eseguita presso il centro diagnostico Praemedica, utile per diagnosi dentali complete",
+          "heading": "Ortopanoramica",
+          "description": "",
+          "button": "",
+          "bg": "wp/2025/01/ortopanoramica-centro-diagnostico-praemedica.jpg"
+        },
+        {
+          "id": "elementor-repeater-item-ab17f97",
+          "alt": "MOC (Mineralometria Ossea Computerizzata) per la diagnostica avanzata delle ossa presso il centro diagnostico Praemedica",
+          "heading": "Densitometria Ossea (Moc)",
+          "description": "",
+          "button": "",
+          "bg": "wp/2025/01/moc-densitometria-ossea-centro-diagnostico.jpg"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/fisioterapista.jpg",
+      "alt": "fisioterapista mentre esegue la tecarterapia nel centro diagnostico praemedica"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Fisioterapia: trattamenti su misura per il tuo benessere."
+    },
+    {
+      "type": "text",
+      "html": "<p>Mettiamo a disposizione servizi di <strong>fisioterapia avanzata</strong> per trattare una vasta gamma di problematiche muscolo-scheletriche e riabilitative. Grazie a un team di <strong>fisioterapisti esperti</strong> e a tecnologie moderne, forniamo trattamenti personalizzati per il recupero della mobilità riducendo il dolore.</p><p>I nostri trattamenti di fisioterapia includono <strong>tecarterapia</strong>, <strong>laserterapia</strong>, <strong>terapia manuale</strong>, <strong>pressoterapia</strong>, <strong>elettroterapia</strong>, <strong>ultrasuoni</strong> e <strong>massoterapia</strong>. Ogni piano terapeutico è studiato su misura per le esigenze specifiche del paziente, per garantire un percorso di recupero rapido ed efficace. Con i nostri servizi di fisioterapia, i tempi di recupero sono ottimizzati, assicurando risultati concreti in tempi rapidi.&nbsp;</p>"
+    },
+    {
+      "type": "button",
+      "href": "/fisioterapia/",
+      "text": "Scopri di più sui nostri trattamenti Fisioterapici"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Palestra Riabilitativa nel nostro centro diagnostico"
+    },
+    {
+      "type": "text",
+      "html": "<p>La palestra riabilitativa situata nel nostro centro diagnostico, offre programmi personalizzati per il <strong>recupero motorio</strong> e il <strong>benessere fisico</strong>.</p><p>I nostri servizi includono <strong>esercizio terapeutico</strong>, <strong>ginnastica correttiva</strong>, <strong>ginnastica posturale</strong> e <strong>rieducazione neuromotoria</strong>, ideali per chi soffre di problemi posturali, dolori muscolari o difficoltà motorie. Grazie a un’<strong>ampia palestra attrezzata</strong> e alla guida di specialisti esperti, aiutiamo il paziente a migliorare la propria mobilità e qualità di vita.</p>"
+    },
+    {
+      "type": "button",
+      "href": "/palestra-riabilitativa/",
+      "text": "Approfondisci i benefici della Palestra Riabilitativa"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/Palestra-riabilitativa-centro-diagnostico-praemedica.jpg",
+      "alt": "Palestra riabilitativa nel nostro centro diagnostico: esercizio terapeutico e rieducazione motoria"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Dicono di Noi"
+    },
+    {
+      "type": "reviews"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/7.png",
+            "alt": "postevita"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2026/10/Unknown.jpeg",
+            "alt": ""
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/6.png",
+            "alt": "welion"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/5.png",
+            "alt": "cattolica"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/alleanza-assicurazioni.png",
+            "alt": "alleanza"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/fasdac-assicurazioni.png",
+            "alt": "fasdac"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/coop-salute.png",
+            "alt": "coopsalute"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/poste-assicura-assicurazioni.png",
+            "alt": "poste assicura"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/04/myassistance.png",
+            "alt": "my assistance"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/06/cesare-pozzo.jpg",
+            "alt": "assicurazione sanitaria mutua cesare pozzo"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/1.png",
+            "alt": "Allianz"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/2.png",
+            "alt": "sas"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/3.png",
+            "alt": "aon"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/healt-assistance.png",
+            "alt": "health assistance"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/salute-semplice.png",
+            "alt": "salute semplice"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/7.png",
+            "alt": "mu sa consorzio"
+          }
+        ],
+        [
+          {
+            "type": "image",
+            "src": "wp/2025/09/ipazia.png",
+            "alt": "ipazia"
+          }
+        ]
+      ]
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/LOGO-SOCIAL.png",
+    "alt": "logo-praemedica"
+  }
+}

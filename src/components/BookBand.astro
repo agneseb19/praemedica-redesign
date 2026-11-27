@@ -1,0 +1,32 @@
+---
+/** Banda finale come nella home: invito a prenotare, poi dove siamo, orari e contatti. */
+import { site } from '../data/site';
+---
+<section class="band" aria-labelledby="band-t">
+  <div class="wrap">
+    <div class="band__top">
+      <h2 id="band-t" class="band__t" data-lines>Prenota la tua prossima visita.</h2>
+      <div class="band__act" data-reveal>
+        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
+        <a class="btn btn--line-white" href={site.phone.href}>{site.phone.label}</a>
+      </div>
+    </div>
+    <div class="band__row" data-reveal>
+      <p><span class="band__k">Dove siamo</span>{site.address.street}<br />{site.address.building}<br />{site.address.city}</p>
+      <p><span class="band__k">Orari</span>{site.hours.contacts.map((x, i) => (i ? <><br />{x}</> : x))}</p>
+      <p><span class="band__k">Contatti</span><a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp {site.whatsapp.label}</a><br /><a href={site.email.href}>{site.email.label}</a><br /><a href={site.address.maps} target="_blank" rel="noopener">Indicazioni stradali</a></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band { padding-block: clamp(4rem, 3rem + 4vw, 7rem); background: var(--deep); color: #cfe0e5; }
+  .band__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem 3rem; }
+  .band__t { max-width: 13ch; font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.8rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: #fff; }
+  .band__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .band__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: clamp(3rem, 5vw, 4.5rem); padding-top: 2rem; border-top: 1px solid rgb(255 255 255 / 0.14); font-size: 0.92rem; line-height: 1.7; }
+  .band__k { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--azure); }
+  .band__row a { color: #fff; text-decoration: none; }
+  .band__row a:hover { text-decoration: underline; }
+  @media (max-width: 760px) { .band__row { grid-template-columns: 1fr; } }
+</style>

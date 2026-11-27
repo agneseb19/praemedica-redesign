@@ -1,0 +1,113 @@
+{
+  "slug": "oculistica",
+  "type": "page",
+  "title": "Oculistica",
+  "date": "2025-01-21T17:22:41",
+  "seo": {
+    "title": "Oculistica - Praemedica",
+    "description": "Scopri i servizi di oculistica offerti da Praemedica: diagnosi, prevenzione e trattamenti personalizzati per la salute dei tuoi occhi."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Oculistica"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>oculistica</strong> è una branca della medicina che si occupa della diagnosi, trattamento e prevenzione delle patologie dell’occhio e del sistema visivo. Rivolgersi a uno specialista è fondamentale per monitorare la salute visiva, prevenire disturbi come miopia, astigmatismo o cataratta e intervenire tempestivamente su malattie oculari più complesse, come il glaucoma o la <a href=\"https://it.wikipedia.org/wiki/Degenerazione_maculare\" target=\"_blank\" rel=\"noopener\">degenerazione maculare</a>. Gli esami oculistici, eseguiti con tecnologie all’avanguardia, garantiscono una valutazione accurata della vista e delle strutture oculari.</p>\n\n\n\n\n&nbsp;\n\n\n\n\n\n\n\n\n\n\n<p>Affidati a Praemedica per la salute dei tuoi occhi, i nostri specialisti utilizzano le ultime tecnologie per monitorare e trattare la tua vista, garantendo così una visione ottimale e duratura nel tempo.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-oculistica.jpg",
+      "alt": "Esame oculistico presso Praemedica: specialista che esegue un controllo della vista con strumenti diagnostici avanzati"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/oculistica.jpg",
+      "alt": "Visita oculistica completa da Praemedica: analisi della salute degli occhi e controllo della vista"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa comprende una visita oculistica completa?"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>Una visita oculistica completa è un controllo essenziale per la salute degli occhi</strong>. Questo esame approfondito include la misurazione della pressione intraoculare, il controllo delle strutture oculari come cornea, retina e nervo ottico, e l’analisi della vista per rilevare difetti refrattivi come miopia, astigmatismo o ipermetropia. L’oculista può diagnosticare tempestivamente patologie gravi, come glaucoma o degenerazione maculare, garantendo un trattamento precoce.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Qual'è la differenza tra oculistica e oftalmologia?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La riguarda principalmente il linguaggio e l’approccio. L’<b>oculistica</b>, termine più utilizzato in Italia, si concentra sulla diagnosi, prevenzione e trattamento delle patologie oculari, come miopia, glaucoma o cataratta.</p><p>&nbsp;L’<b>oftalmologia</b>, invece, è il termine internazionale che include anche un forte orientamento alla ricerca e alle tecniche chirurgiche avanzate per la cura degli occhi. Entrambi i termini indicano specialisti medici qualificati, fondamentali per la salute visiva.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Oculistica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Oculistica fino ai 15 anni"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Tonometria"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Esame del fondo oculare"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/02/alessandro-ciardiello.jpg",
+      "alt": "alessandro ciardiello specialista in oculistica"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Alessandro Ciardiello</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/visita-oculistica.jpg",
+    "alt": "Esame oculistico presso Praemedica: specialista che esegue un controllo della vista con strumenti diagnostici avanzati"
+  }
+}

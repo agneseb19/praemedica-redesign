@@ -1,0 +1,55 @@
+---
+/** Specializzazioni: in evidenza con foto, poi l'elenco completo con ricerca, nello schema della home. */
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SpecList from '../components/SpecList.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { summaryOf } from '../lib/content';
+import { site, specializzazioniMenu } from '../data/site';
+
+const specs = specializzazioniMenu.map((s) => summaryOf(s.href!, s.label));
+const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'].map((h) => specs.find((s) => s.href === h)!).filter(Boolean);
+---
+<Base title="Specializzazioni" description="Le specializzazioni del centro diagnostico Praemedica a Palestrina: medici, visite ed esami.">
+  <PageHero
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Specializzazioni' }]}
+    title="Specializzazioni"
+    lead={`${specs.length} aree specialistiche con medici qualificati: scegli la specializzazione e scopri prestazioni e specialisti.`}
+    img="wp/2025/01/praemedica-centro-diagnostico.jpg"
+    alt="Centro diagnostico Praemedica che offre servizi di diagnostica avanzata"
+  />
+
+  <section class="sec" aria-labelledby="ev-t">
+    <SectionHead n="01" id="ev-t" title="In evidenza" desc="Alcune delle specializzazioni più richieste." />
+    <div class="wrap"><SpecList items={featured} variant="photos" /></div>
+  </section>
+
+  <section class="sec" aria-labelledby="all-t">
+    <SectionHead n="02" id="all-t" title="Tutte le specializzazioni" desc="Cerca per specializzazione, prestazione o nome del medico.">
+      <label class="find" data-reveal>
+        <Icon name="search" />
+        <span class="sr-only">Cerca una visita, un esame o un medico</span>
+        <input type="search" placeholder="Per esempio: ecodoppler, cardiologo, Scarcella" data-filter-input="specs" autocomplete="off" />
+        <span class="find__n" data-filter-count="specs">{specs.length}</span>
+      </label>
+    </SectionHead>
+    <div class="wrap">
+      <SpecList items={specs} filterKey="specs" />
+      <p class="empty" data-filter-empty="specs" hidden>Nessun risultato. Chiama il <a href={site.phone.href}>{site.phone.label}</a>: ti indichiamo lo specialista giusto.</p>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  .find { display: flex; align-items: center; gap: 0.9rem; width: min(100%, 720px); min-height: 64px; margin-top: 1rem; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; text-align: left; transition: border-color 0.3s, box-shadow 0.3s; }
+  .find:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(56 124 145 / 0.14); }
+  .find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1.05rem; }
+  .find :global(.icon) { width: 1.25rem; height: 1.25rem; color: var(--blue); }
+  .find__n { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .empty { margin-top: 2rem; text-align: center; font-size: 1.05rem; }
+  .empty a { color: var(--green-ink); }
+</style>

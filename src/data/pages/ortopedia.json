@@ -1,0 +1,126 @@
+{
+  "slug": "ortopedia",
+  "type": "page",
+  "title": "Ortopedia",
+  "date": "2025-01-23T11:22:33",
+  "seo": {
+    "title": "Ortopedia - Praemedica",
+    "description": "Scopri i servizi di ortopedia di Praemedica: diagnosi e trattamenti specializzati per le patologie muscolo-scheletriche."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Ortopedia"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>ortopedia</strong> si occupa della prevenzione, diagnosi e cura delle patologie che interessano l’apparato muscolo-scheletrico, comprese ossa, articolazioni, legamenti, tendini e muscoli.</p><p>Grazie a tecniche innovative e un approccio personalizzato, si propone di migliorare la qualità della vita dei pazienti, attraverso sia terapie conservative che interventi chirurgici, quando necessari. L’obiettivo principale è ripristinare la funzionalità motoria e ridurre il dolore, consentendo ai pazienti di tornare alle loro attività quotidiane in modo sicuro e efficace.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-ortopedica.jpg",
+      "alt": "Immagine che rappresenta una visita ortopedica, focalizzata sulla diagnosi e trattamento delle patologie muscolo-scheletriche"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ortopedia.jpg",
+      "alt": "Immagine che rappresenta i servizi di ortopedia, specializzati in diagnosi e trattamenti per patologie muscolo-scheletriche"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che cosa fa un ortopedico?"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’ortopedico si occupa di traumi come fratture e distorsioni, patologie degenerative come l’artrosi, malformazioni congenite e condizioni come la scoliosi o le lesioni sportive. Utilizzando tecniche diagnostiche avanzate e trattamenti personalizzati, l’ortopedico può ricorrere sia a terapie non invasive, come fisioterapia e farmaci, sia a interventi chirurgici per risolvere le problematiche più complesse. L’obiettivo principale è alleviare il dolore, migliorare la mobilità e ripristinare la funzionalità del sistema muscolo-scheletrico.</p><p>Praemedica è il punto di riferimento per l’ortopedia, offrendo un supporto completo e professionale per chi necessita di consulti ortopedici. Mette a disposizione specialisti qualificati e servizi personalizzati per garantire il massimo benessere ai pazienti.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che differenza c'è tra fisiatra e ortopedico?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il <strong>fisiatra</strong> è un medico specializzato nella <strong>riabilitazione muscolo-scheletrica</strong>, utilizzando trattamenti non invasivi come fisioterapia e esercizi terapeutici per migliorare la mobilità e ridurre il dolore. L’<strong>ortopedico</strong>, invece, si occupa della <strong>diagnosi e del trattamento</strong> delle patologie che riguardano ossa, articolazioni, tendini e legamenti, trattando infortuni come fratture, lesioni articolari e malattie degenerative come <a href=\"https://it.wikipedia.org/wiki/Artrosi\" target=\"_blank\" rel=\"noopener\">l’<strong>artrosi</strong></a>. Mentre il fisiatra si concentra sulla riabilitazione e il recupero funzionale, l’ortopedico interviene anche chirurgicamente per risolvere le problematiche strutturali.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Ortopedica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Infiltrazioni"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/cancilleri-ortopedico.png",
+      "alt": "dr Francesco Cancilleri specialista in ortopedia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Francesco Cancilleri</a>"
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "html": "<a href=\"/medici/\">Chirurgo ortopedico</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-cancilleri.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/giuseppe-perrone.jpg",
+      "alt": "dr Giuseppe Perrone specialista in chirurgia protesica"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Giuseppe Parrone</a>"
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "html": "<a href=\"/medici/\">Chirurgo Protesico</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/ortopedia.jpg",
+    "alt": "Immagine che rappresenta i servizi di ortopedia, specializzati in diagnosi e trattamenti per patologie muscolo-scheletriche"
+  }
+}

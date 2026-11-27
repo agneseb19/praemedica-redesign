@@ -1,0 +1,129 @@
+{
+  "slug": "neurologia-neurochirurgia",
+  "type": "page",
+  "title": "Neurologia e Neurochirurgia",
+  "date": "2025-01-21T17:25:01",
+  "seo": {
+    "title": "Neurologia e Neurochirurgia - Praemedica",
+    "description": "Scopri i servizi di neurologia e neurochirurgia di Praemedica, diagnosi e trattamenti avanzati per i disturbi del sistema nervoso."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Neurologia e Neurochirurgia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>neurologia</strong> e la <strong>neurochirurgia</strong> sono specializzazioni mediche fondamentali per la diagnosi e il trattamento delle malattie del sistema nervoso, che includono il cervello, il midollo spinale e i nervi periferici. La <strong>neurologia</strong> si concentra sul trattamento delle patologie neurologiche, come <strong>ictus</strong>, <strong>epilessia</strong>, <strong>sclerosi multipla</strong> e <strong>malattie neurodegenerative</strong>. D’altra parte, la <strong>neurochirurgia</strong> interviene quando è necessaria una chirurgia per condizioni come <strong>tumori cerebrali</strong>, <strong>ernie del disco</strong> e <strong>traumi cranici</strong>. Entrambe le discipline sono cruciali per garantire il benessere neurologico dei pazienti, poiché offrono soluzioni per una vasta gamma di disturbi, sia attraverso trattamenti farmacologici che interventi chirurgici. Rivolgersi a specialisti in <strong>neurologia</strong> e <strong>neurochirurgia</strong> permette una diagnosi precoce e un approccio terapeutico mirato per migliorare la qualità della vita e ridurre i rischi legati a malattie neurologiche.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-neurologica.jpg",
+      "alt": "Un medico esegue un esame neurologico su un paziente utilizzando strumenti diagnostici per valutare il sistema nervoso tramite visita neurologica"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/neurologia.jpg",
+      "alt": "Esame neurologico con un medico specialista che effettua una valutazione neurologica a un paziente utilizzando strumenti diagnostici avanzati"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali malattie cura il Neurologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il <strong>neurologo</strong> si occupa di diagnosticare e trattare una vasta gamma di malattie che colpiscono il sistema nervoso centrale e periferico. Tra le patologie più comuni trattate dal neurologo ci sono disturbi come cefalee, neuropatie, <a href=\"https://it.wikipedia.org/wiki/Sclerosi_multipla\" target=\"_blank\" rel=\"noopener\">sclerosi multipla</a>, malattie neurodegenerative e disturbi del movimento. La neurologia include anche il trattamento di condizioni come l’ictus, le epilessie e le malformazioni congenite del sistema nervoso.</p><p>Se stai affrontando sintomi neurologici, è importante rivolgersi a specialisti esperti. Presso <strong>PRAEMEDICA</strong>, offriamo consulenze neurologiche complete per garantire una diagnosi accurata e trattamenti personalizzati per il tuo benessere neurologico.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi al Neurochirurgo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Rivolgersi a un <strong>neurochirurgo</strong> è fondamentale quando si sospetta una condizione grave che coinvolge il sistema nervoso e richiede un intervento chirurgico. Tra i principali motivi per consultare un neurochirurgo ci sono <strong>tumori cerebrali</strong>, <strong>ernie del disco</strong>, <strong>traumi cranici</strong> o <strong>lesioni al midollo spinale</strong>. Inoltre, se si soffre di <strong>dolori neurologici persistenti</strong>, come il mal di testa intenso e ricorrente o la paralisi parziale, è consigliabile un parere specialistico. In presenza di <strong>sintomi neurologici acuti</strong> o improvvisi, come <strong>perdita di sensibilità</strong>, <strong>difficoltà motorie</strong> o <strong>sintomi legati a problemi spinali</strong>, un neurochirurgo può fornire una valutazione approfondita e, se necessario, intraprendere un trattamento chirurgico per risolvere la condizione e migliorare la qualità della vita.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Neurologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Elettromiografia"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Elettroencefalogramma"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Neurochirurgia"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo neurologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo neurochirurgia"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/nardone.jpg",
+      "alt": "dr. Antonio Nardone neurochirurgo"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Antonio Nardone</a>"
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "html": "<a href=\"/medici/\">Neurochirurgo</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-antonio-nardone.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/neurologia.jpg",
+    "alt": "Esame neurologico con un medico specialista che effettua una valutazione neurologica a un paziente utilizzando strumenti diagnostici avanzati"
+  }
+}

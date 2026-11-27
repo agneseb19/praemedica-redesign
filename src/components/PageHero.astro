@@ -1,0 +1,58 @@
+---
+/**
+ * Apertura delle pagine interne, come la hero della home: foto a tutto schermo,
+ * velo blu profondo a sinistra, percorso, titolo bianco, sottotitolo e prenotazione.
+ */
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import { Picture } from 'astro:assets';
+import heroPhoto from '../assets/found/visita-diagnostica.jpg';
+import { site } from '../data/site';
+
+interface Crumb { label: string; href?: string }
+interface Props { crumbs: Crumb[]; title: string; eyebrow?: string; lead?: string; img?: string; alt?: string; book?: boolean }
+const { crumbs, title, eyebrow, lead, img, alt = '', book = true } = Astro.props;
+---
+<section class="ph">
+  <div class="ph__bg" data-parallax="5">
+    {img
+      ? <Img src={img} alt={alt} loading="eager" fetchpriority="high" sizes="100vw" widths={[960, 1600, 2200]} />
+      : <Picture src={heroPhoto} alt="Una dottoressa spiega l'esame a una paziente" formats={['webp']} widths={[960, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />}
+  </div>
+  <div class="wrap ph__in">
+    <nav class="ph__crumbs" aria-label="Percorso">
+      {crumbs.map((c, i) => (<>{i > 0 && <span aria-hidden="true">/</span>}{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</>))}
+    </nav>
+    {eyebrow && <p class="ph__eye">{eyebrow}</p>}
+    <h1 class="ph__t" data-lines set:html={title} />
+    {lead && <p class="ph__lead" data-reveal set:html={lead} />}
+    {book && (
+      <div class="ph__act" data-reveal>
+        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota una visita</a>
+        <a class="btn btn--white" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+      </div>
+    )}
+  </div>
+</section>
+<slot />
+
+<style>
+  .ph { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: clamp(460px, 72svh, 760px); overflow: hidden; color: #fff; }
+  .ph__bg { position: absolute; inset: -6% 0; z-index: -2; }
+  .ph__bg :global(picture), .ph__bg :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .ph::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(18 60 80 / 0.82) 0%, rgb(18 60 80 / 0.55) 45%, rgb(18 60 80 / 0.12) 80%); }
+  .ph__in { display: grid; gap: 1.3rem; justify-items: start; padding-block: 7rem clamp(3rem, 2rem + 3vw, 5rem); }
+  .ph__crumbs { display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.85rem; color: rgb(255 255 255 / 0.8); }
+  .ph__crumbs a { color: inherit; text-decoration: none; }
+  .ph__crumbs a:hover { text-decoration: underline; }
+  .ph__eye { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
+  .ph__t { max-width: 16ch; font-size: clamp(2.4rem, 1.3rem + 3.4vw, 4.8rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.05em; color: #fff; }
+  .ph__lead { max-width: 48ch; font-size: 1.08rem; line-height: 1.6; color: rgb(255 255 255 / 0.9); }
+  .ph__lead :global(a) { color: #fff; }
+  .ph__act { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem; }
+  @media (max-width: 760px) {
+    .ph { min-height: 78svh; }
+    .ph::after { background: linear-gradient(0deg, rgb(18 60 80 / 0.88) 0%, rgb(18 60 80 / 0.55) 60%, rgb(18 60 80 / 0.15) 100%); }
+    .ph__act, .ph__act .btn { width: 100%; }
+  }
+</style>

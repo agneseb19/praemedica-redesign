@@ -1,0 +1,95 @@
+{
+  "slug": "nefrologia",
+  "type": "page",
+  "title": "Nefrologia",
+  "date": "2025-06-17T09:30:53",
+  "seo": {
+    "title": "Nefrologia - Praemedica",
+    "description": "Praemedica offre servizi di urologia con diagnosi e trattamenti personalizzati per disturbi del sistema urinario e riproduttivo."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Nefrologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>nefrologia</strong> è la branca specialistica della medicina interna che si occupa dello studio, della diagnosi e del trattamento delle malattie che colpiscono i reni. I reni svolgono un ruolo fondamentale nell’equilibrio del nostro organismo: regolano i liquidi corporei, eliminano le sostanze di scarto attraverso le urine, controllano la pressione arteriosa e contribuiscono alla produzione di ormoni essenziali per la salute delle ossa e la formazione dei globuli rossi. Quando queste funzioni vengono compromesse, anche in modo silenzioso, è essenziale intervenire tempestivamente con una valutazione nefrologica.</p><p>Presso <strong>Praemedica</strong>, il servizio di <strong>nefrologia</strong> è pensato per offrire un percorso completo e personalizzato ai pazienti con patologie renali acute e croniche. Le condizioni più frequentemente trattate includono l’insufficienza renale cronica, le nefriti, la proteinuria, la microalbuminuria, la glomerulonefrite, la sindrome nefrosica, i calcoli renali e l’ipertensione arteriosa di origine renale.&nbsp;</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/nefrologia.jpg",
+      "alt": "immagine che rappresenta la nefrologia"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/visita-nefrologica.jpg",
+      "alt": "immagine chge rappresenta i reni"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa valuta il nefrologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il <strong>nefrologo</strong> valuta la salute e il corretto funzionamento dei reni, individuando eventuali segni di malattia renale acuta o cronica, anche nelle fasi iniziali in cui i sintomi possono essere assenti o poco evidenti. Durante una visita nefrologica, lo specialista analizza parametri come la pressione arteriosa, la presenza di proteine o sangue nelle urine, la funzionalità renale (attraverso esami del sangue come la <a href=\"https://it.wikipedia.org/wiki/Creatinina\" target=\"_blank\" rel=\"noopener\">creatinina</a> e il filtrato glomerulare) e i fattori di rischio associati, come diabete, ipertensione o familiarità per patologie renali. Il nefrologo valuta anche disturbi come edemi, calcolosi renale, infezioni urinarie ricorrenti e squilibri elettrolitici.</p><p>Questa valutazione è fondamentale per prevenire il peggioramento della funzione renale, impostare un piano terapeutico adeguato e, quando necessario, pianificare un eventuale percorso di dialisi o trapianto.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali sono i sintomi della disfunzione nefrologica?"
+    },
+    {
+      "type": "text",
+      "html": "<p>I sintomi di una <strong>disfunzione nefrologica</strong> possono essere subdoli e poco evidenti nelle fasi iniziali, ma riconoscerli in tempo è fondamentale per intervenire prima che il danno renale diventi irreversibile. Tra i segnali più comuni da tenere sotto controllo ci sono:</p><ul><li><p><strong>Stanchezza e affaticamento cronico</strong></p></li><li><p><strong>Gonfiore a gambe, caviglie, mani o palpebre (edemi)</strong></p></li><li><p><strong>Urine schiumose, scure, con sangue o con frequenza alterata</strong></p></li><li><p><strong>Ipertensione arteriosa non controllata</strong></p></li><li><p><strong>Crampi muscolari, soprattutto notturni</strong></p></li><li><p><strong>Nausea, inappetenza e senso di malessere generale</strong></p></li><li><p><strong>Difficoltà di concentrazione o confusione mentale</strong></p></li><li><p><strong>Prurito persistente, soprattutto senza cause dermatologiche</strong></p></li><li><p><strong>Alito con odore anomalo (alito uremico)</strong></p></li></ul><p>Se riconosci uno o più di questi sintomi, è consigliabile prenotare una visita specialistica in <strong>nefrologia</strong>. Presso <strong>Praemedica</strong>, il nostro team è a disposizione per una valutazione completa della funzione renale e l’impostazione di un percorso di cura personalizzato</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Nefrologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/david-micarelli.jpg",
+      "alt": "David micarelli specialista in nefrologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. David Micarelli</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/06/nefrologia.jpg",
+    "alt": "immagine che rappresenta la nefrologia"
+  }
+}

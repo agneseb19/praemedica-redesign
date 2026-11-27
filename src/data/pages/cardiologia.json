@@ -1,0 +1,112 @@
+{
+  "slug": "cardiologia",
+  "type": "page",
+  "title": "Cardiologia",
+  "date": "2025-01-24T10:01:07",
+  "seo": {
+    "title": "Cardiologia - Praemedica",
+    "description": "Scopri i servizi di cardiologia offerti da Praemedica per la prevenzione, diagnosi e trattamento delle malattie cardiovascolari."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Cardiologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>cardiologia</strong> è una disciplina fondamentale per la salute del cuore e dei vasi sanguigni. Si occupa della prevenzione, diagnosi e trattamento di numerose patologie cardiovascolari, tra cui <a href=\"https://it.wikipedia.org/wiki/Ipertensione_arteriosa\" target=\"_blank\" rel=\"noopener\"><strong>ipertensione arteriosa</strong></a>, <strong>aritmie</strong> e <strong>malattie coronariche</strong>.</p><p>Le malattie cardiache sono una delle principali cause di mortalità a livello mondiale, rendendo fondamentale un monitoraggio costante della salute cardiovascolare, una diagnosi precoce e un trattamento tempestivo possono migliorare significativamente la qualità della vita.</p><p>La cardiologia interventistica è un settore in continua evoluzione, con tecniche avanzate come l’impianto di stent e la chirurgia mininvasiva che offrono nuove possibilità terapeutiche. Per mantenere il cuore in salute, è essenziale adottare uno stile di vita sano, che comprenda una dieta equilibrata, attività fisica regolare e il controllo dei fattori di rischio come il fumo e l’alcol.</p><p><strong>Praemedica</strong> offre servizi avanzati in cardiologia, mettendo a disposizione dei pazienti una diagnosi accurata e trattamenti all’avanguardia per la salute del cuore.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/cardiologia.jpg",
+      "alt": "la cardiologia è un eccellenza presso praemedica"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/prevenzione-cardiologica.jpg",
+      "alt": "Visita cardiologica: cardiologo che esegue un'ecocardiogramma per la diagnosi di malattie cardiovascolari."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi al cardiologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Sapere quando rivolgersi al cardiologo è fondamentale per prevenire e trattare tempestivamente le malattie cardiache. Se si soffre di sintomi come <strong>dolore al petto</strong>, <strong>difficoltà respiratorie</strong>, <strong>palpitazioni</strong> o <strong>affaticamento inspiegabile</strong>, è importante consultare un esperto in cardiologia.</p><p>Un cardiologo è in grado di diagnosticare e trattare patologie come <strong>l’ipertensione</strong>, <strong>le aritmie</strong>, <strong>le malattie coronariche</strong> e altre malattie cardiovascolari che, se non trattate, possono avere gravi conseguenze sulla salute. Inoltre, chi ha una storia familiare di malattie cardiache, livelli elevati di colesterolo o altri fattori di rischio, dovrebbe fare controlli periodici per monitorare la salute del cuore.&nbsp;</p><p>Rivolgersi tempestivamente a un cardiologo permette di ottenere una diagnosi precoce e di intraprendere trattamenti adeguati, migliorando significativamente la qualità della vita e riducendo i rischi associati a malattie cardiovascolari.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali sono i sintomi di problemi al cuore?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Riconoscere i sintomi di un problema al cuore è fondamentale per intervenire tempestivamente e prevenire complicazioni gravi. Tra i segnali più comuni ci sono <strong>dolore o fastidio al petto</strong>, che può essere accompagnato da sensazione di pressione o oppressione, <strong>difficoltà respiratorie</strong> anche durante attività leggere, e <strong>palpitazioni</strong>, ovvero battiti del cuore irregolari o troppo veloci. Altri sintomi da non sottovalutare includono <strong>affaticamento inspiegabile</strong>, <strong>gonfiore alle caviglie</strong> e <strong>capogiri</strong>.</p><p>Se uno o più di questi sintomi si verificano, è importante rivolgersi a un cardiologo per una diagnosi approfondita. La diagnosi precoce e il trattamento tempestivo possono fare la differenza nella gestione delle malattie cardiovascolari.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Cardiologica + ECG"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + ECG + Ecocardiocolordoppler"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Test da sforzo con cicloergometro"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecocardiocolordoppler"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/scarcella.jpg",
+      "alt": "Giorgio scarcella specialista in cardiologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Giorgio Scarcella</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/02/cv-giorgio-scarcella.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/cardiologia.jpg",
+    "alt": "la cardiologia è un eccellenza presso praemedica"
+  }
+}

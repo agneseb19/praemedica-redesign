@@ -1,0 +1,128 @@
+{
+  "slug": "convenzioni",
+  "type": "page",
+  "title": "Convenzioni",
+  "date": "2025-04-23T09:34:21",
+  "seo": {
+    "title": "Convenzioni - Praemedica",
+    "description": "Praemedica collabora con i principali enti e fondi sanitari per offrirti cure di qualità con vantaggi esclusivi."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Convenzioni Assicurative"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Praemedica comunica di essere attualmente convenzionata con le seguenti compagnie assicurative, l'elenco delle convenzioni è in costante aggiornamento e si arricchirà presto di nuove collaborazioni."
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/10/Unknown.jpeg",
+      "alt": "",
+      "href": "https://www.fasdac.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/fasdac-assicurazioni.png",
+      "alt": "fasdac",
+      "href": "https://www.fasdac.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/7.png",
+      "alt": "postevita",
+      "href": "https://www.saronweb.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/poste-assicura-assicurazioni.png",
+      "alt": "poste assicura",
+      "href": "https://www.saronweb.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/myassistance.png",
+      "alt": "my assistance",
+      "href": "https://www.myassistance.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/6.png",
+      "alt": "welion",
+      "href": "https://www.generali.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/alleanza-assicurazioni.png",
+      "alt": "alleanza",
+      "href": "https://www.alleanza.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/cesare-pozzo.jpg",
+      "alt": "assicurazione sanitaria mutua cesare pozzo",
+      "href": "https://mutuacesarepozzo.org"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/coop-salute.png",
+      "alt": "coopsalute",
+      "href": "https://www.cooperazionesalute.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/5.png",
+      "alt": "cattolica",
+      "href": "https://www.cattolica.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/1.png",
+      "alt": "Allianz",
+      "href": "https://www.allianz.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/2.png",
+      "alt": "sas",
+      "href": "https://www.soluzioniassicurativesanitarie.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/3.png",
+      "alt": "aon",
+      "href": "https://www.assicurazioni.aon.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/healt-assistance.png",
+      "alt": "health assistance",
+      "href": "https://www.healthassistance.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/salute-semplice.png",
+      "alt": "salute semplice",
+      "href": "https://www.salute-semplice.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/7.png",
+      "alt": "mu sa consorzio",
+      "href": "https://www.consorziomusa.it"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/ipazia.png",
+      "alt": "ipazia",
+      "href": "https://www.ipaziaservice.it"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/04/convenzioni-assicurative.jpg",
+    "alt": "convenzioni assicurative"
+  }
+}

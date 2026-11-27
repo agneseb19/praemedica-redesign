@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.cache-wp/
+.DS_Store
+.taste-skill/
+.env

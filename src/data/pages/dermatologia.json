@@ -1,0 +1,106 @@
+{
+  "slug": "dermatologia",
+  "type": "page",
+  "title": "Dermatologia",
+  "date": "2025-01-24T11:49:51",
+  "seo": {
+    "title": "Dermatologia - Praemedica",
+    "description": "Praemedica offre servizi di dermatologia e prevenzione per il trattamento di acne, psoriasi e altre malattie della pelle."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Dermatologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>dermatologia</strong> è una disciplina medica essenziale per la salute della pelle, dei capelli, delle unghie e delle mucose. Si occupa della prevenzione, diagnosi e trattamento di patologie come <strong>acne</strong>, <strong>psoriasi</strong>, <strong>eczemi</strong>, <strong>melanomi</strong> e altre malattie della pelle. Una visita dermatologica regolare è fondamentale per individuare precocemente problematiche cutanee, come i <strong>tumori della pelle</strong>, e preservare il benessere generale. La <strong>dermatologia preventiva</strong> svolge un ruolo cruciale, soprattutto nella diagnosi precoce dei tumori cutanei, come il melanoma, attraverso il controllo regolare dei nei e delle lesioni sospette.</p><p><strong>Praemedica</strong> offre servizi avanzati e specializzati in dermatologia, utilizzando tecniche innovative come il <strong>controllo dei nei in epiluminescenza</strong> per una diagnosi più accurata. Controlla che i tuoi nei siano tutti di bellezza!</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/dermatologia.jpg",
+      "alt": "Consultazione di dermatologia per la prevenzione e il trattamento di malattie della pelle"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-dermatologica.jpg",
+      "alt": "Servizi di dermatologia specializzata per la cura di acne, psoriasi e altri disturbi cutanei"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa cura la dermatologia?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>dermatologia</strong> si occupa della diagnosi, prevenzione e trattamento di numerose patologie che riguardano la pelle, i capelli, le unghie e le mucose. Tra le condizioni più comuni trattate dai dermatologi troviamo <strong>acne</strong>, <strong>dermatiti</strong>, <strong>eczemi</strong>, <strong>psoriasi</strong> e <strong>infezioni cutanee</strong>. La dermatologia è fondamentale anche nella gestione delle <strong>malattie autoimmuni</strong> che colpiscono la pelle, come il <strong>lupus</strong>, e delle problematiche legate alla caduta dei capelli, come l’<a href=\"https://it.wikipedia.org/wiki/Alopecia\" target=\"_blank\" rel=\"noopener\"><strong>alopecia</strong></a>.</p><p>Un ruolo cruciale è svolto nella prevenzione e diagnosi precoce dei tumori cutanei, tra cui il <strong>melanoma</strong>, grazie al controllo regolare dei nei e delle lesioni sospette. Oltre alle patologie, la dermatologia si dedica anche a trattamenti estetici per migliorare l’aspetto e la salute della pelle, come la gestione di cicatrici e macchie.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali sono le malattie della pelle più comuni?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Le <strong>malattie della pelle</strong> sono numerose e colpiscono persone di ogni età, influendo sulla qualità della vita. Tra le più comuni troviamo l’<strong>acne</strong>, una condizione molto diffusa soprattutto tra i giovani, e la <strong>psoriasi</strong>, una malattia infiammatoria cronica. Anche le <strong>dermatiti</strong>, come la dermatite atopica e quella seborroica, sono frequentemente diagnosticate. Gli <strong>eczemi</strong> e le <strong>infezioni cutanee</strong> – causate da batteri, funghi o virus, come herpes e verruche – rappresentano altre problematiche diffuse. Inoltre, condizioni come la <strong>rosacea</strong>, che provoca arrossamenti sul viso, e la <strong>alopecia</strong>, che causa la caduta dei capelli, sono spesso oggetto di attenzione medica.</p>\n<p>La dermatologia svolge anche un ruolo chiave nella prevenzione e trattamento dei <strong>tumori cutanei</strong>, come il melanoma, che richiedono diagnosi precoci per evitare complicazioni. Riconoscere tempestivamente le malattie della pelle e affidarsi a uno specialista è essenziale per mantenere la salute della pelle.</p><p><strong>Praemedica</strong>&nbsp;offre servizi dermatologici completi, con specialisti qualificati pronti a prendersi cura della tua pelle attraverso diagnosi accurate e trattamenti personalizzati.<br></p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Dermatologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Epiluminescenza"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/dr.tommaso-addonisio.png",
+      "alt": "Dr. Tommaso Addonisio specialista in dermatologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Tommaso Addonisio</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-addonisio.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/visita-dermatologica.jpg",
+    "alt": "Servizi di dermatologia specializzata per la cura di acne, psoriasi e altri disturbi cutanei"
+  }
+}

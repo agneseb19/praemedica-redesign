@@ -1,0 +1,132 @@
+{
+  "slug": "ginecologia",
+  "type": "page",
+  "title": "Ginecologia",
+  "date": "2025-01-27T11:25:44",
+  "seo": {
+    "title": "Ginecologia - Praemedica",
+    "description": "Scopri i servizi di ginecologia offerti da Praemedica, con visite specialistiche, prevenzione e trattamenti per la salute femminile."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Ginecologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La<strong> ginecologia</strong> è una specializzazione medica cruciale per la cura della salute femminile, che si concentra sull’apparato riproduttivo e sulle patologie che possono insorgere nel corso della vita. Le visite ginecologiche regolari sono fondamentali per prevenire e trattare condizioni come disfunzioni mestruali, infezioni genitali e patologie gravi come il <a href=\"https://it.wikipedia.org/wiki/Neoplasie_della_cervice_uterina\" target=\"_blank\" rel=\"noopener\">cancro alla cervice</a>. La <strong>ginecologia preventiva</strong> include esami come il pap test, &nbsp;la consulenza sulla salute sessuale, che aiutano a monitorare e proteggere il benessere femminile.</p><p>Grazie alla nostra attenzione alla diagnosi precoce e alla cura personalizzata, <strong>Praemedica</strong> è il tuo punto di riferimento per servizi ginecologici di alta qualità, con specialisti pronti a supportarti in ogni fase della tua vita.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-ginecologica.jpg",
+      "alt": "Visita ginecologica: ginecologa che esamina una paziente in uno studio medico, focalizzandosi sulla salute riproduttiva femminile"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ginecologia.jpg",
+      "alt": "Ginecologa che esegue un'ecografia ginecologica a una paziente, monitorando la salute riproduttiva e il benessere uterino"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi ad un ginecologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Consultare un ginecologo è fondamentale per mantenere la salute dell’apparato riproduttivo femminile in buone condizioni. È consigliato fissare una visita ginecologica regolare almeno una volta all’anno, anche in assenza di sintomi, per eseguire controlli preventivi come il pap test e l’ecografia pelvica. Inoltre, se si sperimentano sintomi come <strong>dolori mestruali</strong> intensi, <strong>irregolarità nel ciclo</strong>, <strong>perdite vaginali anomale</strong>, o <strong>difficoltà nel concepimento</strong>, è importante consultare un ginecologo per una valutazione approfondita.</p><p>Le donne in gravidanza devono rivolgersi al ginecologo per monitorare il corretto andamento della gravidanza e per ricevere supporto durante il travaglio e il parto. In generale, un ginecologo è il medico di riferimento per qualsiasi disturbo ginecologico o per avere informazioni sulla salute <strong>sessuale</strong> e riproduttiva. <strong>Praemedica</strong> offre consulenze ginecologiche di alta qualità, aiutando ogni donna a prendersi cura della propria salute in modo completo e personalizzato.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che differenza c'è tra visita ginecologica e ostetrica?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>visita ginecologica</strong> e la <strong>visita ostetrica</strong> sono due esami medici fondamentali per la salute femminile, ma con obiettivi e ambiti di intervento differenti</p><p>La <strong>ginecologia</strong> si occupa della salute dell’apparato riproduttivo femminile, trattando patologie come <strong>fibromi</strong>, <strong>endometriosi</strong>, e disturbi mestruali. Il ginecologo esegue esami preventivi, come il pap test, per la diagnosi precoce di malattie e per il monitoraggio della salute sessuale.</p><p>D’altra parte, l’<strong>ostetricia</strong> si concentra sulla <strong>gravidanza</strong>, il <strong>parto</strong> e la salute post-parto. L’ostetrica è il professionista di riferimento per il monitoraggio della gravidanza, l’assistenza durante il parto e il supporto nel post-parto. Mentre il ginecologo gestisce la salute riproduttiva generale, l’ostetrica è specializzata nell’assistenza alla maternità.&nbsp;</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Ginecologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "PAP TEST"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "HPV TEST"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/lea-panepuccia.jpg",
+      "alt": "dottoressa Lea Panepuccia specialista in ginecologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Lea Panepuccia</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-lea-panepuccia.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/08/eugenio-maggi.jpg",
+      "alt": ""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Eugenio Maggi</a>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/03/michela-bernassola.png",
+      "alt": "Michela Bernassola ginecologa"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Michela Bernassola</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/visita-ginecologica.jpg",
+    "alt": "Visita ginecologica: ginecologa che esamina una paziente in uno studio medico, focalizzandosi sulla salute riproduttiva femminile"
+  }
+}

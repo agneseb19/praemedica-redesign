@@ -1,0 +1,26 @@
+---
+/** Loghi delle compagnie convenzionate in griglia a linee sottili, con il link originale. */
+import Img from './Img.astro';
+import type { Block } from '../lib/content';
+interface Props { logos: Extract<Block, { type: 'image' }>[]; limit?: number }
+const { logos, limit } = Astro.props;
+const list = limit ? logos.slice(0, limit) : logos;
+---
+<ul class="lg" role="list">
+  {list.map((l) => (
+    <li>
+      <a href={l.href} target="_blank" rel="noopener">
+        <Img src={l.src} alt={l.alt || 'UniSalute'} sizes="(min-width: 1024px) 220px, 45vw" widths={[240, 480]} />
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .lg { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; }
+  .lg a { display: grid; place-items: center; aspect-ratio: 3 / 2; padding: 1.2rem 1.4rem; background: #fff; border: 1px solid var(--line); border-radius: 18px; transition: border-color 0.3s, transform 0.4s var(--ease); }
+  .lg a:hover { border-color: var(--azure); transform: translateY(-3px); }
+  .lg :global(picture), .lg :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  @media (max-width: 1024px) { .lg { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .lg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

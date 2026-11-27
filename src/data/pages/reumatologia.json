@@ -1,0 +1,95 @@
+{
+  "slug": "reumatologia",
+  "type": "page",
+  "title": "Reumatologia",
+  "date": "2025-05-27T09:51:22",
+  "seo": {
+    "title": "Reumatologia - Praemedica",
+    "description": "Scopri i servizi di pneumologia di Praemedica: diagnosi, trattamenti e consulenze per patologie respiratorie."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Reumatologia"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>La reumatologia</strong> è la specializzazione medica che si occupa dello studio, della diagnosi e del trattamento delle malattie reumatiche, che colpiscono articolazioni, muscoli, ossa e tessuti connettivi. Tra le patologie più comuni trattate dal reumatologo ci sono l’artrite reumatoide, il lupus eritematoso sistemico, la spondilite anchilosante, la fibromialgia e la gotta. Grazie a un approccio multidisciplinare e all’utilizzo di esami clinici avanzati, come analisi del sangue e imaging articolare, la reumatologia permette di identificare precocemente le malattie infiammatorie croniche, migliorando il controllo del dolore e rallentando la progressione dei danni articolari. Affidarsi a uno specialista in reumatologia è fondamentale per ricevere un trattamento personalizzato e preservare la qualità della vita.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/visita-reumatologica.jpg",
+      "alt": "Medico reumatologo che illustra l'anatomia del ginocchio con un modello 3D durante una visita specialistica"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/reumatologia.jpg",
+      "alt": "Persona con dolore e infiammazione alle dita della mano, possibile sintomo di artrite reumatoide o altra malattia reumatica"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi a un reumatologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>È consigliabile rivolgersi a un reumatologo quando si manifestano sintomi persistenti che interessano articolazioni, muscoli o tessuti connettivi, come dolore articolare cronico, rigidità mattutina prolungata, gonfiore, arrossamento o difficoltà nei movimenti. Altri segnali da non sottovalutare includono stanchezza immotivata, febbricola, perdita di peso inspiegabile o sensazione di debolezza muscolare.</p><p>Questi sintomi potrebbero indicare l’insorgenza di malattie reumatiche autoimmuni come l’artrite reumatoide, il lupus, la sclerodermia o la fibromialgia. È particolarmente importante consultare un reumatologo se si hanno familiarità con patologie reumatiche o se i sintomi non migliorano con terapie antinfiammatorie generiche.</p><p>Una diagnosi precoce effettuata da un medico reumatologo specialista consente di avviare trattamenti mirati, ridurre l’infiammazione e rallentare la progressione della malattia, migliorando significativamente la qualità della vita.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali malattie cura un reumatologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il reumatologo è lo specialista medico che si occupa della diagnosi e del trattamento delle <strong>malattie reumatiche</strong>, un gruppo eterogeneo di oltre 150 patologie che colpiscono articolazioni, muscoli, ossa e tessuti connettivi, e talvolta anche organi interni come cuore, polmoni e reni.</p><p>Le principali patologie trattate dal reumatologo includono:</p><ul><li><p><strong>Artrite reumatoide</strong>: malattia autoimmune che provoca infiammazione cronica delle articolazioni, con dolore, gonfiore e rigidità.</p></li><li><p><strong>Artrite psoriasica</strong>: forma di artrite associata alla psoriasi, caratterizzata da infiammazione articolare e manifestazioni cutanee.</p></li><li><p><strong>Spondilite anchilosante</strong>: malattia infiammatoria cronica che colpisce principalmente la colonna vertebrale, causando dolore e rigidità.</p></li><li><p><strong>Lupus eritematoso sistemico</strong>: patologia autoimmune multisistemica che può interessare pelle, articolazioni, reni e altri organi.</p></li><li><p><strong>Sindrome di Sjögren</strong>: malattia autoimmune che colpisce le ghiandole esocrine, causando secchezza di occhi e bocca.</p></li><li><p><strong>Sclerodermia</strong>: condizione caratterizzata da indurimento e ispessimento della pelle e dei tessuti connettivi.</p></li><li><p><strong>Polimiosite e dermatomiosite</strong>: malattie infiammatorie dei muscoli, che causano debolezza muscolare e, nel caso della dermatomiosite, anche eruzioni cutanee.</p></li><li><p><strong>Vasculiti</strong>: gruppo di malattie che provocano infiammazione dei vasi sanguigni, con possibili danni agli organi.</p></li><li><p><strong>Gotta</strong>: forma di artrite causata dall’accumulo di cristalli di acido urico nelle articolazioni.</p></li><li><p><strong>Artrosi</strong>: malattia degenerativa delle articolazioni che porta a dolore e perdita di mobilità.</p></li><li><p><strong>Fibromialgia</strong>: sindrome caratterizzata da dolore muscoloscheletrico diffuso, affaticamento e disturbi del sonno.</p></li><li><p><strong>Osteoporosi</strong>: condizione in cui le ossa diventano fragili e più suscettibili alle fratture.</p></li><li><p><strong>Morbo di Paget</strong>: malattia cronica che altera il normale processo di rimodellamento osseo, causando deformità e fragilità ossea.</p></li><li><p><strong>Fenomeno di Raynaud</strong>: disturbo vascolare che provoca episodi di ridotto flusso sanguigno alle estremità, soprattutto in risposta al freddo o allo stress.</p></li></ul>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Reumatologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/ilaria-duca.jpg",
+      "alt": "dr.ssa Ilaria Duca socialista in reumatologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Ilaria Duca</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/05/reumatologia.jpg",
+    "alt": "Persona con dolore e infiammazione alle dita della mano, possibile sintomo di artrite reumatoide o altra malattia reumatica"
+  }
+}

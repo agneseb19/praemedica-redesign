@@ -1,0 +1,184 @@
+{
+  "slug": "senologia",
+  "type": "page",
+  "title": "Senologia",
+  "date": "2025-01-28T15:43:31",
+  "seo": {
+    "title": "Senologia - Praemedica",
+    "description": "Praemedica è il punto di riferimento per la senologia. Percorso senologico integrato per la diagnosi precoce del tumore al seno."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Senologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>senologia</strong> è una branca della medicina specializzata nella prevenzione, diagnosi e trattamento delle patologie del seno, come tumori, cisti e altre condizioni benigne o maligne.</p><p>Riveste un ruolo fondamentale nella salute femminile, grazie a esami specifici come la mammografia, l’ecografia mammaria e le visite senologiche periodiche, che consentono di individuare precocemente eventuali anomalie.</p><p>E’ fondamentale per la salute del seno, grazie alla prevenzione, alla diagnosi precoce e a trattamenti mirati. Con Praemedica puoi contare su specialisti qualificati e tecnologie avanzate per un supporto completo e personalizzato.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/prevenzione-senologica.jpg",
+      "alt": "donne con fiocco rosa in mano simbolo della prevenzione, rappresentazione dell'importanza della senologia per la salute del seno"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/senologia.jpg",
+      "alt": "Donna che esegue un'autopalpazione al seno nell'ambito della prevenzione e senologia"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi al senologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>È importante rivolgersi al senologo per la salute del seno, sia per la prevenzione che per la diagnosi precoce di eventuali problematiche. Secondo la <strong>Fondazione Veronesi</strong>, una delle realtà più autorevoli nella ricerca scientifica e nella divulgazione medica, è consigliabile iniziare i controlli periodici già tra i <strong>30 e i 35 anni</strong> con un’ecografia mammaria annuale, mentre dai<strong> 40 anni</strong> si raccomanda di associare anche una mammografia ogni anno. Per maggiori dettagli, <a href=\"https://www.fondazioneveronesi.it/magazine/articoli/lesperto-risponde/che-eta-iniziare-i-controlli-al-seno\" target=\"_blank\" rel=\"noopener\">puoi consultare le loro raccomandazioni sui controlli senologici</a>.</p><p>A partire da questa età, la mammografia diventa un esame fondamentale, da eseguire regolarmente insieme all’ecografia mammaria, per individuare eventuali anomalie in fase precoce. Anche chi ha già avuto una diagnosi di patologia senologica deve continuare a monitorare la propria condizione, per prevenire recidive e verificare l’efficacia delle terapie in corso.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che cosa si vede dalla visita senologica?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La visita senologica è un esame fondamentale per monitorare la salute del seno e identificare eventuali anomalie. Durante la visita, il senologo esamina attentamente il seno alla ricerca di segni di patologie, come noduli, cisti, o alterazioni della pelle e dei capezzoli.</p><p>Il medico effettua una palpazione accurata per rilevare la presenza di noduli, masse o consistenze anomale che potrebbero indicare problematiche come tumori&nbsp;o cisti.</p><p>A seconda dei risultati della visita senologica, il senologo può suggerire ulteriori indagini diagnostiche, come mammografie, ecografie o, in alcuni casi, biopsie. Questi esami permettono di ottenere informazioni più precise sulla natura di eventuali anomalie e di confermare o escludere la presenza di patologie gravi.</p><p>Praemedica mette a tua disposizione specialisti esperti in senologia che, grazie a tecnologie all’avanguardia e a un approccio personalizzato, ti guideranno in ogni fase del percorso di prevenzione e cura.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "La Mammografia 3D in Tomosintesi di Praemedica"
+    },
+    {
+      "type": "text",
+      "html": "<p>Nel campo della senologia, la <strong>mammografia 3D in tomosintesi</strong> rappresenta un’innovazione fondamentale per la diagnosi precoce delle patologie mammarie.&nbsp;</p><p>Questa tecnologia avanzata permette di ottenere immagini ad alta risoluzione, migliorando l’identificazione di lesioni anche di piccole dimensioni e riducendo i falsi positivi. Grazie alla tomosintesi, il tessuto mammario viene analizzato in strati sottili, garantendo una maggiore accuratezza diagnostica rispetto alla mammografia tradizionale. Affidarsi agli specialisti in senologia di <strong>Praemedica</strong> significa scegliere un approccio personalizzato e strumenti all’avanguardia per la prevenzione e la salute del seno.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I vantaggi della Tomosintesi rispetto alla Mammografia convenzionale"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "Maggiore precisione diagnostica"
+        },
+        {
+          "text": "Riduzione dei falsi positivi e falsi negativi"
+        },
+        {
+          "text": "Maggiore comfort per il paziente"
+        },
+        {
+          "text": "Migliore per seni densi"
+        },
+        {
+          "text": "Rilevamento precoce"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "href": "/mammografia-in-tomosintesi/",
+      "text": "Scopri di più sulla Mammografia 3D in Tomosintesi"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/mammografia-per-visita-senologica.jpg",
+      "alt": "mammografia 3d in tomosintesi importante rivoluzione nella senologia"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/mammografia-3d-in-tomosintesi.jpg",
+      "alt": "mammografia 3D in tomosintesi, per un'accurata valutazione senologica e prevenzione del cancro al seno"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Senologica + Mammografia 3D"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Senologica + Ecografia Mammaria bilaterale"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Mammografia bilaterale in tomosintesi"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Mammografia 3D + Ecomammaria bilaterale"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + Mammografia 3D + Ecografia mammaria"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia mammaria + Ecografia Linfonodi"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecografia mammaria bilaterale"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/10/francesca-svegliati.png",
+      "alt": "francesca-svegliati-senologa"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Francesca Svegliati</a>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/stefano-pivanti-senologo.jpg",
+      "alt": "stefano pivanti specialista in senologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Stefano Pivanti</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/prevenzione-senologica.jpg",
+    "alt": "donne con fiocco rosa in mano simbolo della prevenzione, rappresentazione dell'importanza della senologia per la salute del seno"
+  }
+}

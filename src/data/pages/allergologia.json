@@ -1,0 +1,123 @@
+{
+  "slug": "allergologia",
+  "type": "page",
+  "title": "Allergologia",
+  "date": "2025-01-21T14:06:46",
+  "seo": {
+    "title": "Allergologia - Praemedica",
+    "description": "Scopri i servizi di allergologia di Praemedica: diagnosi avanzata, trattamenti personalizzati e cura delle allergie."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Allergologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>allergologia</strong> è la specializzazione medica che si occupa dello studio, della diagnosi e del trattamento delle allergie. Le allergie sono reazioni eccessive del sistema immunitario a sostanze che normalmente non causano problemi nelle persone non allergiche, come polline, polvere, peli di animali, alimenti o farmaci. I sintomi variano a seconda del tipo di allergia, ma possono includere prurito, starnuti, difficoltà respiratorie, eruzioni cutanee, e in casi gravi, anafilassi, una reazione che può mettere a rischio la vita.</p><p>Le cause delle allergie possono essere genetiche o ambientali, e con l’aumento dell’inquinamento e dei cambiamenti nello stile di vita, i casi di allergie stanno diventando sempre più comuni. Le principali tipologie di allergie comprendono le allergie respiratorie (come la rinite allergica e l’asma), le allergie alimentari, le allergie cutanee (come l’eczema e l’orticaria) e le allergie da farmaci o punture di insetti.</p><p><strong>Praemedica</strong> offre servizi di consulenza e diagnosi allergologica in grado di fornirti soluzioni mirate per gestire e trattare efficacemente le tue allergie. Con l’utilizzo delle più moderne tecniche diagnostiche, Praemedica è il partner ideale per affrontare con competenza e professionalità le problematiche allergiche.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-allergologica.jpg",
+      "alt": "Test allergici eseguiti da specialisti in allergologia per la diagnosi delle allergie"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/allergologia.jpg",
+      "alt": "Fialetta di sangue per test allergologici eseguiti da specialisti in allergologia"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che cosa fa il medico allergologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il medico allergologo è uno specialista in <strong>allergologia</strong>, la branca della medicina che si occupa di diagnosticare, trattare e prevenire le reazioni allergiche. &nbsp;Il medico allergologo, tramite test specifici come <strong>test cutanei</strong>, <strong>test allergologici</strong> e <strong>analisi del sangue</strong>, identifica gli allergeni responsabili e stabilisce il trattamento più adeguato.</p><p>L’allergologo gioca anche un ruolo educativo importante, aiutando i pazienti a gestire le allergie quotidiane e a ridurre l’esposizione agli allergeni. Presso <strong>Praemedica</strong>, i nostri specialisti sono pronti ad assisterti con diagnosi accurate e piani terapeutici personalizzati per affrontare al meglio le tue allergie.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Come scoprire un'allergia?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Scoprire un’allergia può sembrare complicato, ma con l’aiuto di un <strong>medico allergologo</strong>, è possibile individuare rapidamente la causa dei sintomi. I segni di un’allergia variano a seconda del tipo di reazione, ma i più comuni includono starnuti, prurito agli occhi, difficoltà respiratorie, eruzioni cutanee e gonfiore. Se sospetti di avere un’allergia, il primo passo è consultare un <strong>medico allergologo</strong> che, attraverso una serie di test diagnostici, come il patch test ed il&nbsp;<strong><a href=\"https://it.wikipedia.org/wiki/Prick_test\" target=\"_blank\" rel=\"noopener\">prick test</a></strong>, sarà in grado di identificare l’allergene responsabile.</p>\n<p>In alcuni casi, l’allergologo può suggerire anche test del sangue per rilevare la presenza di specifici anticorpi legati alle reazioni allergiche. Grazie a queste indagini, è possibile diagnosticare allergie respiratorie, alimentari, cutanee e da farmaci. Una diagnosi precoce è fondamentale per prevenire gravi complicazioni e migliorare la qualità della vita.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Allergologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Patch Test Odontoiatrici /Ortopedici"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Patch Test (30 Allergeni)"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Controllo Analisi Gratuito"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/ferrara-rosetta.jpg",
+      "alt": "rosetta ferrara specialista in allergologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Rosetta Ferrara</a>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2026/04/allergologo.png",
+      "alt": ""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Walter Marocco</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/allergologia.jpg",
+    "alt": "Fialetta di sangue per test allergologici eseguiti da specialisti in allergologia"
+  }
+}

@@ -1,0 +1,88 @@
+---
+/**
+ * Template unico per specializzazioni, esami di Alta Diagnostica, Radiologia, Fisioterapia,
+ * Palestra riabilitativa e articoli. Contenuti 1:1 dal sito originale, nello schema della home:
+ * apertura fotografica, sezioni numerate con intestazione centrata, banda finale per prenotare.
+ */
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Blocks from '../components/Blocks.astro';
+import TeamCards from '../components/TeamCards.astro';
+import SpecList from '../components/SpecList.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
+import { specializzazioniMenu, altaDiagnostica } from '../data/site';
+
+export function getStaticPaths() {
+  const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti']);
+  return allPages().filter((p) => !CUSTOM.has(p.slug)).map((p) => ({ params: { slug: p.slug }, props: { page: p } }));
+}
+
+const { page } = Astro.props as { page: Page };
+const a = toArticle(page);
+const href = `/${page.slug}/`;
+const isPost = page.type === 'post';
+const isDiag = altaDiagnostica.some((x) => x.href === href) || page.slug === 'radiologia';
+const parent = isPost ? { label: 'Approfondimenti' } : isDiag ? { label: 'Alta Diagnostica', href: '/alta-diagnostica/' } : { label: 'Specializzazioni', href: '/specializzazioni/' };
+const longTitle = a.title !== page.title && a.title.length > page.title.length;
+const h1 = longTitle ? page.title : a.titleHtml;
+const [hero1, hero2] = a.heroImages;
+const [introFirst, ...introRest] = a.intro as any[];
+const firstText = introFirst ? stripTags(introFirst.html) : '';
+const firstSentence = (firstText.match(/^.+?[.!?](?=\s|$)/)?.[0] ?? '').trim();
+/* nell'intestazione solo il primo paragrafo; il resto nella colonna di lettura */
+const introParas = introFirst ? (introFirst.html.match(/<p[\s\S]*?<\/p>/g) ?? [introFirst.html]) : [];
+const introLead = (introParas[0] ?? '').replace(/^<p[^>]*>|<\/p>$/g, '');
+const introMore = [...introParas.slice(1), ...introRest.map((b: any) => b.html)].join('\n');
+const pad = (n: number) => String(n).padStart(2, '0');
+let n = introFirst ? 1 : 0;
+
+const pool = [...specializzazioniMenu, ...altaDiagnostica].filter((x) => x.href !== href) as { label: string; href: string }[];
+const start = Math.max(0, specializzazioniMenu.findIndex((x) => x.href === href));
+const related = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 4).map((x) => summaryOf(x.href, x.label));
+---
+<Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
+  <PageHero
+    crumbs={[{ label: 'Home', href: '/' }, parent, { label: stripTags(page.title) }]}
+    title={h1}
+    lead={longTitle ? a.titleHtml : firstSentence || undefined}
+    img={hero1?.src} alt={hero1?.alt}
+  />
+
+  {introFirst && (
+    <section class="sec" aria-labelledby="in-breve">
+      <SectionHead n="01" id="in-breve" title="In breve" desc={introLead} />
+      {introMore && <div class="col"><div class="prose" data-reveal set:html={introMore} /></div>}
+      {hero2 && <figure class="wide-pic" data-img><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 1100px) 1100px, 92vw" widths={[800, 1100, 1600]} /></figure>}
+    </section>
+  )}
+
+  {a.sections.map((s) => {
+    n += 1;
+    const wide = s.kind === 'team' || s.kind === 'services';
+    return (
+      <section id={s.id} class:list={['sec', `sx--${s.kind}`]}>
+        {s.title ? <SectionHead n={pad(n)} title={s.titleHtml} /> : null}
+        <div class:list={[wide ? 'wrap' : 'col', 'sx__body']}>
+          {s.kind === 'team' && s.people ? <TeamCards people={s.people} /> : <Blocks blocks={s.blocks} />}
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="sec" aria-labelledby="rel-title">
+    <SectionHead n={pad(n + 1)} id="rel-title" title="Altre specializzazioni" desc="Scopri le altre aree specialistiche del centro." />
+    <div class="wrap">
+      <SpecList items={related} variant="photos" />
+      <p class="rel__all" data-reveal><a class="btn btn--line" href="/specializzazioni/">Tutte le specializzazioni</a></p>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  .rel__all { display: flex; justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
+</style>

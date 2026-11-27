@@ -1,0 +1,22 @@
+---
+/**
+ * Icona Tabler (outline) inserita inline al momento della build.
+ * Uso: <Icon name="phone" class="icon" />
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props { name: string; class?: string; label?: string; stroke?: number }
+const { name, class: cls = 'icon', label, stroke = 1.75 } = Astro.props;
+
+// "star-filled" → icons/filled/star.svg
+const filled = name.endsWith('-filled');
+const file = path.join(process.cwd(), 'node_modules/@tabler/icons/icons', filled ? 'filled' : 'outline', `${filled ? name.slice(0, -7) : name}.svg`);
+let svg = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
+svg = svg
+  .replace(/<!--.*?-->/gs, '')
+  .replace(/\s(width|height|class)="[^"]*"/g, '')
+  .replace(/stroke-width="[^"]*"/, `stroke-width="${stroke}"`)
+  .replace('<svg', `<svg class="${cls}" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"'}`);
+---
+<Fragment set:html={svg} />

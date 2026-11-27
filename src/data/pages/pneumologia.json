@@ -1,0 +1,101 @@
+{
+  "slug": "pneumologia",
+  "type": "page",
+  "title": "Pneumologia",
+  "date": "2025-01-21T16:50:30",
+  "seo": {
+    "title": "Pneumologia - Praemedica",
+    "description": "Scopri i servizi di pneumologia di Praemedica: diagnosi, trattamenti e consulenze per patologie respiratorie."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Pneumologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>pneumologia</strong> è una branca della medicina dedicata alla prevenzione, diagnosi e trattamento delle malattie che colpiscono l’apparato respiratorio. Tra queste rientrano patologie come l’asma, la broncopneumopatia cronica ostruttiva (BPCO), le infezioni polmonari, le apnee notturne e i disturbi interstiziali polmonari. I pneumologi svolgono un ruolo fondamentale nell’identificazione precoce e nella gestione di queste condizioni, collaborando con altri specialisti per garantire un approccio multidisciplinare e centrato sul paziente. Grazie a tecnologie diagnostiche innovative e a terapie personalizzate, Praemedica si impegna a migliorare la funzionalità respiratoria e il benessere generale di chi si affida a noi.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/pneumologia.jpg",
+      "alt": "Un professionista della pneumologia esegue una visita specialistica per valutare e trattare le problematiche respiratorie, utilizzando tecnologie avanzate."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-pneuomologica.jpg",
+      "alt": "Un paziente durante una visita pneumologica, un momento essenziale per valutare la salute respiratoria e pianificare un trattamento personalizzato"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che cosa fa un pneumologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il pneumologo è il medico specializzato in pneumologia, la disciplina che si occupa della salute dell’apparato respiratorio. Questo professionista diagnostica e tratta patologie come l’asma, la BPCO, le infezioni polmonari, i disturbi del sonno legati alla respirazione e le malattie interstiziali polmonari.</p><p>La pneumologia non si limita al trattamento delle patologie, ma si occupa anche della prevenzione e del monitoraggio continuo, offrendo un supporto fondamentale per la gestione delle malattie croniche. Affidarsi a un pneumologo esperto è essenziale per preservare la salute respiratoria e affrontare tempestivamente eventuali problematiche.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando si fa la spirometria?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La spirometria è un esame fondamentale, utile per valutare la funzionalità polmonare e diagnosticare eventuali patologie respiratorie. Questo test viene raccomandato in presenza di sintomi come difficoltà respiratorie, tosse cronica, sensazione di oppressione toracica o affanno persistente ed è anche indicato&nbsp;per monitorare l’evoluzione di malattie come <a href=\"https://it.wikipedia.org/wiki/Asma\" target=\"_blank\" rel=\"noopener\">l’asma</a> o la BPCO, oltre che per valutare l’efficacia delle terapie in corso.</p>\n<p>La spirometria è spesso prescritta anche a fumatori di lunga data o a persone esposte a fattori di rischio ambientali, per rilevare precocemente eventuali alterazioni della funzionalità polmonare. Presso Praemedica, questo esame è eseguito con apparecchiature all’avanguardia per garantire risultati accurati e un’assistenza di alta qualità.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Pneumologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Spirometria"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/dr-stefano-verri.png",
+      "alt": "dr Stefano Verri specialista in pneumologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Stefano Verri</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/pneumologia.jpg",
+    "alt": "Un professionista della pneumologia esegue una visita specialistica per valutare e trattare le problematiche respiratorie, utilizzando tecnologie avanzate."
+  }
+}

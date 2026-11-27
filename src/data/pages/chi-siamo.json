@@ -1,0 +1,147 @@
+{
+  "slug": "chi-siamo",
+  "type": "page",
+  "title": "Chi Siamo",
+  "date": "2025-02-05T11:19:25",
+  "seo": {
+    "title": "Chi Siamo - Praemedica",
+    "description": "Praemedica, il partner di fiducia per la salute, nasce nel 2025 con l’obiettivo di offrire assistenza e supporto medico a 360°."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "PRAEMEDICA"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Il partner di fiducia per la tua salute."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "CHI SIAMO"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>Praemedica</strong> <strong>nasce nel 2025 dall’unione di due realtà di eccellenza nel settore medico e ortopedico</strong> con l’obiettivo di offrire assistenza e supporto medico a 360°.</p><p>Ci avvaliamo della collaborazione di un team di specialisti dinamici ed esperti e di tecnologie e apparecchiature innovative allo scopo di offrire un servizio attento e scrupoloso, che renda il paziente il fulcro della nostra attività.</p><p>Le nostre aree di competenza includono: Allergologia, Angiologia, Cardiologia, Dermatologia, Diabetologia, Endocrinologia, Gastroenterologia, Ginecologia, Mineralografia, Neurologia, Neurochirurgia, Oculistica, Ortopedia e Fisiatria, Otorinolaringoiatria, Pneumologia, Senologia, Urologia e Diagnostica per immagini (Rx, Moc, Ortopanoramica, ecografia).</p><p>Affianchiamo, inoltre, all’attività di poliambulatorio, due sale di fisioterapia e riabilitazione, con trattamenti personalizzati da valutare insieme al nostro staff, assicurandovi la massima professionalità e rapidi tempi di intervento.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/02/chi-siamo-praemedica.jpg",
+      "alt": "Reception del poliambulatorio Praemedica, struttura moderna per servizi di fisioterapia e assistenza sanitaria"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/02/mission-praemedica.jpg",
+      "alt": "Team di medici in camice bianco uniti in un gesto di collaborazione e lavoro di squadra"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "MISSION"
+    },
+    {
+      "type": "text",
+      "html": "<p>Quello della Salute e della Prevenzione è un tema di cui si parla molto e di cui ci si occupa poi forse troppo poco in maniera concreta. Trovare un medico a cui affidarsi, che ci segua in tutto il nostro percorso di cura, o eseguire un esame diagnostico in modo rigoroso ed in tempi accettabili, può risultare più difficile di quanto si possa immaginare.</p><p>Noi di Praemedica intendiamo porci al servizio della comunità, ben comprendendo quanto possa essere complicato lasciare la propria salute nelle mani di qualcun altro, supportando il paziente con approccio multidisciplinare ed integrato.</p><p>L’esperienza, la competenza e la professionalità dei medici specialisti e di tutto il team saranno a vostra disposizione per garantirvi prestazioni con standard elevati e un’ampia gamma di servizi, al solo scopo di permettervi di fidarvi di chi avete di fronte, perché “La salute è l’unità che dà valore a tutti zeri della vita” (Bernard le Bovier de Fontenelle)</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "ELENCO PRESTAZIONI"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "ALLERGOLOGIA",
+          "href": "/allergologia/"
+        },
+        {
+          "text": "ANGIOLOGIA",
+          "href": "/angiologia/"
+        },
+        {
+          "text": "CARDIOLOGIA",
+          "href": "/cardiologia/"
+        },
+        {
+          "text": "DERMATOLOGIA",
+          "href": "/dermatologia/"
+        },
+        {
+          "text": "ENDOCRINOLOGIA",
+          "href": "/endocrinologia/"
+        },
+        {
+          "text": "FISIATRIA",
+          "href": "/fisiatria/"
+        },
+        {
+          "text": "GASTROENTEROLOGIA",
+          "href": "/gastroenterologia/"
+        },
+        {
+          "text": "GINECOLOGIA",
+          "href": "/ginecologia/"
+        },
+        {
+          "text": "NEUROLOGIA E NEUROCHIRURGIA",
+          "href": "/neurologia-neurochirurgia/"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "DIABETOLOGIA",
+          "href": "/diabetologia/"
+        },
+        {
+          "text": "OCULISTICA",
+          "href": "/oculistica/"
+        },
+        {
+          "text": "ORTOPEDIA",
+          "href": "/ortopedia/"
+        },
+        {
+          "text": "OTORINOLARINGOIATRIA",
+          "href": "/otorinolaringoiatria/"
+        },
+        {
+          "text": "PNEUMOLOGIA",
+          "href": "/pneumologia/"
+        },
+        {
+          "text": "SENOLOGIA",
+          "href": "/senologia/"
+        },
+        {
+          "text": "UROLOGIA",
+          "href": "/urologia/"
+        },
+        {
+          "text": "DIAGNOSTICA PER IMMAGINI",
+          "href": "/radiologia/"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/praemedica-chisiamo.jpg",
+      "alt": "dottore che fa il segno del cuore con le mani"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/chi-siamo-praemedica.jpg",
+      "alt": "bambina che ringrazia la dottoressa dopo una visita"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/02/mission-praemedica.jpg",
+    "alt": "Team di medici in camice bianco uniti in un gesto di collaborazione e lavoro di squadra"
+  }
+}

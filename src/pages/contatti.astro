@@ -1,0 +1,86 @@
+---
+/** Contatti: indirizzo, recapiti, orari, modulo e mappa, nello schema della home. */
+import Base from '../layouts/Base.astro';
+import Coupon from '../components/Coupon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Icon from '../components/Icon.astro';
+import { getPage, stripTags, type Block } from '../lib/content';
+import { site } from '../data/site';
+
+const page = getPage('contatti');
+const B = page.blocks;
+const hs = B.filter((b) => b.type === 'heading') as Extract<Block, { type: 'heading' }>[];
+const after = (re: RegExp) => {
+  const i = hs.findIndex((h) => h.level === 2 && re.test(h.html));
+  const out: string[] = [];
+  for (let k = i + 1; k < hs.length && hs[k].level === 3; k++) out.push(stripTags(hs[k].html));
+  return { title: stripTags(hs[i]?.html ?? ''), lines: out };
+};
+const addr = after(/^Indirizzo/);
+const hours = after(/^Orari/);
+const form = after(/^Richiedi/);
+const list = (B.find((b) => b.type === 'list') as Extract<Block, { type: 'list' }>).items;
+const map = B.find((b) => b.type === 'map') as Extract<Block, { type: 'map' }>;
+const labels = ['Telefono', 'WhatsApp', 'Email', 'Facebook', 'Instagram'];
+---
+<Base title={page.seo?.title ?? 'Contatti'} description={page.seo?.description}>
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Contatti' }]} title={stripTags(hs[0].html)} img="wp/2025/02/chi-siamo-praemedica.jpg" alt="Reception del poliambulatorio Praemedica, struttura moderna per servizi di fisioterapia e assistenza sanitaria" />
+
+  <section class="sec" aria-labelledby="dove-t">
+    <SectionHead n="01" id="dove-t" title="Come raggiungerci" desc="Siamo a Palestrina, nell'edificio ITOP Officine Ortopediche. Chiamaci, scrivici o passa a trovarci." />
+    <div class="wrap info">
+      <div class="info__c" data-reveal>
+        <Icon name="map-pin" />
+        <h2 class="info__h">{addr.title}</h2>
+        <p class="info__v">{addr.lines.map((l, i) => (i ? <><br />{l}</> : l))}</p>
+        <a class="more" href={site.address.maps} target="_blank" rel="noopener">Indicazioni stradali</a>
+      </div>
+      <div class="info__c" data-reveal>
+        <Icon name="phone" />
+        <h2 class="info__h">Contatti</h2>
+        <ul class="info__l" role="list">
+          {list.map((it, i) => (
+            <li><span>{labels[i]}</span><a href={it.href} target={it.href?.startsWith('http') ? '_blank' : undefined} rel={it.href?.startsWith('http') ? 'noopener' : undefined}>{it.text}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="info__c" data-reveal>
+        <Icon name="clock" />
+        <h2 class="info__h">{hours.title}</h2>
+        <p class="info__v">{hours.lines.map((l, i) => (i ? <><br />{l}</> : l))}</p>
+        <p class="open" data-open-badge><span class="dot" aria-hidden="true"></span><span data-open-text></span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="form-t">
+    <SectionHead n="02" id="form-t" title={form.title} desc={form.lines[0]} />
+    <div class="wrap"><Coupon title={form.title} subtitle={form.lines[0]} bare /></div>
+  </section>
+
+  <section class="sec" aria-labelledby="map-t">
+    <SectionHead n="03" id="map-t" title="Mappa" desc={`${site.address.street}, ${site.address.city}`} />
+    <div class="wrap"><div class="map"><iframe src={map?.src ?? site.address.mapEmbed} title="Mappa: Praemedica, Palestrina" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
+  </section>
+</Base>
+
+<style>
+  .info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .info__c { display: grid; gap: 0.8rem; align-content: start; justify-items: start; padding: clamp(1.5rem, 2.5vw, 2rem); background: var(--ice); border-radius: var(--r); }
+  .info__c > :global(.icon) { width: 2.9rem; height: 2.9rem; padding: 0.7rem; margin-bottom: 0.3rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .info__h { font-size: 1.2rem; font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .info__v { font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
+  .info__l { list-style: none; width: 100%; }
+  .info__l li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid var(--azure); font-size: 0.95rem; }
+  .info__l li:last-child { border-bottom: 0; }
+  .info__l span { color: var(--muted); }
+  .info__l a { color: var(--deep); text-decoration: none; }
+  .info__l a:hover { color: var(--green-ink); }
+  .open { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.92rem; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa6b2; }
+  .open:global(.is-open) .dot { background: var(--green); }
+  .map { height: 460px; overflow: hidden; border-radius: var(--r); }
+  .map iframe { width: 100%; height: 100%; border: 0; }
+  @media (max-width: 900px) { .info { grid-template-columns: 1fr; } }
+</style>

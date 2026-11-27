@@ -1,0 +1,11 @@
+---
+/** Intestazione di sezione come nella home: numero tra due trattini, titolo grande, frase breve. */
+interface Props { n?: string; title: string; desc?: string; id?: string }
+const { n, title, desc, id } = Astro.props;
+---
+<header class="wrap sh">
+  {n && <span class="sh__n">{n}</span>}
+  <h2 id={id} class="sh__t" data-lines set:html={title} />
+  {desc && <div class="sh__d" data-reveal set:html={desc} />}
+  <slot />
+</header>

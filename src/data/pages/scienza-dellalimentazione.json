@@ -1,0 +1,101 @@
+{
+  "slug": "scienza-dellalimentazione",
+  "type": "page",
+  "title": "Scienza dell’alimentazione",
+  "date": "2025-05-21T08:05:44",
+  "seo": {
+    "title": "Scienza dell'alimentazione - Praemedica",
+    "description": "Approfondisci con Praemedica la scienza dell’alimentazione: soluzioni nutrizionali su misura per migliorare la tua salute."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Scienza dell'Alimentazione"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>La scienza dell’alimentazione</strong> è la disciplina che studia il rapporto tra cibo, nutrizione e benessere dell’organismo. Analizza i nutrienti, il loro effetto sul corpo umano e il modo in cui una dieta equilibrata può migliorare la qualità della vita. In un’epoca in cui le abitudini alimentari incidono profondamente sulla salute, comprendere le basi della nutrizione è essenziale per fare scelte consapevoli.</p><p>Capire i principi della nutrizione non significa solo sapere quali alimenti scegliere, ma anche imparare a bilanciare correttamente i macronutrienti (carboidrati, proteine e grassi), riconoscere l’importanza dei micronutrienti (vitamine e sali minerali), conoscere il metabolismo, i processi digestivi e il fabbisogno energetico individuale. Una corretta educazione alimentare, basata su evidenze scientifiche, è la chiave per adottare uno stile di vita sano, consapevole e sostenibile nel lungo periodo.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/scienza-dellalimentazione.jpg",
+      "alt": "Rappresentazione della scienza dell’alimentazione: equilibrio tra nutrienti, salute e benessere, supportato da evidenze scientifiche."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/05/visita-nutrizionistica.jpg",
+      "alt": "Visita nutrizionistica con un professionista: consulenza personalizzata per valutare lo stato di salute e definire un piano alimentare su misura."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Cosa fa un nutrizionista?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Il <strong>nutrizionista</strong> è un professionista della salute specializzato nell’alimentazione e nella nutrizione umana. Il suo ruolo principale è quello di valutare lo stato nutrizionale di una persona e proporre un piano alimentare personalizzato in base alle sue esigenze fisiologiche, condizioni cliniche, stile di vita e obiettivi specifici (come dimagrimento, aumento della massa muscolare, miglioramento delle performance sportive o gestione di patologie). A differenza di una dieta standard, il piano elaborato dal nutrizionista è basato su un’analisi approfondita e scientifica, che può includere l’anamnesi nutrizionale, la valutazione delle abitudini alimentari, l’analisi della composizione corporea e, se necessario, l’interpretazione di esami clinici e biochimici.</p><p>Il nutrizionista educa inoltre i pazienti a sviluppare un rapporto sano con il cibo, fornendo strumenti concreti per fare scelte alimentari consapevoli e sostenibili. Non si occupa solo di dimagrimento: segue bambini, adulti, sportivi, donne in gravidanza, anziani e persone con patologie come diabete, celiachia, ipertensione o disturbi gastrointestinali. In un mondo in cui è facile imbattersi in diete fai-da-te e informazioni scorrette, il nutrizionista rappresenta una guida scientifica affidabile per chi desidera migliorare la propria salute attraverso l’alimentazione.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Qual'è la differenza tra dietologo e nutrizionista?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Spesso si fa confusione tra le figure del <strong>dietologo</strong> e del <strong>nutrizionista</strong>, ma si tratta di professionisti con percorsi formativi e competenze differenti, anche se entrambi operano nell’ambito della salute e dell’alimentazione.</p><p>Il <strong>dietologo</strong> è un medico a tutti gli effetti: ha conseguito una laurea in Medicina e Chirurgia, è iscritto all’albo dei medici e ha poi ottenuto una specializzazione in Scienza dell’Alimentazione. Questo gli consente non solo di elaborare piani alimentari personalizzati, ma anche di <strong>diagnosticare e trattare patologie</strong>, prescrivere farmaci e richiedere esami clinici. Il dietologo è quindi il riferimento ideale in presenza di malattie metaboliche complesse (come <a href=\"https://it.wikipedia.org/wiki/Diabete\" target=\"_blank\" rel=\"noopener\">diabete</a>, obesità grave, disturbi alimentari, intolleranze o allergie) che richiedono un inquadramento medico completo.</p><p>Il <strong>nutrizionista</strong>, invece, è in genere un biologo o un laureato in Scienze della Nutrizione Umana, abilitato all’esercizio della professione e iscritto all’Ordine dei Biologi. Non è un medico, quindi <strong>non può fare diagnosi né prescrivere farmaci</strong>, ma è perfettamente abilitato a valutare lo stato nutrizionale e a elaborare diete su misura, anche in presenza di condizioni fisiologiche particolari come gravidanza, sport, menopausa o percorsi di dimagrimento.</p><p>Entrambe le figure sono valide e competenti: la scelta tra dietologo e nutrizionista dipende dalle esigenze individuali e dalla complessità della situazione clinica.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Nutrizionistica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Bioimpedenziometria (BIA)"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/veronica-rita-nutrizionista.jpg",
+      "alt": "Dr.ssa Veronica Rita specialista in scienza dell'alimentazione"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Veronica Rita</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/05/visita-nutrizionistica.jpg",
+    "alt": "Visita nutrizionistica con un professionista: consulenza personalizzata per valutare lo stato di salute e definire un piano alimentare su misura."
+  }
+}

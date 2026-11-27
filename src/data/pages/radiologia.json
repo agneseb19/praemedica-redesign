@@ -1,0 +1,238 @@
+{
+  "slug": "radiologia",
+  "type": "page",
+  "title": "Radiologia",
+  "date": "2025-02-03T17:40:18",
+  "seo": {
+    "title": "Radiologia - Praemedica",
+    "description": "Scopri i servizi di Radiologia Generale presso Praemedica: esami diagnostici tra cui RX, Ortopanoramica, Mammografia 3D in tomosintesi."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Radiologia Generale"
+    },
+    {
+      "type": "text",
+      "html": "<p>Praemedica&nbsp;offre un servizio di <strong>radiologia generale</strong> all’avanguardia, che include <strong>MOC (Mineralometria Ossea Computerizzata), Ortopanoramica, Mammografia 3D con Tomosintesi e Radiografie</strong>.</p><p>Grazie a tecnologie di ultima generazione e a un team di specialisti esperti, garantiamo diagnosi rapide e affidabili. A differenza del Servizio Sanitario Nazionale, <strong>Praemedica applica tariffe concorrenziali, abbattendo significativamente i tempi di attesa</strong>, permettendoti di accedere a esami diagnostici essenziali in tempi brevi e senza lunghe liste d’attesa.&nbsp;</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Densitometria Ossea (MOC)"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/densitometria-ossea-praemedica.jpg",
+      "alt": "densitometria ossea (MOC DXA) presso Praemedica, utilizzato per valutare la densità minerale ossea e monitorare la salute ossea"
+    },
+    {
+      "type": "button",
+      "href": "/densitometria-ossea/",
+      "text": "Scopri di più"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Servizi offerti"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "MOC TOTAL BODY"
+        },
+        {
+          "text": "MOC LOMBARE"
+        },
+        {
+          "text": "MOC FEMORALE"
+        },
+        {
+          "text": "MOC LOMBARE E FEMORALE"
+        },
+        {
+          "text": "MOC ULTRADISTALE"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Mammografia 3D in Tomosintesi"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Servizi offerti"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "VISITA SENOLOGICA + MAMMOGRAFIA 3D"
+        },
+        {
+          "text": "VISITA + ECOGRAFIA MAMMARIA"
+        },
+        {
+          "text": "MAMMOGRAFIA BILATERALE IN TOMOSINTESI"
+        },
+        {
+          "text": "MAMMOGRAFIA 3D + ECOGRAFIA MAMMARIA"
+        },
+        {
+          "text": "VISITA + MAMMOGRAFIA 3D + ECO MAMMARIA"
+        },
+        {
+          "text": "ECOGRAFIA MAMMARIA + ECOGRAFIA LINFONODI"
+        },
+        {
+          "text": "ECOGRAFIA MAMMARIA BILATERALE"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/mammografia-per-visita-senologica.jpg",
+      "alt": "mammografia 3d in tomosintesi importante rivoluzione nella senologia"
+    },
+    {
+      "type": "button",
+      "href": "/mammografia-in-tomosintesi/",
+      "text": "Scopri di più"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Radiografie (RX)"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/02/macchinario-radiografie-radiologia-generale.jpg",
+      "alt": "macchinario per le radiografie presso praemedica"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Servizi offerti"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "ANCA"
+        },
+        {
+          "text": "BACINO SOTTO CARICO"
+        },
+        {
+          "text": "BACINO PER ANCHE"
+        },
+        {
+          "text": "COLONNA CERVICALE"
+        },
+        {
+          "text": "COLONNA DORSALE"
+        },
+        {
+          "text": "COLONNA IN TOTO 3 TRATTI"
+        },
+        {
+          "text": "CRANIO"
+        },
+        {
+          "text": "COLONNA LOMBOSACRALE"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "TORACE"
+        },
+        {
+          "text": "EMITORACE"
+        },
+        {
+          "text": "FEMORE"
+        },
+        {
+          "text": "GINOCCHIO"
+        },
+        {
+          "text": "GOMITO"
+        },
+        {
+          "text": "MANO"
+        },
+        {
+          "text": "TELECRANIO"
+        },
+        {
+          "text": "PIEDE"
+        },
+        {
+          "text": "SPALLA"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Ortopanoramica"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "Servizi offerti"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "text": "ORTOPANORAMICA"
+        },
+        {
+          "text": "ORTOPANORAMICA + TELECRANIO"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ortopantomografo-praemedica.jpg",
+      "alt": "L'ortopantomografo di Praemedica, utilizzato per eseguire ortopanoramica dettagliata delle arcate dentali e delle strutture ossee, garantendo diagnosi accurate"
+    },
+    {
+      "type": "button",
+      "href": "/ortopanoramica/",
+      "text": "Scopri di più"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/02/macchinario-radiografie-radiologia-generale.jpg",
+    "alt": "macchinario per le radiografie presso praemedica"
+  }
+}

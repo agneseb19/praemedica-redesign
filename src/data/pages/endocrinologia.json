@@ -1,0 +1,118 @@
+{
+  "slug": "endocrinologia",
+  "type": "page",
+  "title": "Endocrinologia",
+  "date": "2025-01-24T09:55:25",
+  "seo": {
+    "title": "Endocrinologia - Praemedica",
+    "description": "Praemedica offre servizi di endocrinologia con diagnosi e trattamenti personalizzati per le patologie endocrine."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Endocrinologia"
+    },
+    {
+      "type": "text",
+      "html": "<p><strong>L’endocrinologia</strong> è una branca fondamentale della medicina che si occupa dello studio delle ghiandole endocrine e degli ormoni prodotti dal nostro organismo. Gli ormoni svolgono un ruolo cruciale nel regolare molte funzioni vitali, tra cui il metabolismo, la crescita, la riproduzione e l’equilibrio energetico.</p><p>Tra le principali patologie trattate dall’endocrinologia troviamo il <strong>diabete</strong>, l’<strong>ipotiroidismo</strong>, l’<strong>ipertiroidismo</strong>, i disturbi della crescita, le disfunzioni surrenaliche e le alterazioni ormonali legate alla menopausa o all’infertilità. Rivolgersi a uno specialista in endocrinologia è fondamentale per diagnosticare precocemente disturbi endocrini e avviare trattamenti personalizzati che migliorino la qualità della vita.</p><p>Grazie ai progressi scientifici, l’endocrinologia è oggi in grado di fornire soluzioni sempre più mirate, con terapie innovative che tengono conto delle specificità di ogni paziente. <strong>Praemedica</strong> offre un approccio su misura per la diagnosi e il trattamento delle patologie endocrine, garantendo un’assistenza completa e personalizzata.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/endocrinologia-.jpg",
+      "alt": "Immagine che rappresenta il concetto di endocrinologia, la specialità medica che studia i disturbi ormonali e delle ghiandole endocrine."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-endocrinologica.jpg",
+      "alt": "visita endocrinologica, in cui uno specialista valuta la salute ormonale e diagnostica disturbi delle ghiandole endocrine."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando si va da un endocrinologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>È importante rivolgersi a un endocrinologo quando si sospettano<strong> disturbi ormonali o malattie delle ghiandole endocrine</strong>, che regolano funzioni vitali come metabolismo, crescita e riproduzione. Tra i sintomi da non sottovalutare ci sono stanchezza cronica, variazioni di peso inspiegabili, alterazioni del ciclo mestruale, infertilità, sudorazione eccessiva, tachicardia e problemi tiroidei come ipotiroidismo o ipertiroidismo. Altri segnali includono difficoltà a gestire il diabete, disturbi della crescita nei bambini, osteoporosi precoce e squilibri del colesterolo.</p><p>Un consulto endocrinologico è essenziale anche per monitorare patologie già diagnosticate o trattare condizioni come la menopausa o i disturbi metabolici. Da Praemedica, i nostri specialisti in endocrinologia utilizzano tecnologie avanzate per offrire diagnosi e trattamenti personalizzati, migliorando la salute ormonale e la qualità della vita.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quali sono le patologie endocrine?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Le patologie endocrine sono disturbi che colpiscono le ghiandole endocrine, responsabili della produzione degli ormoni necessari per regolare funzioni vitali come metabolismo, crescita, fertilità e gestione dello stress. L’endocrinologia, la branca medica specializzata nello studio di queste condizioni, si occupa del trattamento di malattie come il <strong>diabete mellito</strong>, legato alla regolazione dell’insulina, e i <strong>disturbi tiroidei</strong>, tra cui ipotiroidismo e ipertiroidismo, che alterano il metabolismo.</p><p>Altre patologie endocrine includono le <strong>disfunzioni surrenaliche</strong> (<a href=\"https://it.wikipedia.org/wiki/Malattia_di_Addison\" target=\"_blank\" rel=\"noopener\">morbo di Addison</a>, sindrome di Cushing), i <strong>disturbi della crescita</strong> dovuti a squilibri dell’ormone della crescita, e l’<strong>osteoporosi</strong> legata a carenze ormonali. Squilibri ormonali durante la pubertà, la menopausa o problemi di infertilità rientrano anch’essi tra le condizioni trattate dagli specialisti in endocrinologia.</p><p>Grazie ai progressi dell’endocrinologia, oggi è possibile diagnosticare e trattare queste patologie in modo efficace, migliorando significativamente la qualità della vita dei pazienti.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Endocrinologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + doppler tiroideo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + ecografia tiroide"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ago aspirato tiroideo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/onofri-alessandro.jpg",
+      "alt": "dr. Alessandro Onofri specialista in endocrinologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Alessandro Onofri</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-alessandro-onofri.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/visita-endocrinologica.jpg",
+    "alt": "visita endocrinologica, in cui uno specialista valuta la salute ormonale e diagnostica disturbi delle ghiandole endocrine."
+  }
+}

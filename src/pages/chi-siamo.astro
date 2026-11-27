@@ -1,0 +1,95 @@
+---
+/** Chi siamo: testi e foto originali, nello schema della home. */
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { getPage, stripTags, type Block } from '../lib/content';
+import { Picture } from 'astro:assets';
+import chiPhoto from '../assets/found/chi-visita.jpg';
+import missionPhoto from '../assets/found/mission-cura.jpg';
+import prestPhoto from '../assets/found/prestazioni-stetoscopio.jpg';
+
+const page = getPage('chi-siamo');
+const B = page.blocks;
+const [hBrand, hPartner, hChi, hMission, hElenco] = (B.filter((b) => b.type === 'heading') as Extract<Block, { type: 'heading' }>[]).map((h) => stripTags(h.html));
+const [tChi, tMission] = B.filter((b) => b.type === 'text') as Extract<Block, { type: 'text' }>[];
+const imgs = B.filter((b) => b.type === 'image') as Extract<Block, { type: 'image' }>[];
+const prestazioni = (B.filter((b) => b.type === 'list') as Extract<Block, { type: 'list' }>[]).flatMap((l) => l.items);
+// testo di presentazione completo della home originale
+const homeIntro = (getPage('home').blocks.filter((b) => b.type === 'text') as Extract<Block, { type: 'text' }>[])[0];
+/* "know-how" sostituito su richiesta della cliente */
+const introHtml = homeIntro.html.replace(/un forte\s*<a[^>]*>\s*know-how\s*<\/a>/i, 'competenze solide').replace(/un forte\s*know-how/i, 'competenze solide');
+const nice = (s: string) => s.charAt(0) + s.slice(1).toLowerCase();
+---
+<Base title={page.seo?.title ?? 'Chi Siamo'} description={page.seo?.description}>
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Chi Siamo' }]} eyebrow={hBrand} title={hPartner} img={imgs[0].src} alt={imgs[0].alt} />
+
+  <!-- 01: testo a sinistra, foto a destra che resta in vista -->
+  <section class="sec" aria-labelledby="chi-t">
+    <SectionHead n="01" id="chi-t" title={nice(hChi)} desc="Assistenza e supporto medico a 360°, con il paziente al centro della nostra attività." />
+    <div class="wrap split">
+      <div class="prose split__text" data-reveal set:html={tChi.html} />
+      <figure class="split__pic" data-img><Picture src={chiPhoto} alt="Una dottoressa sorridente parla con una paziente" formats={['webp']} widths={[800, 1400, 2000]} sizes="(min-width: 900px) 44vw, 92vw" /></figure>
+    </div>
+  </section>
+
+  <!-- 02: riquadro ghiaccio, foto a sinistra e testo a destra -->
+  <section class="sec" aria-labelledby="mission-t">
+    <SectionHead n="02" id="mission-t" title={nice(hMission)} desc="La salute al centro, il paziente al primo posto." />
+    <div class="wrap">
+      <div class="mission">
+        <figure class="mission__pic" data-img><Picture src={missionPhoto} alt="Un medico rassicura il paziente con una mano sul braccio" formats={['webp']} widths={[800, 1400, 2000]} sizes="(min-width: 900px) 42vw, 92vw" /></figure>
+        <div class="prose mission__text" data-reveal set:html={tMission.html} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 03: solo testo, colonna di lettura -->
+  <section class="sec" aria-labelledby="centro-t">
+    <SectionHead n="03" id="centro-t" title="Il centro diagnostico" desc="Visite specialistiche, alta diagnostica e riabilitazione in un unico centro, a Palestrina." />
+    <div class="col"><div class="prose" data-reveal set:html={introHtml} /></div>
+  </section>
+
+  <section class="sec" aria-labelledby="prest-t">
+    <SectionHead n="04" id="prest-t" title={nice(hElenco)} desc="Scegli la prestazione per conoscere visite, esami e specialisti." />
+    <div class="wrap prest">
+      <figure class="prest__pic" data-img><Picture src={prestPhoto} alt="Una dottoressa in camice bianco tiene lo stetoscopio" formats={['webp']} widths={[600, 1000, 1600]} sizes="(min-width: 900px) 34vw, 92vw" /></figure>
+      <ul class="pills prest__list" role="list">
+        {prestazioni.map((p) => <li data-reveal><a href={p.href}><Icon name="arrow-up-right" />{nice(p.text)}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  .split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 4vw, 4rem); align-items: stretch; padding: clamp(1rem, 1.5vw, 1.25rem); background: var(--ice); border-radius: var(--r); }
+  .split__text { align-self: center; max-width: 62ch; padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem); font-size: 1.05rem; line-height: 1.75; }
+  .split__pic { position: relative; margin: 0; min-height: 380px; overflow: hidden; border-radius: 16px; }
+  .split__pic :global(img) { position: absolute; inset: 0; }
+  .split__pic :global(picture), .split__pic :global(img), .mission__pic :global(picture), .mission__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .mission { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding: clamp(1rem, 1.5vw, 1.25rem); background: var(--ice); border-radius: var(--r); }
+  .mission__pic { position: relative; margin: 0; align-self: stretch; min-height: 380px; overflow: hidden; border-radius: 16px; }
+  .mission__pic :global(img) { position: absolute; inset: 0; }
+  .mission__text { max-width: 62ch; padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) 0; font-size: 1.05rem; line-height: 1.75; }
+  .prest { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
+  .prest__pic { position: sticky; top: calc(var(--bar-h) + 2rem); margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r); }
+  .prest__pic :global(picture), .prest__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .prest__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 900px) {
+    .split, .mission, .prest { grid-template-columns: 1fr; }
+    .split__pic, .prest__pic { position: relative; min-height: 0; aspect-ratio: 4 / 3; }
+    .prest__pic { position: static; }
+    .split__pic { order: -1; }
+    .split__text { padding: 0.5rem 0.6rem 1rem; }
+    .mission__pic { min-height: 0; aspect-ratio: 4 / 3; }
+    .mission__text { padding: 0.5rem 0.6rem 1rem; }
+  }
+  @media (max-width: 560px) {
+    .prest__list { grid-template-columns: 1fr; }
+  }
+</style>

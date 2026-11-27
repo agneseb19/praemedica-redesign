@@ -1,0 +1,125 @@
+{
+  "slug": "otorinolaringoiatria",
+  "type": "page",
+  "title": "Otorinolaringoiatria",
+  "date": "2025-01-23T17:54:20",
+  "seo": {
+    "title": "Otorinolaringoiatria - Praemedica",
+    "description": "Scopri i trattamenti specialistici in otorinolaringoiatria offerti da Praemedica per orecchie, naso, gola e vie respiratorie superiori."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Otorinolaringoiatria"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>otorinolaringoiatria</strong> è una branca della medicina specializzata nella diagnosi e nel trattamento delle patologie che interessano orecchie, naso e gola, nonché delle strutture correlate come laringe e seni paranasali. Questo settore medico si occupa di problemi comuni come infezioni auricolari, sinusiti, disturbi dell’udito, vertigini, apnee notturne, riniti allergiche e patologie delle corde vocali.&nbsp;</p><p>Tra le problematiche più comuni affrontate dall’otorinolaringoiatra troviamo infezioni auricolari, sinusiti acute e croniche, ipoacusia (perdita dell’udito), vertigini, disturbi dell’equilibrio, apnee notturne, riniti allergiche, polipi nasali e patologie delle corde vocali che influenzano la fonazione.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/visita-otorinolaringoiatrica.jpg",
+      "alt": "Specialista in otorinolaringoiatria che esamina un paziente per disturbi di orecchie, naso e gola."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/otorinolaringoiatria.jpg",
+      "alt": "Consulto in otorinolaringoiatria per diagnosi e trattamento di disturbi a orecchie, naso e gola."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando si va dall'otorinolaringoiatra?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Consultare un otorinolaringoiatra è fondamentale quando si manifestano sintomi che coinvolgono orecchie, naso, gola e strutture correlate, che non si risolvono con trattamenti generici o si ripresentano frequentemente. Se avverti problemi come mal di gola persistente, difficoltà a deglutire, perdita dell’udito, vertigini, o acufeni (ronzii nelle orecchie), è importante rivolgersi a uno specialista per una diagnosi accurata.</p><p>Altri segnali che richiedono l’intervento di un otorinolaringoiatra includono sinusiti croniche, apnee notturne, riniti allergiche, russamento e disturbi respiratori, nonché infezioni auricolari ricorrenti, che possono essere sintomi di patologie sottostanti. L’otorinolaringoiatra è anche il riferimento per chi soffre di patologie delle corde vocali, come la disfonia o le alterazioni della voce, e per chi presenta difficoltà respiratorie legate a <a href=\"https://it.wikipedia.org/wiki/Poliposi_nasosinusale\" target=\"_blank\" rel=\"noopener\">polipi nasali</a> o deviazioni del setto nasale.</p><p>Se non trattati in tempo, questi disturbi possono influire negativamente sulla qualità della vita, quindi è sempre meglio intervenire tempestivamente.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Che differenza c'è tra otorino e otorinolaringoiatria?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La differenza tra otorino e otorinolaringoiatria riguarda principalmente il termine utilizzato e la specializzazione medica. Otorino è un’abbreviazione di otorinolaringoiatra che è il medico specializzato nella diagnosi e nel trattamento delle patologie che interessano orecchie, naso, gola, nonché altre strutture correlate come la laringe e i seni paranasali.&nbsp;</p><p>L’<strong>otorinolaringoiatria</strong> è la branca della medicina che comprende il trattamento di disturbi come le infezioni auricolari, i problemi di udito, le apnee notturne, le sinusiti e i disturbi respiratori.&nbsp;</p><p>Mentre <strong>otorino</strong> è un termine colloquiale utilizzato per descrivere lo specialista, otorinolaringoiatria è il nome completo della disciplina medica, che si occupa di una vasta gamma di problematiche riguardanti le vie respiratorie superiori e l’udito.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Otorinolaringoiatrica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Otorinolaringoiatrica fino ai 15 anni"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Lavaggio auricolare"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Fibrolaringoscopia"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Esame Vestibolare"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Esame Audiometrico"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/06/giorgio-santiemma.jpg",
+      "alt": "dr. Giorgio Santiemma specialista in Otorinolaringoiatria"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Giorgio Santiemma</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/visita-otorinolaringoiatrica.jpg",
+    "alt": "Specialista in otorinolaringoiatria che esamina un paziente per disturbi di orecchie, naso e gola."
+  }
+}

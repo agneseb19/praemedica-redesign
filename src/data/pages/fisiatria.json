@@ -1,0 +1,128 @@
+{
+  "slug": "fisiatria",
+  "type": "page",
+  "title": "Fisiatria",
+  "date": "2025-03-17T17:46:44",
+  "seo": {
+    "title": "Fisiatria - Praemedica",
+    "description": "La fisiatria si occupa di riabilitazione e recupero motorio. Scopri i trattamenti di Praemedica per migliorare la tua mobilità."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Fisiatria"
+    },
+    {
+      "type": "text",
+      "html": "<p>La <strong>fisiatria</strong>, è una branca della medicina specializzata nella <strong>diagnosi, cura e riabilitazione</strong> di pazienti con patologie muscolo-scheletriche, neurologiche e post-traumatiche. L’obiettivo principale della fisiatria è <strong>ripristinare o migliorare la funzionalità fisica</strong> di chi ha subito traumi, interventi chirurgici o soffre di condizioni croniche che limitano i movimenti e l’autonomia.</p><p>Il <strong>medico fisiatra</strong> lavora in sinergia con fisioterapisti, ortopedici, neurologi e altri specialisti per sviluppare percorsi riabilitativi personalizzati, utilizzando terapie conservative come la <strong>fisioterapia, la terapia del dolore, la <a href=\"/palestra-riabilitativa/\">riabilitazione motoria</a> e le infiltrazioni</strong>.</p><p>Questa disciplina è fondamentale per trattare patologie come il <strong>mal di schiena, <a href=\"https://it.wikipedia.org/wiki/Ernia_del_disco\" target=\"_blank\" rel=\"noopener\">l’ernia del disco</a>, l’artrosi, la sclerosi multipla</strong> e molte altre condizioni che compromettono il benessere fisico.</p><p><strong>Praemedica</strong> offre servizi avanzati in fisiatria, mettendo a disposizione dei pazienti una diagnosi accurata e trattamenti all’avanguardia.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/fisiatria.jpg",
+      "alt": "Medico fisiatra mentre valuta la postura di un paziente durante una visita specialistica"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/visita-fisiatrica.jpg",
+      "alt": "Fisiatra esamina il movimento articolare di un paziente per definire un percorso riabilitativo personalizzato"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi al fisiatra?"
+    },
+    {
+      "type": "text",
+      "html": "<p>l <strong>fisiatra</strong> è lo specialista di riferimento per chi soffre di <strong>dolori muscolo-scheletrici, difficoltà motorie o necessita di riabilitazione</strong> dopo un trauma o un intervento chirurgico. È consigliato rivolgersi a lui nei seguenti casi:</p><ul><li><strong>Dolore persistente</strong> alla schiena, al collo, alle articolazioni o ai muscoli che limita le attività quotidiane.</li><li><strong>Patologie della colonna vertebrale</strong> come ernia del disco, scoliosi, lombalgia e cervicalgia.</li><li><strong>Recupero post-operatorio</strong> dopo interventi ortopedici, come protesi d’anca o di ginocchio.</li><li><strong>Riabilitazione post-ictus o post-trauma cranico</strong> per migliorare forza e coordinazione.</li><li><strong>Disturbi neurologici</strong> come sclerosi multipla, Parkinson o neuropatie periferiche.</li><li><strong>Lesioni sportive</strong> (strappi muscolari, tendiniti, distorsioni) per un recupero ottimale.</li></ul><p>Un consulto fisiatrico permette di individuare il trattamento più adatto, che può includere <strong>fisioterapia, terapia farmacologica, infiltrazioni o tecniche riabilitative avanzate</strong> per migliorare la qualità della vita.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Qual'è la differenza tra fisiatra e ortopedico?"
+    },
+    {
+      "type": "text",
+      "html": "<p>La principale <strong>differenza tra il fisiatra e l’ortopedico</strong> riguarda l’approccio alla diagnosi e al trattamento delle patologie muscolo-scheletriche.</p><p><strong>Il fisiatra</strong> è un medico specializzato in medicina fisica e riabilitativa e si occupa di trattamenti conservativi per migliorare la mobilità e ridurre il dolore senza interventi chirurgici. Il suo focus è la riabilitazione e il recupero funzionale attraverso fisioterapia, terapia farmacologica e tecniche di riabilitazione.</p><p><strong>L’ortopedico</strong>, invece, è un chirurgo specializzato nel trattamento delle patologie dell’apparato muscolo-scheletrico, come fratture, lesioni ai legamenti o degenerazioni articolari. Può prescrivere trattamenti conservativi, ma il suo ruolo principale è quello di intervenire chirurgicamente quando necessario.</p><p>In sintesi, se hai bisogno di un percorso riabilitativo per migliorare la funzionalità senza operazioni, il fisiatra è la scelta giusta, mentre se il problema richiede un trattamento chirurgico, come la ricostruzione di un legamento o l’impianto di una protesi, è necessario rivolgersi all’ortopedico.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Fisiatrica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ozonoterapia"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Infiltrazione"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Mesoterapia"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/04/claudio-pilati.jpg",
+      "alt": "Dr. Claudio Pilati specialista in fisiatria"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Claudio Pilati</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-dr-pilati.pdf",
+      "text": "Curriculum V."
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/09/emanuela-lena-fisiatra.jpg",
+      "alt": "dr.ssa Emanuela Lena specialista in fisiatria presso praemedica"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr.ssa Emanuela Lena</a>"
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/03/fisiatria.jpg",
+    "alt": "Medico fisiatra mentre valuta la postura di un paziente durante una visita specialistica"
+  }
+}

@@ -1,0 +1,65 @@
+---
+/** Modulo "Richiedi Informazioni" (campi del modulo originale), invio a /contatti.php. */
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+interface Props { title?: string; subtitle?: string; bare?: boolean }
+const { title = 'Richiedi Informazioni', subtitle = 'Ti ricontatteremo nel più breve tempo possibile!', bare = false } = Astro.props;
+---
+<div class:list={['cf', { 'cf--bare': bare }]} id="richiedi">
+  {!bare && <div class="cf__info">
+    <span class="label label--green">Contattaci</span>
+    <h2 class="h2 cf__t" data-lines>{title}</h2>
+    <p class="lead cf__sub" data-reveal>{subtitle}</p>
+    <ul class="cf__rows" role="list" data-reveal>
+      <li><span class="label">Telefono</span><a href={site.phone.href}>{site.phone.label}</a></li>
+      <li><span class="label">WhatsApp</span><a href={site.whatsapp.href} target="_blank" rel="noopener">{site.whatsapp.label}</a></li>
+      <li><span class="label">Email</span><a href={site.email.href}>{site.email.label}</a></li>
+    </ul>
+  </div>}
+  <form class="cf__form" action="/contatti.php" method="post" data-ajax-form data-reveal>
+    <fieldset class="cf__pair">
+      <legend class="label">Nominativo *</legend>
+      <label class="field"><span class="sr-only">Nome</span><input name="nome" placeholder="Nome" autocomplete="given-name" required /></label>
+      <label class="field"><span class="sr-only">Cognome</span><input name="cognome" placeholder="Cognome" autocomplete="family-name" required /></label>
+    </fieldset>
+    <div class="cf__pair">
+      <label class="field"><span>Telefono *</span><input name="telefono" type="tel" inputmode="tel" autocomplete="tel" required /></label>
+      <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" /></label>
+    </div>
+    <label class="field"><span>Commento o Messaggio</span><textarea name="messaggio" rows="3"></textarea></label>
+    <fieldset>
+      <legend class="label">Trattamento dei dati personali *</legend>
+      <label class="check"><input type="checkbox" name="privacy" value="1" required /><span>Autorizzo al trattamento dei miei dati personali (<a href={site.privacy.policy.href} target="_blank" rel="noopener">{site.privacy.policy.label}</a>)</span></label>
+    </fieldset>
+    <label class="hp" aria-hidden="true">Sito web<input name="website" tabindex="-1" autocomplete="off" /></label>
+    <button class="btn cf__send" type="submit">Invia <Icon name="arrow-right" /></button>
+    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<style>
+  .cf { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 1rem + 6vw, 8rem); align-items: start; }
+  .cf__t { margin-top: 1rem; }
+  .cf__sub { margin-top: 1.2rem; max-width: 30ch; }
+  .cf__rows { list-style: none; margin-top: 2.5rem; border-top: 1px solid var(--line); }
+  .cf--bare { grid-template-columns: minmax(0, 1fr); max-width: 880px; margin-inline: auto; }
+  .cf__rows li { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .cf__rows a { font-size: 1.15rem; font-weight: 300; text-decoration: none; }
+  .cf__rows a:hover { color: var(--green-ink); }
+  .cf__form { display: grid; gap: 1.6rem; padding: clamp(1.5rem, 3vw, 2.5rem); background: var(--ice); border-radius: var(--r); }
+  .cf fieldset { border: 0; margin: 0; padding: 0; }
+  .cf legend { margin-bottom: 0.2rem; }
+  .cf__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 2rem; }
+  .cf__pair legend { grid-column: 1 / -1; }
+  .check { display: flex; gap: 0.8rem; align-items: flex-start; margin-top: 0.6rem; cursor: pointer; font-size: var(--t-sm); color: var(--ink-2); }
+  .check input { width: 20px; height: 20px; margin: 0.15rem 0 0; accent-color: var(--green-ink); flex: none; }
+  .check a { color: var(--green-ink); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .cf__send { justify-self: start; }
+  .cf__send:disabled { opacity: 0.6; }
+  .form-status:empty { display: none; }
+  :global(.form-status) { padding: 0.9rem 1rem; background: var(--soft); border-radius: var(--r); font-size: var(--t-sm); }
+  :global(.form-status.is-error) { background: #fdecec; color: #8a1c1c; }
+  @media (max-width: 900px) { .cf { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .cf__pair { grid-template-columns: 1fr; } .cf__send { width: 100%; } }
+</style>

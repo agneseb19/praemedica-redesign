@@ -1,0 +1,58 @@
+---
+/**
+ * Specializzazioni in due forme:
+ * - "photos": card fotografiche con nome sopra la foto (in evidenza)
+ * - "index": indice a righe sottili con prestazioni reali e medici (completo, filtrabile)
+ */
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import type { Summary } from '../lib/content';
+
+interface Props { items: Summary[]; filterKey?: string; variant?: 'photos' | 'index' }
+const { items, filterKey, variant = 'index' } = Astro.props;
+---
+{variant === 'photos' ? (
+  <ul class="ph" role="list">
+    {items.map((it) => (
+      <li data-reveal>
+        <a class="ph__c" href={it.href}>
+          <span class="pic pic--hover ph__img">{it.img && <Img src={it.img} alt={it.alt ?? ''} sizes="(min-width: 1024px) 330px, 46vw" widths={[360, 700]} />}</span>
+          <span class="ph__n">{it.label}</span>
+          {it.services.length > 0 && <span class="ph__s">{it.services.slice(0, 2).join(', ')}</span>}
+        </a>
+      </li>
+    ))}
+  </ul>
+) : (
+  <ul class="ix" role="list" data-filter-list={filterKey}>
+    {items.map((it) => (
+      <li data-filter-item data-name={`${it.label} ${it.services.join(' ')} ${it.doctors.join(' ')}`.toLowerCase()}>
+        <a class="ix__r" href={it.href}>
+          <span class="ix__n">{it.label}</span>
+          <span class="ix__s">{it.services.slice(0, 3).join(', ')}</span>
+          <Icon name="arrow-up-right" class="icon ix__go" />
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .ph { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .ph__c { display: grid; gap: 0.5rem; text-decoration: none; }
+  .ph__img { display: block; aspect-ratio: 4 / 3; margin-bottom: 0.5rem; }
+  .ph__n { font-size: clamp(1.15rem, 1rem + 0.4vw, 1.4rem); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .ph__s { font-size: 0.88rem; color: var(--muted); }
+
+  .ix { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+  .ix > li[hidden] { display: none; }
+  .ix__r { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.3rem 1rem; align-items: center; height: 100%; padding: 1.2rem 1.3rem; background: var(--ice); border-radius: 18px; text-decoration: none; transition: background-color 0.3s; }
+  .ix__r:hover { background: var(--deep); }
+  .ix__n { font-size: 1.12rem; font-weight: 500; letter-spacing: -0.02em; color: var(--deep); transition: color 0.3s; }
+  .ix__s { grid-column: 1; font-size: 0.85rem; color: var(--muted); line-height: 1.45; transition: color 0.3s; }
+  .ix :global(.ix__go) { grid-column: 2; grid-row: 1 / span 2; width: 1.1rem; height: 1.1rem; color: var(--green); transition: transform 0.4s var(--ease), color 0.3s; }
+  .ix__r:hover .ix__n, .ix__r:hover .ix__s, .ix__r:hover :global(.ix__go) { color: #fff; }
+  .ix__r:hover :global(.ix__go) { transform: rotate(45deg); }
+  @media (max-width: 1024px) { .ph { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ix { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .ix { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+---
+<Base title="Pagina non trovata">
+  <section class="sec nf">
+    <SectionHead n="404" title="Pagina non trovata" desc="La pagina che cerchi non esiste o è stata spostata." />
+    <p class="nf__act"><a class="btn btn--green" href="/">Torna alla Home</a><a class="btn btn--line" href="/contatti/">Contatti</a></p>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-block: clamp(6rem, 5rem + 6vw, 10rem); }
+  .nf__act { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+</style>

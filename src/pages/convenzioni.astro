@@ -1,0 +1,32 @@
+---
+/** Convenzioni: i loghi originali con i loro link, nello schema della home. */
+import Base from '../layouts/Base.astro';
+import Tiles from '../components/Tiles.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { getPage, stripTags, type Block } from '../lib/content';
+import { site } from '../data/site';
+
+const page = getPage('convenzioni');
+const [title, lead] = page.blocks.filter((b) => b.type === 'heading') as Extract<Block, { type: 'heading' }>[];
+const logos = page.blocks.filter((b) => b.type === 'image') as Extract<Block, { type: 'image' }>[];
+---
+<Base title={page.seo?.title ?? 'Convenzioni'} description={page.seo?.description}>
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Convenzioni' }]} title={stripTags(title.html)} img="wp/2025/04/convenzioni-assicurative.jpg" alt="Convenzioni assicurative del centro Praemedica" />
+
+  <section class="sec" aria-labelledby="conv-t">
+    <SectionHead n="01" id="conv-t" title="Le compagnie convenzionate" desc={stripTags(lead.html)} />
+    <div class="wrap">
+      <Tiles logos={logos} />
+      <p class="help" data-reveal>Hai un'assicurazione sanitaria e non la trovi in elenco? Chiama il <a href={site.phone.href}>{site.phone.label}</a> o scrivi su <a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp</a>.</p>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  .help { max-width: 52ch; margin: clamp(2.5rem, 4vw, 3.5rem) auto 0; text-align: center; font-size: 1.02rem; color: var(--ink-2); }
+  .help a { color: var(--green-ink); }
+</style>

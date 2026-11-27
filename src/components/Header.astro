@@ -1,0 +1,146 @@
+---
+/**
+ * Barra: logo (porta alla home), voci in maiuscolo spaziato, telefono e "Prenota".
+ * Ogni voce ha la sua pagina; Alta Diagnostica e Specializzazioni aprono anche un elenco.
+ */
+import Icon from './Icon.astro';
+import { site, specializzazioniMenu, altaDiagnostica } from '../data/site';
+
+const path = Astro.url.pathname;
+const on = (href: string) => path.startsWith(href);
+const specOn = on('/specializzazioni/') || specializzazioniMenu.some((s) => path === s.href);
+const diagOn = on('/alta-diagnostica/') || altaDiagnostica.some((s) => path === s.href) || path === '/radiologia/';
+const half = Math.ceil(specializzazioniMenu.length / 3);
+const cols = [0, 1, 2].map((i) => specializzazioniMenu.slice(i * half, (i + 1) * half));
+---
+<header class="bar" data-header>
+  <div class="bar__in">
+    <a class="bar__logo" href="/" aria-label="Praemedica, home">
+      <img src="/brand/logo.png" alt="logo praemedica scontornato" width="617" height="124" />
+    </a>
+
+    <nav class="nav" aria-label="Menu principale">
+      <a class="nav__a" href="/chi-siamo/" aria-current={on('/chi-siamo/') ? 'page' : undefined}>Chi Siamo</a>
+      <div class="dd">
+        <a class:list={['nav__a', { 'is-on': diagOn }]} href="/alta-diagnostica/">Alta Diagnostica</a>
+        <div class="dd__panel">
+          <p class="label">Alta Diagnostica</p>
+          <ul role="list">
+            {altaDiagnostica.map((d) => <li><a href={d.href}>{d.label}</a></li>)}
+            <li><a href="/radiologia/">Radiologia</a></li>
+          </ul>
+          <a class="more" href="/alta-diagnostica/">Panoramica <Icon name="arrow-right" /></a>
+        </div>
+      </div>
+      <div class="dd">
+        <a class:list={['nav__a', { 'is-on': specOn }]} href="/specializzazioni/">Specializzazioni</a>
+        <div class="dd__panel dd__panel--wide">
+          <p class="label">Specializzazioni</p>
+          <div class="dd__cols">
+            {cols.map((c) => <ul role="list">{c.map((s) => <li><a href={s.href}>{s.label}</a></li>)}</ul>)}
+          </div>
+          <a class="more" href="/specializzazioni/">Tutte le specializzazioni <Icon name="arrow-right" /></a>
+        </div>
+      </div>
+      <a class="nav__a" href="/medici/" aria-current={on('/medici/') ? 'page' : undefined}>Medici</a>
+      <a class="nav__a" href="/convenzioni/" aria-current={on('/convenzioni/') ? 'page' : undefined}>Convenzioni</a>
+      <a class="nav__a" href="/contatti/" aria-current={on('/contatti/') ? 'page' : undefined}>Contatti</a>
+    </nav>
+
+    <div class="bar__act">
+      <a class="bar__tel" href={site.phone.href} aria-label={`Chiama ${site.phone.label}`}><Icon name="phone" /></a>
+      <a class="btn btn--green bar__book" href={site.doctolib.href} target="_blank" rel="noopener">Prenota online</a>
+      <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="bar__menu-label">Menu</span>
+        <span class="bar__burger" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="menu" id="menu" data-mobile-menu hidden>
+    <div class="menu__in" data-lenis-prevent>
+      <a class="menu__a" href="/chi-siamo/">Chi Siamo</a>
+      <details class="menu__g">
+        <summary>Alta Diagnostica <Icon name="plus" /></summary>
+        <a href="/alta-diagnostica/">Panoramica</a>
+        {altaDiagnostica.map((d) => <a href={d.href}>{d.label}</a>)}
+        <a href="/radiologia/">Radiologia</a>
+      </details>
+      <details class="menu__g">
+        <summary>Specializzazioni <Icon name="plus" /></summary>
+        <a href="/specializzazioni/">Tutte le specializzazioni</a>
+        {specializzazioniMenu.map((s) => <a href={s.href}>{s.label}</a>)}
+      </details>
+      <a class="menu__a" href="/medici/">Medici</a>
+      <a class="menu__a" href="/convenzioni/">Convenzioni</a>
+      <a class="menu__a" href="/contatti/">Contatti</a>
+      <div class="menu__cta">
+        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota online</a>
+        <a class="btn btn--line" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+        <a class="btn btn--line" href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /> WhatsApp</a>
+      </div>
+      <div class="menu__size" role="group" aria-label="Dimensione del testo">
+        <span class="label">Dimensione testo</span>
+        <button type="button" data-text-size="down" aria-label="Riduci il testo">A−</button>
+        <button type="button" data-text-size="up" aria-label="Ingrandisci il testo">A+</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .bar { position: sticky; top: 0; z-index: 100; background: rgb(255 255 255 / 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: box-shadow 0.3s; }
+  .bar:global(.is-scrolled) { box-shadow: 0 1px 0 var(--line); }
+  .bar__in { position: relative; display: flex; align-items: center; gap: 2rem; height: var(--bar-h); padding-inline: var(--pad); max-width: 1600px; margin-inline: auto; }
+  .bar__logo img { height: 36px; width: auto; }
+  .nav { display: flex; align-items: center; gap: clamp(1.2rem, 0.2rem + 1.6vw, 2.4rem); margin-inline: auto; height: 100%; }
+  .nav__a { position: relative; padding-block: 0.6rem; font-size: 0.95rem; font-weight: 450; letter-spacing: -0.005em; text-decoration: none; white-space: nowrap; }
+  .nav__a::after { content: ''; position: absolute; left: 0; right: 0.2em; bottom: 0.25rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.45s var(--ease); }
+  .nav__a:hover::after, .nav__a[aria-current='page']::after, .nav__a.is-on::after { transform: scaleX(1); transform-origin: left; }
+  .dd { height: 100%; display: flex; align-items: center; }
+  .dd__panel {
+    position: absolute; top: 100%; left: 50%; translate: -50% 6px; width: 300px; padding: 1.8rem 2rem 1.6rem; background: #fff;
+    border: 1px solid var(--line); border-radius: var(--r); box-shadow: 0 30px 60px -30px rgb(17 28 39 / 0.25);
+    opacity: 0; visibility: hidden; transition: opacity 0.25s, translate 0.35s var(--ease), visibility 0s 0.25s;
+  }
+  .dd:hover .dd__panel, .dd:focus-within .dd__panel { opacity: 1; visibility: visible; translate: -50% 0; transition-delay: 0s; }
+  .dd__panel--wide { width: min(760px, 92vw); }
+  .dd__panel .label { margin-bottom: 1rem; }
+  .dd__panel ul { list-style: none; display: grid; gap: 0.1rem; }
+  .dd__panel ul a { display: block; padding: 0.35rem 0; font-size: 1rem; font-weight: 300; text-decoration: none; transition: color 0.2s, padding 0.35s var(--ease); }
+  .dd__panel ul a:hover { color: var(--green-ink); padding-left: 0.4rem; }
+  .dd__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2rem; }
+  .dd__panel .more { margin-top: 1.4rem; }
+
+  .bar__act { display: flex; align-items: center; gap: 0.6rem; }
+  .bar__tel { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--soft); transition: background-color 0.25s; }
+  .bar__tel:hover { background: var(--line); }
+  .bar__tel :global(.icon) { width: 1.05rem; height: 1.05rem; }
+  .bar__book { min-height: 46px; padding: 0 1.4rem; }
+  .bar__menu { display: none; align-items: center; gap: 0.7rem; min-height: 46px; padding: 0 0.4rem 0 0.8rem; border: 0; background: none; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+  .bar__burger { display: grid; gap: 6px; width: 24px; }
+  .bar__burger span { height: 1.5px; background: currentColor; transition: transform 0.3s var(--ease); }
+  .bar__menu[aria-expanded='true'] .bar__burger span:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .bar__menu[aria-expanded='true'] .bar__burger span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+  .menu { position: fixed; inset: var(--mm-top, var(--bar-h)) 0 0 0; background: #fff; z-index: 99; }
+  .menu:not([hidden]) { animation: menu-in 0.35s var(--ease); }
+  @keyframes menu-in { from { opacity: 0; } }
+  .menu__in { height: 100%; overflow-y: auto; padding: 1rem var(--pad) 3rem; display: grid; align-content: start; }
+  .menu__a, .menu__g summary { display: flex; align-items: center; justify-content: space-between; min-height: 62px; border-bottom: 1px solid var(--line); font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; text-decoration: none; list-style: none; cursor: pointer; }
+  .menu__g summary::-webkit-details-marker { display: none; }
+  .menu__g summary :global(.icon) { width: 1.1rem; height: 1.1rem; transition: transform 0.3s var(--ease); }
+  .menu__g[open] summary :global(.icon) { transform: rotate(45deg); }
+  .menu__g > a { display: block; padding: 0.5rem 0; font-size: 1.05rem; color: var(--muted); text-decoration: none; }
+  .menu__g[open] { padding-bottom: 0.8rem; }
+  .menu__cta { display: grid; gap: 0.6rem; margin-top: 2rem; }
+  .menu__size { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.4rem; }
+  .menu__size button { min-width: 52px; min-height: 44px; border: 1px solid var(--line-2); border-radius: 999px; background: #fff; font-weight: 600; }
+
+  @media (max-width: 1180px) {
+    .nav, .bar__book { display: none; }
+    .bar__menu { display: inline-flex; }
+    .bar__act { margin-left: auto; }
+  }
+  @media (max-width: 420px) { .bar__logo img { height: 30px; } }
+</style>

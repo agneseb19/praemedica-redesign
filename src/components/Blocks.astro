@@ -1,0 +1,105 @@
+---
+/**
+ * Rende i blocchi estratti dal sito originale: testi, foto, prestazioni a righe sottili,
+ * pulsante "Prenota ora".
+ */
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import { getImage, type Block } from '../lib/content';
+import { site } from '../data/site';
+
+interface Props { blocks: Block[] }
+const { blocks } = Astro.props;
+
+type ImageBlock = Extract<Block, { type: 'image' }>;
+type Group = { kind: 'images'; items: ImageBlock[] } | { kind: 'single'; block: Block };
+const flat = (bs: Block[]): Block[] => bs.flatMap((b) => (b.type === 'carousel' ? flat(b.slides.flat()) : [b]));
+const groups: Group[] = [];
+for (const b of flat(blocks)) {
+  const last = groups.at(-1);
+  if (b.type === 'image') {
+    if (last?.kind === 'images') last.items.push(b);
+    else groups.push({ kind: 'images', items: [b] });
+  } else if (b.type === 'iconbox' && !b.html && last?.kind === 'single' && (last.block as any).fromBoxes) {
+    (last.block as any).items.push({ text: b.title });
+  } else if (b.type === 'iconbox' && !b.html) {
+    groups.push({ kind: 'single', block: { type: 'list', items: [{ text: b.title }], fromBoxes: true } as any });
+  } else groups.push({ kind: 'single', block: b });
+}
+const tall = (src: string) => { const m = getImage(src); return m ? m.height > m.width * 1.05 : false; };
+---
+{groups.map((g) => {
+  if (g.kind === 'images') {
+    return (
+      <div class:list={['pics', `pics--${Math.min(g.items.length, 2)}`]}>
+        {g.items.map((im) => {
+          const pic = <Img src={im.src} alt={im.alt} sizes={g.items.length > 1 ? '(min-width: 1024px) 440px, 46vw' : '(min-width: 1024px) 880px, 92vw'} />;
+          return (
+            <figure class:list={['pic pics__i', { 'pics__i--tall': tall(im.src) }]} data-img>
+              {im.href ? <a href={im.href} target="_blank" rel="noopener" aria-label={`Apri l'immagine: ${im.alt}`}>{pic}</a> : pic}
+            </figure>
+          );
+        })}
+      </div>
+    );
+  }
+  const b = g.block as any;
+  switch (b.type) {
+    case 'text':
+      return <div class="prose blk" data-reveal set:html={b.html} />;
+    case 'heading':
+      return b.level <= 3 ? <h3 class="blk-h" data-reveal set:html={b.html} /> : <h4 class="blk-h blk-h--4" data-reveal set:html={b.html} />;
+    case 'headline':
+      return <h3 class="blk-h" data-reveal>{b.text}</h3>;
+    case 'list':
+      return (
+        <ul class="pills svc" role="list">
+          {b.items.map((it: any) => (
+            <li data-reveal>
+              {it.href ? <a href={it.href}><Icon name="arrow-up-right" />{it.text}</a> : <span><Icon name="check" />{it.text}</span>}
+            </li>
+          ))}
+        </ul>
+      );
+    case 'iconbox':
+      return (
+        <div class="note" data-reveal>
+          <h3 class="note__t">{b.title}</h3>
+          {b.html && <div class="prose" set:html={b.html} />}
+        </div>
+      );
+    case 'social':
+      return <p class="blk-links" data-reveal>{b.items.map((it: any) => <a class="more" href={it.href} target="_blank" rel="noopener">{it.label} <Icon name="arrow-up-right" /></a>)}</p>;
+    case 'button':
+      if (b.href?.startsWith('tel:')) {
+        return (
+          <div class="book" data-reveal>
+            <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota online</a>
+            <a class="btn btn--line" href={b.href}><Icon name="phone" /> {b.text}</a>
+          </div>
+        );
+      }
+      return <p class="blk-links" data-reveal><a class="more" href={b.href}>{b.text} <Icon name="arrow-right" /></a></p>;
+    default:
+      return null;
+  }
+})}
+
+<style>
+  .blk + .blk, .blk-h + .blk { margin-top: 1.1rem; }
+  .blk-h { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); margin: 2.4rem 0 0.9rem; }
+  .blk-h--4 { font-size: 1.1rem; margin-top: 1.5rem; }
+  :global(.sx__body) > .blk-h:first-child { margin-top: 0; }
+  .pics { display: grid; gap: 1rem; margin-block: 2.4rem; }
+  .pics--2 { grid-template-columns: 1fr 1fr; align-items: start; }
+  .pics__i { aspect-ratio: 3 / 2; border-radius: var(--r); }
+  .pics__i--tall { aspect-ratio: 4 / 5; }
+  .pics--1 .pics__i--tall { width: min(100%, 440px); margin-inline: auto; }
+  .pics__i :global(a), .pics__i :global(picture) { display: block; height: 100%; }
+  .svc { margin-block: 1.6rem; }
+  .note { margin-block: 1.4rem; padding: 1.5rem 1.7rem; background: var(--ice); border-radius: var(--r); }
+  .note__t { font-size: 1.12rem; font-weight: 500; color: var(--deep); margin-bottom: 0.5rem; }
+  .book { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 2.2rem; }
+  .blk-links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; margin-top: 1.4rem; }
+  @media (max-width: 640px) { .pics--2 { grid-template-columns: 1fr; } .book .btn { width: 100%; } }
+</style>

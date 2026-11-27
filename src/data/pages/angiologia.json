@@ -1,0 +1,178 @@
+{
+  "slug": "angiologia",
+  "type": "page",
+  "title": "Angiologia",
+  "date": "2025-01-21T15:00:44",
+  "seo": {
+    "title": "Angiologia - Praemedica",
+    "description": "Scopri i servizi di angiologia di Praemedica per la diagnosi e il trattamento delle malattie vascolari. Prenota ora la tua visita."
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "html": "Angiologia"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’<strong>angiologia</strong> è la specializzazione medica che si occupa della diagnosi, cura e prevenzione delle malattie dei vasi sanguigni, arterie, vene e capillari. Questa disciplina è fondamentale per identificare e trattare patologie come l’insufficienza venosa, l’arteriosclerosi, le varici e le trombosi, che possono compromettere la circolazione e la salute cardiovascolare.</p><p>Nel centro diagnostico polispecialistico Praemedica offriamo consulenze angiologiche altamente specializzate, con un approccio mirato alla diagnosi precoce e al trattamento personalizzato. Grazie all’utilizzo di tecnologie avanzate, i nostri specialisti garantiscono trattamenti non invasivi e soluzioni efficaci per migliorare la qualità della vita dei pazienti.</p>"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/ecodoppler.jpg",
+      "alt": "Specialista in angiologia durante una visita per la diagnosi di patologie vascolari"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/01/angiologia.jpg",
+      "alt": "specialista in angiologia mentre osserva le vene varicose"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Quando rivolgersi ad un angiologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>Rivolgersi ad un angiologo è fondamentale quando si manifestano sintomi come gonfiore alle gambe, formicolii, crampi muscolari, vene varicose, dolori persistenti agli arti inferiori o segni di insufficienza circolatoria. L’<strong>angiologia</strong>, infatti, è la disciplina medica specializzata nella diagnosi e nel trattamento di tutte le patologie dei vasi sanguigni e linfatici, come arteriosclerosi, trombosi e insufficienza venosa cronica.</p>\n<p>Da <strong>Praemedica</strong>, i nostri specialisti in angiologia offrono valutazioni personalizzate e terapie mirate per preservare la salute vascolare.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Qual'è la differenza tra flebologo e angiologo?"
+    },
+    {
+      "type": "text",
+      "html": "<p>L’angiologo ed il flebologo sono specialisti complementari nel campo della salute vascolare, ma con competenze diverse.</p><p>L’<strong>angiologo</strong> si occupa della diagnosi e del trattamento di tutte le patologie che riguardano il sistema circolatorio, comprese arterie, vene e vasi linfatici.</p><p>Il <strong>flebologo</strong>, invece, è focalizzato esclusivamente sulle malattie delle vene, come vene varicose, insufficienza venosa e <a href=\"https://it.wikipedia.org/wiki/Trombosi\" target=\"_blank\" rel=\"noopener\">trombosi</a>.</p>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "html": "Servizi Offerti"
+    },
+    {
+      "type": "carousel",
+      "slides": [
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita Angiologica"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita di Controllo"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + Ecodoppler 1 Distretto"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + Ecodoppler 2 Distretti"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Visita + Ecodoppler 3 Distretti"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler Venoso arti superiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler Venoso arti inferiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler dei tronchi epioartici"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler arterioso e venoso arti superiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler arterioso e venoso arti inferiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler arterioso arti superiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler arterioso arti inferiori"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Ecodoppler aorta addominale"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Trattamento sclerosanti varici singola gamba"
+          }
+        ],
+        [
+          {
+            "type": "iconbox",
+            "title": "Trattamento sclerosanti varici due arti"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "button",
+      "href": "tel:0669451836",
+      "text": "Prenota ora"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "I Nostri Specialisti"
+    },
+    {
+      "type": "image",
+      "src": "wp/2025/03/dr-leonardo-coccia.jpg",
+      "alt": "dott. Leonardo coccia specialista in angiologia"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "html": "<a href=\"/medici/\">Dr. Leonardo Coccia</a>"
+    },
+    {
+      "type": "button",
+      "href": "/wp-content/uploads/2025/03/cv-leonardo-coccia-1.pdf",
+      "text": "Curriculum V."
+    }
+  ],
+  "featured": {
+    "src": "wp/2025/01/angiologia.jpg",
+    "alt": "specialista in angiologia mentre osserva le vene varicose"
+  }
+}
