@@ -6,6 +6,7 @@ import { getPage, summaryOf, stripTags, fixLogo, type Block } from '../lib/conte
 import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
+import heroPhoto from '../assets/found/home-cura.jpg';
 import ExamScroller from '../components/ExamScroller.astro';
 import BookBand from '../components/BookBand.astro';
 import { machines } from '../lib/machines';
@@ -64,19 +65,18 @@ const noText = reviews.reviews.filter((r) => !r.text);
 ---
 <Base title="Praemedica - Centro Diagnostico Polispecialistico" description={home.seo?.description}>
 
-  <!-- HERO: l'accoglienza di Praemedica, a destra fino al bordo; testo a sinistra.
-       La foto originale è larga 1366px: occupa metà schermo, così resta nitida. -->
+  <!-- HERO: un momento di cura, a tutto schermo (foto 4961px, nitida anche su schermi 4K) -->
   <section class="hero" aria-labelledby="hero-t">
-    <figure class="hero__media" data-img>
-      <Img src="wp/2025/02/chi-siamo-praemedica.jpg" alt="L'accoglienza del centro Praemedica, con il bancone e il logo" loading="eager" fetchpriority="high" sizes="(min-width: 760px) 52vw, 100vw" widths={[700, 1000, 1366]} />
-    </figure>
+    <div class="hero__bg" data-parallax="5">
+      <Picture src={heroPhoto} alt="Un'operatrice sanitaria sorride a una signora anziana" formats={['webp']} widths={[1000, 1600, 2400, 3200, 3840]} sizes="100vw" quality={82} loading="eager" fetchpriority="high" />
+    </div>
     <div class="wrap hero__copy">
       <p class="hero__k" data-reveal>{h(/^CENTRO DIAGNOSTICO/)} {h(/^PRAEMEDICA/)} · Palestrina</p>
       <h1 id="hero-t" class="hero__t" data-lines>La tecnologia al servizio della tua salute.</h1>
       <p class="hero__p" data-reveal>Il punto di riferimento per la tua salute: visite specialistiche, alta diagnostica e riabilitazione in un unico centro.</p>
       <div class="hero__btns" data-reveal>
         <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota una visita</a>
-        <a class="btn btn--line" href="#esplora">Esplora le prestazioni</a>
+        <a class="btn btn--white" href="#esplora">Esplora le prestazioni</a>
       </div>
     </div>
   </section>
@@ -355,15 +355,14 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .pillar__p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
 
   /* ================= HERO ================= */
-  .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; background: var(--ice); }
-  .hero__media { position: absolute; top: 0; right: 0; bottom: 0; width: 52vw; margin: 0; overflow: hidden; border-radius: 0 0 0 var(--r); }
-  .hero__media :global(picture), .hero__media :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 58% 62%; }
-  .hero__copy { display: grid; gap: 1.5rem; justify-items: start; padding-block: 4rem 9rem; }
-  .hero__copy > * { max-width: min(100%, calc(48vw - var(--pad) - 3rem)); }
-  .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
-  .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.8vw, 5.2rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--deep); }
-  .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: var(--ink-2); }
-  .hero__btns .btn--line { background: #fff; }
+  .hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
+  .hero__bg { position: absolute; inset: -5% 0; z-index: -2; }
+  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(75deg, rgb(18 60 80 / 0.88) 0%, rgb(18 60 80 / 0.66) 34%, rgb(18 60 80 / 0) 60%); }
+  .hero__copy { display: grid; gap: 1.3rem; justify-items: start; padding-block: 4rem 8.5rem; }
+  .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
+  .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.6vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: #fff; }
+  .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgb(255 255 255 / 0.92); }
   .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
 
   .facts-wrap { position: relative; z-index: 3; margin-top: -4.5rem; }
@@ -514,12 +513,13 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .pillars { grid-template-columns: 1fr; }
     .why { grid-template-columns: 1fr; }
     .reha__pics { min-height: 260px; }
-    .hero { min-height: 0; flex-direction: column; align-items: stretch; }
-    .hero__media { position: relative; order: 2; width: 100%; height: 42svh; border-radius: 0; }
-    .hero__copy { padding-block: 2.5rem 2rem; }
-    .hero__copy > * { max-width: 100%; }
+    .hero { min-height: 0; flex-direction: column; align-items: stretch; background: var(--deep); }
+    .hero__bg { position: relative; inset: auto; height: 46svh; }
+    .hero__bg :global(img) { object-position: 66% 25%; }
+    .hero::after { inset: auto 0 0; top: calc(46svh - 5rem); height: 5rem; background: linear-gradient(0deg, var(--deep), rgb(18 60 80 / 0)); }
+    .hero__copy { padding-block: 1.5rem 5.5rem; }
     .hero__btns .btn { flex: 1 1 auto; }
-    .facts-wrap { margin-top: -2.5rem; }
+    .facts-wrap { margin-top: -3rem; }
     .facts { grid-template-columns: 1fr; }
     .fact { border-left: 0; }
     .fact:nth-child(n + 2) { border-top: 1px solid var(--line); }
