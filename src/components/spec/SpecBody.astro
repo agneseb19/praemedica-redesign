@@ -21,18 +21,23 @@ interface Team { id: string; titleHtml: string; people?: Person[]; blocks: Block
 interface Props {
   recipe: 0 | 1 | 2 | 3 | 4;
   label: string;
+  icon: string;
   intro: { short: string; restHtml: string };
   photo?: Pic;
   questions: Q[];
   services: Services | null;
   team: Team[];
 }
-const { recipe, label, intro, photo, questions, services, team } = Astro.props;
+const { recipe, label, icon, intro, photo, questions, services, team } = Astro.props;
 const pad = (n: number) => String(n).padStart(2, '0');
 const people = team.flatMap((t) => t.people ?? []);
 const book = services?.book ?? { href: site.phone.href, text: 'Prenota ora' };
 const lower = label.toLowerCase();
-const gallery = questions.flatMap((q) => q.images);
+/* domande con foto: a parte, sotto, testo accanto alle sue immagini; le altre nella disposizione scelta */
+const plain = questions.filter((q) => q.images.length === 0);
+const featured = questions.filter((q) => q.images.length > 0);
+/* parole chiave della frase essenziale (i grassetti), mostrate come etichette */
+const keys = [...intro.short.matchAll(/<strong>([\s\S]*?)<\/strong>/g)].map((m) => m[1].replace(/<[^>]+>/g, '')).slice(1, 5);
 let n = 0;
 const next = () => pad(++n);
 ---
@@ -103,27 +108,34 @@ const next = () => pad(++n);
   </section>
 )}
 
-{/* ======================= IN BREVE: una frase essenziale, centrata, senza foto accanto ======================= */}
+{/* ======================= IN BREVE: scheda compatta, foto + frase essenziale ======================= */}
 {intro.short && recipe !== 2 && (
   <section class="sec" aria-labelledby="in-t">
     <div class="wrap">
-      <div class="in" data-reveal>
-        <span class="in__n">{next()}</span>
-        <h2 id="in-t" class="in__t">In breve</h2>
-        <p class="in__lead" set:html={intro.short} />
-        <ReadMore html={intro.restHtml} blocks={photo && recipe !== 3 ? [{ type: 'image', src: photo.src, alt: photo.alt } as Block] : []} />
+      <div class:list={['in', { 'in--nopic': !(photo && recipe !== 3) }]} data-reveal>
+        {photo && recipe !== 3 && <figure class="in__pic"><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 34vw, 92vw" widths={[500, 900, 1300]} /></figure>}
+        <div class="in__body">
+          <div class="in__head">
+            <span class="in__ic" aria-hidden="true"><Icon name={icon} /></span>
+            <h2 id="in-t" class="in__name"><span class="in__n">{next()}</span> {label} in breve</h2>
+          </div>
+          <p class="in__lead" set:html={intro.short} />
+          {keys.length > 0 && <ul class="in__keys" role="list">{keys.map((k) => <li>{k}</li>)}</ul>}
+          <ReadMore html={intro.restHtml} />
+        </div>
       </div>
     </div>
   </section>
 )}
 
 {/* ======================= DOMANDE (5 disposizioni) ======================= */}
-{questions.length > 0 && recipe === 0 && (
+{plain.length > 0 && recipe === 0 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Domande frequenti" />
     <div class="wrap q0">
-      {questions.map((q) => (
+      {plain.map((q) => (
         <article id={q.id} class="q0__c" data-reveal>
+          <div class="q0__top"><span class="q0__ic"><Icon name="help-circle" /></span><span class="q0__n">{pad(plain.indexOf(q) + 1)}</span></div>
           <h3 class="q-h" set:html={q.titleHtml} />
           <div class="prose" set:html={q.short} />
           <ReadMore html={q.restHtml} blocks={q.restBlocks} />
@@ -132,11 +144,11 @@ const next = () => pad(++n);
     </div>
   </section>
 )}
-{questions.length > 0 && recipe === 1 && (
+{plain.length > 0 && recipe === 1 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Da conoscere" />
     <div class="wrap q1">
-      {questions.map((q) => (
+      {plain.map((q) => (
         <article id={q.id} class="q1__row">
           <h3 class="q-h q1__t" data-reveal set:html={q.titleHtml} />
           <div data-reveal>
@@ -148,14 +160,14 @@ const next = () => pad(++n);
     </div>
   </section>
 )}
-{(questions.length > 0 || intro.short) && recipe === 2 && (
+{(plain.length > 0 || intro.short) && recipe === 2 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Passo dopo passo" desc={`Quello che serve sapere sulla ${lower}, nell'ordine giusto.`} />
     <div class="wrap q2">
       {photo && <figure class="q2__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 34vw, 92vw" widths={[500, 900]} /></figure>}
       <ol class="q2__steps" role="list">
         {intro.short && <li data-reveal><span class="q2__dot">1</span><div><h3 class="q-h">In breve</h3><div class="prose" set:html={intro.short} /><ReadMore html={intro.restHtml} /></div></li>}
-        {questions.map((q, i) => (
+        {plain.map((q, i) => (
           <li id={q.id} data-reveal><span class="q2__dot">{i + (intro.short ? 2 : 1)}</span><div>
             <h3 class="q-h" set:html={q.titleHtml} />
             <div class="prose" set:html={q.short} />
@@ -169,25 +181,37 @@ const next = () => pad(++n);
 {questions.length > 0 && recipe === 3 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Le domande più comuni" />
-    <div class="wrap q3" style={`--cols:${questions.length % 3 === 0 ? 3 : questions.length % 2 === 0 ? 2 : Math.min(questions.length, 3)}`}>
-      {questions.map((q, i) => (
-        <article id={q.id} class="q3__c" data-reveal>
-          <span class="q3__n">{pad(i + 1)}</span>
-          <div>
-            <h3 class="q-h" set:html={q.titleHtml} />
-            <div class="prose" set:html={q.short} />
-            <ReadMore html={q.restHtml} blocks={q.restBlocks} />
-          </div>
-        </article>
-      ))}
+    <div class="wrap q3">
+      <aside class="q3__side">
+        <div class="q3__help" data-reveal>
+          <span class="q3__hic"><Icon name="message-circle-question" /></span>
+          <p class="q3__ht">Hai un dubbio?</p>
+          <p class="q3__hd">Chiamaci o scrivici: ti indichiamo la visita giusta per te.</p>
+          <a class="btn btn--green" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+          <a class="btn btn--white" href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /> WhatsApp</a>
+        </div>
+        {questions.some((q) => q.images.length) && <div class="q3__pics">{questions.flatMap((q) => q.images).map((im) => <figure class="q3__pic" data-img><Img src={im.src} alt={im.alt} sizes="(min-width: 900px) 15vw, 46vw" widths={[300, 600]} /></figure>)}</div>}
+      </aside>
+      <ol class="q3__list" role="list">
+        {questions.map((q, i) => (
+          <li id={q.id} class="q3__c" data-reveal>
+            <span class="q3__n">{pad(i + 1)}</span>
+            <div>
+              <h3 class="q-h" set:html={q.titleHtml} />
+              <div class="prose" set:html={q.short} />
+              <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 )}
-{questions.length > 0 && recipe === 4 && (
+{plain.length > 0 && recipe === 4 && (
   <section class="sec" aria-labelledby="q-t">
     <SectionHead n={next()} id="q-t" title="Le risposte dello specialista" />
     <div class="wrap q4">
-      {questions.map((q, i) => (
+      {plain.map((q, i) => (
         <article id={q.id} class="q4__c" data-reveal>
           <span class="q4__n">{pad(i + 1)}</span>
           <h3 class="q-h" set:html={q.titleHtml} />
@@ -199,12 +223,22 @@ const next = () => pad(++n);
   </section>
 )}
 
-{/* foto delle domande: una fila larga sotto, mai foto enormi né colonne strette */}
-{gallery.length > 0 && (
-  <div class="wrap gal" style={`--g:${Math.min(gallery.length, 3)}`}>
-    {gallery.map((im) => <figure data-img><Img src={im.src} alt={im.alt} sizes="(min-width: 900px) 33vw, 92vw" widths={[500, 900, 1300]} /></figure>)}
-  </div>
-)}
+{/* domande con foto: testo a sinistra, foto a destra, sotto le altre */}
+{recipe !== 3 && featured.map((q) => (
+  <section id={q.id} class="sec feat" aria-label={q.titleHtml.replace(/<[^>]+>/g, '')}>
+    <div class="wrap feat__in">
+      <div class="feat__txt" data-reveal>
+        <span class="feat__n">{pad(plain.length + featured.indexOf(q) + 1)}</span>
+        <h3 class="q-h feat__t" set:html={q.titleHtml} />
+        <div class="prose" set:html={q.short} />
+        <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+      </div>
+      <div class="feat__pics" style={`--g:${Math.min(q.images.length, 2)}`}>
+        {q.images.map((im) => <figure data-img><Img src={im.src} alt={im.alt} sizes="(min-width: 900px) 28vw, 92vw" widths={[500, 900, 1300]} /></figure>)}
+      </div>
+    </div>
+  </section>
+))}
 
 {/* ======================= SPECIALISTI ======================= */}
 {team.map((t) => (
@@ -217,9 +251,13 @@ const next = () => pad(++n);
 <style>
   .cta-row { display: flex; justify-content: center; margin-top: clamp(1.8rem, 3vw, 2.6rem); }
   .q-h { font-size: var(--t-h3); font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; color: var(--deep); }
-  .gal { display: grid; grid-template-columns: repeat(var(--g), minmax(0, 1fr)); gap: 1rem; margin-top: calc(-1 * clamp(1rem, 2vw, 2rem)); padding-bottom: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); }
-  .gal figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r); }
-  .gal :global(picture), .gal :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* domanda con foto */
+  .feat__in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding-top: clamp(1.6rem, 3vw, 2.4rem); border-top: 2px solid var(--deep); }
+  .feat__n { display: block; margin-bottom: 0.6rem; font-size: 0.9rem; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
+  .feat__t { margin-bottom: 0.9rem; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); letter-spacing: -0.035em; }
+  .feat__pics { display: grid; grid-template-columns: repeat(var(--g), minmax(0, 1fr)); gap: 0.8rem; }
+  .feat__pics figure { margin: 0; aspect-ratio: 4 / 5; max-height: 440px; overflow: hidden; border-radius: var(--r); }
+  .feat__pics :global(picture), .feat__pics :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
   /* prestazioni 0: righe numerate in due colonne */
   .sv0 { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.5rem; border-top: 1px solid var(--line); }
@@ -263,18 +301,31 @@ const next = () => pad(++n);
   .sv4__ic { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ice); color: var(--green); }
   .sv4__ic :global(.icon) { width: 1.3rem; height: 1.3rem; }
 
-  /* in breve: frase centrata su ghiaccio */
-  .in { display: grid; justify-items: center; gap: 1rem; max-width: 980px; margin-inline: auto; padding: clamp(2.2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4.5rem); background: var(--ice); border-radius: var(--r); text-align: center; }
-  .in__n { font-size: 0.85rem; color: var(--green); font-variant-numeric: tabular-nums; }
-  .in__t { font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; color: var(--blue); }
-  .in__lead { max-width: 40ch; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.45; letter-spacing: -0.02em; color: var(--deep); }
-  .in__lead :global(strong) { font-weight: 600; }
-  .in :global(.rm) { text-align: left; width: 100%; }
-  .in :global(.rm summary) { display: flex; justify-content: center; }
+  /* in breve: scheda compatta */
+  .in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch; max-width: 1100px; margin-inline: auto; overflow: hidden; background: var(--ice); border-radius: var(--r); }
+  .in--nopic { grid-template-columns: 1fr; max-width: 820px; }
+  .in__pic { margin: 0; min-height: 280px; max-height: 360px; }
+  .in__pic :global(picture), .in__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .in__body { display: grid; align-content: center; gap: 0.9rem; padding: clamp(1.5rem, 3vw, 2.4rem); }
+  .in__head { display: flex; align-items: center; gap: 0.8rem; }
+  .in__ic { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .in__ic :global(.icon) { width: 1.4rem; height: 1.4rem; }
+  .in__name { font-size: 1.2rem; font-weight: 500; letter-spacing: -0.02em; color: var(--deep); }
+  .in__n { margin-right: 0.3rem; font-size: 0.85rem; font-weight: 500; color: var(--green); font-variant-numeric: tabular-nums; }
+  .in__lead { font-size: 1.08rem; line-height: 1.6; color: var(--ink-2); }
+  .in__lead :global(strong) { font-weight: 600; color: var(--deep); }
+  .in__keys { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .in__keys li { padding: 0.4rem 0.85rem; background: #fff; border-radius: 999px; font-size: 0.88rem; font-weight: 500; color: var(--deep); }
+  .in__keys li::first-letter { text-transform: uppercase; }
+  .in :global(.rm) { margin-top: 0; }
 
   /* domande 0: schede ghiaccio */
   .q0 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 1rem; }
-  .q0__c { display: grid; align-content: start; gap: 0.9rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--ice); border-radius: var(--r); }
+  .q0__c { display: grid; align-content: start; gap: 0.9rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: #fff; border: 1px solid var(--line-2); border-top: 4px solid var(--green); border-radius: var(--r); box-shadow: 0 30px 60px -50px rgb(18 60 80 / 0.45); }
+  .q0__top { display: flex; align-items: center; justify-content: space-between; }
+  .q0__ic { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--ice); color: var(--green); }
+  .q0__ic :global(.icon) { width: 1.4rem; height: 1.4rem; }
+  .q0__n { font-size: 2rem; font-weight: 500; letter-spacing: -0.05em; color: var(--azure); font-variant-numeric: tabular-nums; }
   /* domande 1: righe, domanda a sinistra */
   .q1__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(1.8rem, 3vw, 2.6rem); border-top: 1px solid var(--line); }
   .q1__row:last-child { border-bottom: 1px solid var(--line); }
@@ -288,23 +339,38 @@ const next = () => pad(++n);
   .q2__steps > li { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1.4rem; }
   .q2__steps .q-h { margin-bottom: 0.7rem; padding-top: 0.55rem; }
   .q2__dot { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--deep); color: #fff; font-weight: 600; box-shadow: 0 0 0 6px #fff; }
-  /* domande 3: elenco numerato su due colonne */
-  .q3 { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 4rem); }
-  .q3__c { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.2rem; padding-block: 1.8rem; border-top: 2px solid var(--deep); }
-  .q3__c .q-h { margin-bottom: 0.7rem; }
-  .q3__n { font-size: 0.9rem; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
+  /* domande 3: pannello d'aiuto fisso + elenco */
+  .q3 { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .q3__side { position: sticky; top: 100px; display: grid; gap: 0.8rem; }
+  .q3__help { display: grid; justify-items: start; gap: 0.8rem; padding: clamp(1.5rem, 3vw, 2.2rem); background: var(--deep); border-radius: var(--r); color: #fff; }
+  .q3__hic { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: rgb(255 255 255 / 0.1); color: #8fd69a; }
+  .q3__hic :global(.icon) { width: 1.5rem; height: 1.5rem; }
+  .q3__ht { font-size: 1.4rem; font-weight: 500; letter-spacing: -0.03em; }
+  .q3__hd { font-size: 0.98rem; line-height: 1.55; color: rgb(255 255 255 / 0.8); }
+  .q3__help .btn { width: 100%; }
+  .q3__pics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+  .q3__pic { margin: 0; aspect-ratio: 1; overflow: hidden; border-radius: var(--r); }
+  .q3__pic :global(picture), .q3__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .q3__list { list-style: none; display: grid; }
+  .q3__c { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; padding-block: clamp(1.4rem, 2.5vw, 2rem); border-bottom: 1px solid var(--line); }
+  .q3__c:first-child { padding-top: 0; }
+  .q3__c .q-h { margin-bottom: 0.6rem; }
+  .q3__n { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--ice); font-size: 0.95rem; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
   /* domande 4: colonne aperte con numero grande */
   .q4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(2rem, 5vw, 4.5rem); }
   .q4__c { display: grid; align-content: start; gap: 0.8rem; }
   .q4__n { font-size: clamp(2.4rem, 1.8rem + 1.8vw, 3.4rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--azure); }
 
   @media (max-width: 900px) {
-    .sv1__in, .sv3, .q1__row, .q2, .q3 { grid-template-columns: 1fr; }
+    .sv1__in, .sv3, .q1__row, .q2, .q3, .in, .feat__in { grid-template-columns: 1fr; }
+    .q3__side { position: static; order: 2; }
+    .in__pic { min-height: 220px; max-height: 260px; }
     .sv1__rest { grid-column: 1; }
     .q2__pic { position: static; aspect-ratio: 4 / 3; }
   }
   @media (max-width: 640px) {
-    .sv0, .sv1__list, .gal { grid-template-columns: 1fr; }
+    .sv0, .sv1__list { grid-template-columns: 1fr; }
+    .feat__pics figure { aspect-ratio: 4 / 3; }
     .sv4 li { min-height: 0; }
     .sv2__foot { justify-content: center; text-align: center; }
   }

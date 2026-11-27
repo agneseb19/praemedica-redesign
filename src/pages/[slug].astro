@@ -192,6 +192,7 @@ const rot = specIdx >= 0 ? specIdx : page.slug.length;
       <SpecBody
         recipe={(rot % 5) as 0 | 1 | 2 | 3 | 4}
         label={stripTags(page.title)}
+        icon={icons[page.slug] ?? 'stethoscope'}
         intro={specIntro}
         photo={hero2 ? { src: hero2.src, alt: hero2.alt } : undefined}
         questions={specQuestions}
