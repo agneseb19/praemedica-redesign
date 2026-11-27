@@ -121,7 +121,7 @@ const next = () => pad(++n);
           </div>
           <p class="in__lead" set:html={intro.short} />
           {keys.length > 0 && <ul class="in__keys" role="list">{keys.map((k) => <li>{k}</li>)}</ul>}
-          <ReadMore html={intro.restHtml} />
+          <ReadMore html={intro.restHtml} title={`${label} in breve`} />
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@ const next = () => pad(++n);
           <div class="q0__top"><span class="q0__ic"><Icon name="help-circle" /></span><span class="q0__n">{pad(plain.indexOf(q) + 1)}</span></div>
           <h3 class="q-h" set:html={q.titleHtml} />
           <div class="prose" set:html={q.short} />
-          <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+          <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
         </article>
       ))}
     </div>
@@ -153,7 +153,7 @@ const next = () => pad(++n);
           <h3 class="q-h q1__t" data-reveal set:html={q.titleHtml} />
           <div data-reveal>
             <div class="prose" set:html={q.short} />
-            <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+            <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
           </div>
         </article>
       ))}
@@ -166,12 +166,12 @@ const next = () => pad(++n);
     <div class="wrap q2">
       {photo && <figure class="q2__pic" data-img><Img src={photo.src} alt={photo.alt} sizes="(min-width: 900px) 34vw, 92vw" widths={[500, 900]} /></figure>}
       <ol class="q2__steps" role="list">
-        {intro.short && <li data-reveal><span class="q2__dot">1</span><div><h3 class="q-h">In breve</h3><div class="prose" set:html={intro.short} /><ReadMore html={intro.restHtml} /></div></li>}
+        {intro.short && <li data-reveal><span class="q2__dot">1</span><div><h3 class="q-h">In breve</h3><div class="prose" set:html={intro.short} /><ReadMore html={intro.restHtml} title={`${label} in breve`} /></div></li>}
         {plain.map((q, i) => (
           <li id={q.id} data-reveal><span class="q2__dot">{i + (intro.short ? 2 : 1)}</span><div>
             <h3 class="q-h" set:html={q.titleHtml} />
             <div class="prose" set:html={q.short} />
-            <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+            <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
           </div></li>
         ))}
       </ol>
@@ -199,7 +199,7 @@ const next = () => pad(++n);
             <div>
               <h3 class="q-h" set:html={q.titleHtml} />
               <div class="prose" set:html={q.short} />
-              <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+              <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
             </div>
           </li>
         ))}
@@ -216,7 +216,7 @@ const next = () => pad(++n);
           <span class="q4__n">{pad(i + 1)}</span>
           <h3 class="q-h" set:html={q.titleHtml} />
           <div class="prose" set:html={q.short} />
-          <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+          <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
         </article>
       ))}
     </div>
@@ -231,7 +231,7 @@ const next = () => pad(++n);
         <span class="feat__n">{pad(plain.length + featured.indexOf(q) + 1)}</span>
         <h3 class="q-h feat__t" set:html={q.titleHtml} />
         <div class="prose" set:html={q.short} />
-        <ReadMore html={q.restHtml} blocks={q.restBlocks} />
+        <ReadMore html={q.restHtml} blocks={q.restBlocks} title={q.titleHtml} />
       </div>
       <div class="feat__pics" style={`--g:${Math.min(q.images.length, 2)}`}>
         {q.images.map((im) => <figure data-img><Img src={im.src} alt={im.alt} sizes="(min-width: 900px) 28vw, 92vw" widths={[500, 900, 1300]} /></figure>)}

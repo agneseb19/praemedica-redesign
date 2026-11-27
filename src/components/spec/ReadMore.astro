@@ -1,29 +1,59 @@
 ---
-/** Il resto di un testo originale, chiuso dietro "Leggi tutto": niente viene tolto, si legge solo se serve. */
+/**
+ * "Leggi tutto": il testo originale completo si apre in un pannello laterale sopra la pagina,
+ * così le schede restano compatte e le foto proporzionate. Niente viene tolto.
+ * Si chiude con la X, con Esc o toccando fuori. Senza JavaScript il pannello resta chiuso
+ * ma il testo è comunque nel documento (indicizzabile).
+ */
 import Icon from '../Icon.astro';
 import Blocks from '../Blocks.astro';
 import type { Block } from '../../lib/content';
-interface Props { html?: string; blocks?: Block[] }
-const { html = '', blocks = [] } = Astro.props;
+interface Props { html?: string; blocks?: Block[]; title?: string }
+const { html = '', blocks = [], title = 'Approfondimento' } = Astro.props;
 const has = html.trim().length > 0 || blocks.length > 0;
+const id = `rm-${Math.random().toString(36).slice(2, 9)}`;
 ---
 {has && (
-  <details class="rm">
-    <summary><span>Leggi tutto</span><Icon name="chevron-down" /></summary>
-    <div class="prose rm__body">
-      {html && <Fragment set:html={html} />}
-      {blocks.length > 0 && <Blocks blocks={blocks} />}
-    </div>
-  </details>
+  <>
+    <button type="button" class="rm" data-rm-open={id} aria-haspopup="dialog"><span>Leggi tutto</span><Icon name="arrow-right" /></button>
+    <dialog id={id} class="rm-d" aria-labelledby={`${id}-t`} data-lenis-prevent>
+      <div class="rm-d__head">
+        <h3 id={`${id}-t`} class="rm-d__t" set:html={title} />
+        <form method="dialog"><button class="rm-d__x" aria-label="Chiudi"><Icon name="x" /></button></form>
+      </div>
+      <div class="prose rm-d__body">
+        {html && <Fragment set:html={html} />}
+        {blocks.length > 0 && <Blocks blocks={blocks} />}
+      </div>
+    </dialog>
+  </>
 )}
 
+<script>
+  if (!(window as any).__rmBound) {
+    (window as any).__rmBound = true;
+    document.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const open = t.closest<HTMLElement>('[data-rm-open]');
+      if (open) { (document.getElementById(open.dataset.rmOpen!) as HTMLDialogElement | null)?.showModal(); return; }
+      if (t instanceof HTMLDialogElement && t.classList.contains('rm-d')) t.close();
+    });
+  }
+</script>
+
 <style>
-  .rm { margin-top: 0.9rem; }
-  .rm summary { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; font-size: 0.98rem; font-weight: 500; color: var(--green-ink); cursor: pointer; list-style: none; }
-  .rm summary::-webkit-details-marker { display: none; }
-  .rm summary :global(.icon) { width: 1.05rem; height: 1.05rem; transition: transform 0.35s var(--ease); }
-  .rm[open] summary :global(.icon) { transform: rotate(180deg); }
-  .rm[open] summary span { font-size: 0; }
-  .rm[open] summary span::after { content: 'Chiudi'; font-size: 0.98rem; }
-  .rm__body { margin-top: 0.6rem; }
+  .rm { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; margin-top: 0.4rem; padding: 0; background: none; border: 0; font: inherit; font-size: 0.98rem; font-weight: 500; color: var(--green-ink); cursor: pointer; }
+  .rm :global(.icon) { width: 1.05rem; height: 1.05rem; transition: transform 0.35s var(--ease); }
+  .rm:hover :global(.icon) { transform: translateX(3px); }
+
+  .rm-d { position: fixed; inset: 0 0 0 auto; width: min(560px, 100vw); height: 100dvh; max-height: none; max-width: none; margin: 0; padding: 0; border: 0; background: #fff; color: var(--ink-2); box-shadow: -30px 0 80px -40px rgb(18 60 80 / 0.5); overflow: auto; overscroll-behavior: contain; }
+  .rm-d::backdrop { background: rgb(18 60 80 / 0.45); backdrop-filter: blur(2px); }
+  .rm-d[open] { animation: rm-in 0.45s var(--ease); }
+  @keyframes rm-in { from { transform: translateX(40px); opacity: 0; } }
+  .rm-d__head { position: sticky; top: 0; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.6rem 1.6rem 1rem; background: #fff; border-bottom: 1px solid var(--line); }
+  .rm-d__t { font-size: 1.4rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; color: var(--deep); }
+  .rm-d__x { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ice); color: var(--deep); cursor: pointer; }
+  .rm-d__x :global(.icon) { width: 1.2rem; height: 1.2rem; }
+  .rm-d__body { max-width: none; padding: 1.4rem 1.6rem 3rem; font-size: 1.02rem; line-height: 1.7; }
+  @media (prefers-reduced-motion: reduce) { .rm-d[open] { animation: none; } }
 </style>
