@@ -25,7 +25,7 @@ const map = B.find((b) => b.type === 'map') as Extract<Block, { type: 'map' }>;
 const labels = ['Telefono', 'WhatsApp', 'Email', 'Facebook', 'Instagram'];
 ---
 <Base title={page.seo?.title ?? 'Contatti'} description={page.seo?.description}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Contatti' }]} title={stripTags(hs[0].html)} img="wp/2025/01/praemedica-centro-diagnostico.jpg" alt="Centro diagnostico Praemedica che offre servizi di diagnostica avanzata" variant="split" lead={`${site.address.street}, ${site.address.city}. Chiamaci al ${site.phone.label} o scrivici su WhatsApp al ${site.whatsapp.label}.`} />
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Contatti' }]} title={stripTags(hs[0].html)} img="wp/2025/01/praemedica-centro-diagnostico.jpg" alt="Centro diagnostico Praemedica che offre servizi di diagnostica avanzata" variant="split" lead={`${site.address.street}, ${site.address.building.toLowerCase()}, ${site.address.city}. Chiamaci al ${site.phone.label} o scrivici su WhatsApp al ${site.whatsapp.label}.`} />
 
   <section class="sec" aria-labelledby="dove-t">
     <SectionHead n="01" id="dove-t" title="Come raggiungerci" desc="Siamo a Palestrina, nell'edificio ITOP Officine Ortopediche. Chiamaci, scrivici o passa a trovarci." />
@@ -60,7 +60,7 @@ const labels = ['Telefono', 'WhatsApp', 'Email', 'Facebook', 'Instagram'];
   </section>
 
   <section class="sec" aria-labelledby="map-t">
-    <SectionHead n="03" id="map-t" title="Mappa" desc={`${site.address.street}, ${site.address.city}`} />
+    <SectionHead n="03" id="map-t" title="Mappa" desc={`${site.address.street}, ${site.address.building.toLowerCase()}, ${site.address.city}`} />
     <div class="wrap"><div class="map"><iframe src={map?.src ?? site.address.mapEmbed} title="Mappa: Praemedica, Palestrina" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
   </section>
 </Base>

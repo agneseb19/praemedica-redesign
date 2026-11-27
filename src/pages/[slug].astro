@@ -12,7 +12,7 @@ import SpecList from '../components/SpecList.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
-import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
+import { allPages, getPage, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
 import { specializzazioniMenu, altaDiagnostica } from '../data/site';
 import Icon from '../components/Icon.astro';
 import { Picture } from 'astro:assets';
@@ -54,7 +54,14 @@ const machine = machines.find((m) => m.href === href);
 const services = a.sections.filter((s) => s.kind === 'services');
 const team = a.sections.filter((s) => s.kind === 'team');
 const reading = a.sections.filter((s) => s.kind === 'default');
-const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => summaryOf(x.href!, x.label));
+/* Radiologia non ha una foto propria in apertura e le sue liste sono quelle degli altri esami: foto e voce delle Radiografie dalla home */
+const rxSlide = (getPage('home').blocks.filter((b) => b.type === 'slides')[1] as any)?.slides?.[1];
+const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
+  const s = summaryOf(x.href!, x.label);
+  if (x.href === '/radiologia/' && rxSlide) return { ...s, img: rxSlide.bg, alt: rxSlide.alt, services: ['Radiografie', 'Radiologia generale'] };
+  const dev = machines.find((m) => m.href === x.href)?.device;
+  return s.services.length || !dev ? s : { ...s, services: [dev] };
+});
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
   {isDiag ? (
@@ -115,7 +122,7 @@ const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologi
       <section class="sec" aria-labelledby="rel-title">
         <SectionHead n={pad(services.length + team.length + 2)} id="rel-title" title="Altri esami" desc="Gli altri esami di alta diagnostica del centro." />
         <div class="wrap">
-          <SpecList items={otherExams} variant="photos" />
+          <div class="rel-exams"><SpecList items={otherExams} variant="photos" /></div>
           <p class="rel__all" data-reveal><a class="btn btn--line" href="/alta-diagnostica/">Tutta l'alta diagnostica</a></p>
         </div>
       </section>
@@ -164,6 +171,8 @@ const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologi
 </Base>
 
 <style>
+  .rel-exams :global(.ph) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 760px) { .rel-exams :global(.ph) { grid-template-columns: 1fr; } }
   .rel__all { display: flex; justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
 
   /* dati tecnici nell'apertura degli esami */

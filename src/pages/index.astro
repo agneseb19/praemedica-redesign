@@ -90,7 +90,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
       </li>
       <li class="fact"><a href={site.phone.href}><Icon name="phone" /><span><strong>{site.phone.label}</strong><small>Chiama per prenotare</small></span></a></li>
       <li class="fact"><a href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /><span><strong>{site.whatsapp.label}</strong><small>Scrivici su WhatsApp</small></span></a></li>
-      <li class="fact"><a href={site.address.maps} target="_blank" rel="noopener"><Icon name="map-pin" /><span><strong>{site.address.street}</strong><small>{site.address.city}</small></span></a></li>
+      <li class="fact"><a href={site.address.maps} target="_blank" rel="noopener"><Icon name="map-pin" /><span><strong>{site.address.street}</strong><small>{site.address.building}, {site.address.city}</small></span></a></li>
     </ul>
   </div>
 
