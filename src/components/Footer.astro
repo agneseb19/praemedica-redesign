@@ -1,31 +1,41 @@
 ---
-/** Footer a colonne: contatti, orari, alta diagnostica, pagine, note legali. */
-import { site, specializzazioniMenu } from '../data/site';
+/**
+ * Footer, uguale in tutte le pagine: logo e prenotazione, quattro colonne
+ * (contatti, orari, alta diagnostica, pagine), poi note legali e social.
+ * Tutti i testi sono quelli del footer originale.
+ */
+import Icon from './Icon.astro';
+import { site } from '../data/site';
 ---
 
 <footer class="foot">
   <div class="wrap foot__top">
-    <a class="foot__logo" href="/" aria-label="Praemedica, home"><img src="/brand/logo.png" alt="logo praemedica scontornato" width="617" height="124" loading="lazy" /></a>
-    <div class="foot__social">
-      <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
-      <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
+    <div class="foot__brand">
+      <a class="foot__logo" href="/" aria-label="Praemedica, home"><img src="/brand/logo.png" alt="logo praemedica scontornato" width="617" height="124" loading="lazy" /></a>
+      <p class="foot__claim">Centro diagnostico polispecialistico a Palestrina: visite specialistiche, alta diagnostica e riabilitazione.</p>
+    </div>
+    <div class="foot__cta">
+      <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota online</a>
+      <a class="btn btn--line" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
     </div>
   </div>
+
   <div class="wrap foot__grid">
-    <div>
+    <div class="foot__col">
       <h2 class="foot__h">Contatti</h2>
       <address class="foot__l">
-        <a href={site.address.maps} target="_blank" rel="noopener">{site.address.street}<br />{site.address.building}<br />{site.address.city}</a>
-        <a href={site.phone.href}>Telefono: {site.phone.footer}</a>
-        <a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp: {site.whatsapp.label}</a>
-        <a href={site.email.href}>Email: {site.email.label}</a>
+        <a class="foot__i" href={site.address.maps} target="_blank" rel="noopener"><Icon name="map-pin" /><span>{site.address.street}<br />{site.address.building}<br />{site.address.city}</span></a>
+        <a class="foot__i" href={site.phone.href}><Icon name="phone" /><span>Telefono: {site.phone.footer}</span></a>
+        <a class="foot__i" href={site.whatsapp.href} target="_blank" rel="noopener"><Icon name="brand-whatsapp" /><span>WhatsApp: {site.whatsapp.label}</span></a>
+        <a class="foot__i" href={site.email.href}><Icon name="mail" /><span>Email: {site.email.label}</span></a>
       </address>
     </div>
-    <div>
+    <div class="foot__col">
       <h2 class="foot__h">Orari</h2>
       <p class="foot__l">{site.hours.footer.map((h) => <span>{h}</span>)}</p>
+      <p class="foot__open" data-open-badge><span class="foot__dot" aria-hidden="true"></span><span data-open-text></span></p>
     </div>
-    <div>
+    <div class="foot__col">
       <h2 class="foot__h">Alta Diagnostica</h2>
       <ul class="foot__l">
         <li><a href="/densitometria-ossea/">Moc</a></li>
@@ -34,7 +44,7 @@ import { site, specializzazioniMenu } from '../data/site';
         <li><a href="/radiologia/">Radiologia</a></li>
       </ul>
     </div>
-    <div>
+    <div class="foot__col">
       <h2 class="foot__h">Praemedica</h2>
       <ul class="foot__l">
         <li><a href="/chi-siamo/">Chi Siamo</a></li>
@@ -45,30 +55,54 @@ import { site, specializzazioniMenu } from '../data/site';
       </ul>
     </div>
   </div>
+
   <div class="wrap foot__end">
-    <p>{site.copyright} <a href={site.credits.href} target="_blank" rel="noopener">{site.credits.label}</a></p>
-    <p class="foot__legal"><span class="foot__h foot__h--inline">Privacy</span> <a href={site.privacy.policy.href} target="_blank" rel="noopener">{site.privacy.policy.label}</a> <a href={site.privacy.cookie.href} target="_blank" rel="noopener">{site.privacy.cookie.label}</a></p>
+    <p class="foot__copy">{site.copyright} <a href={site.credits.href} target="_blank" rel="noopener">{site.credits.label}</a></p>
+    <div class="foot__right">
+      <p class="foot__legal"><span>Privacy</span> <a href={site.privacy.policy.href} target="_blank" rel="noopener">{site.privacy.policy.label}</a> <a href={site.privacy.cookie.href} target="_blank" rel="noopener">{site.privacy.cookie.label}</a></p>
+      <p class="foot__social">
+        <a href={site.social.facebook} target="_blank" rel="noopener"><Icon name="brand-facebook" /> Facebook</a>
+        <a href={site.social.instagram} target="_blank" rel="noopener"><Icon name="brand-instagram" /> Instagram</a>
+      </p>
+    </div>
   </div>
 </footer>
 
 <style>
-
-  .foot { background: var(--night); color: #c3ccd5; }
+  .foot { background: var(--ice); color: var(--ink-2); padding-top: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); }
   .foot a { text-decoration: none; }
-  .foot a:hover { color: #fff; }
-  .foot__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 3.5rem 2.5rem; border-bottom: 1px solid rgb(255 255 255 / 0.1); }
-  .foot__logo { display: block; padding: 0.9rem 1.2rem; background: #fff; border-radius: var(--r); }
-  .foot__logo img { height: 34px; width: auto; }
-  .foot__social { display: flex; gap: 1.6rem; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
-  .foot__grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 2.5rem; padding-block: 3rem; }
-  .foot__h { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; margin-bottom: 1.1rem; }
-  .foot__h--inline { display: inline; margin: 0 0.8rem 0 0; }
-  .foot__l { list-style: none; display: grid; gap: 0.5rem; font-style: normal; font-size: var(--t-sm); font-weight: 300; }
-  .foot__l a, .foot__l span { display: inline-block; }
-  .foot__end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem 2rem; padding-block: 1.6rem 2.4rem; border-top: 1px solid rgb(255 255 255 / 0.1); font-size: 0.8rem; color: #8c99a6; }
-  .foot__end a { text-decoration: underline; text-underline-offset: 0.2em; }
-  .foot__legal a { margin-right: 1rem; }
-  .foot__credit { flex-basis: 100%; }
-  @media (max-width: 900px) { .foot__grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 520px) { .foot__grid { grid-template-columns: 1fr; } }
+  .foot a:hover { color: var(--green-ink); }
+
+  .foot__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 3rem; padding-bottom: clamp(2.5rem, 4vw, 3.5rem); border-bottom: 1px solid var(--azure); }
+  .foot__brand { display: grid; gap: 1rem; max-width: 34rem; }
+  .foot__logo img { height: 42px; width: auto; }
+  .foot__claim { font-size: 0.98rem; line-height: 1.6; color: var(--ink-2); }
+  .foot__cta { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .foot__cta .btn--line { background: #fff; border-color: var(--azure); }
+
+  .foot__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem clamp(1.5rem, 3vw, 3rem); padding-block: clamp(2.5rem, 4vw, 3.5rem); }
+  .foot__h { margin-bottom: 1.1rem; font-size: 1.05rem; font-weight: 500; letter-spacing: -0.015em; color: var(--deep); }
+  .foot__l { list-style: none; display: grid; gap: 0.7rem; font-style: normal; font-size: 0.95rem; line-height: 1.5; }
+  .foot__l span { display: block; }
+  .foot__i { display: flex; align-items: flex-start; gap: 0.7rem; }
+  .foot__i :global(.icon) { flex: none; width: 1.1rem; height: 1.1rem; margin-top: 0.15rem; color: var(--green); }
+  .foot__open { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.45rem 0.9rem; background: #fff; border-radius: 999px; font-size: 0.85rem; color: var(--deep); }
+  .foot__dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa6b2; }
+  .foot__open:global(.is-open) .foot__dot { background: var(--green); }
+
+  .foot__end { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.6rem 6rem; border-top: 1px solid var(--azure); font-size: 0.82rem; color: var(--muted); }
+  .foot__copy a, .foot__legal a { color: var(--deep); text-decoration: underline; text-underline-offset: 0.2em; }
+  .foot__right { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 2rem; }
+  .foot__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+  .foot__legal span { font-weight: 500; color: var(--deep); }
+  .foot__social { display: flex; gap: 1.2rem; }
+  .foot__social a { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--deep); }
+  .foot__social :global(.icon) { width: 1.1rem; height: 1.1rem; }
+
+  @media (max-width: 960px) { .foot__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) {
+    .foot__grid { grid-template-columns: 1fr; }
+    .foot__cta, .foot__cta .btn { width: 100%; }
+    .foot { padding-bottom: 5rem; }
+  }
 </style>

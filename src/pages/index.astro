@@ -325,11 +325,6 @@ const noText = reviews.reviews.filter((r) => !r.text);
           <a class="btn btn--line-white" href={site.phone.href}>{site.phone.label}</a>
         </div>
       </div>
-      <div class="book__row" data-reveal>
-        <p><span class="book__k">Dove siamo</span>{site.address.street}<br />{site.address.building}<br />{site.address.city}</p>
-        <p><span class="book__k">Orari</span>{site.hours.contacts.map((x, i) => (i ? <><br />{x}</> : x))}</p>
-        <p><span class="book__k">Contatti</span><a href={site.whatsapp.href} target="_blank" rel="noopener">WhatsApp {site.whatsapp.label}</a><br /><a href={site.email.href}>{site.email.label}</a><br /><a href={site.address.maps} target="_blank" rel="noopener">Indicazioni stradali</a></p>
-      </div>
       <p class="book__credit">Foto di apertura: <a href="https://unsplash.com/it/foto/un-medico-che-parla-con-un-paziente-AaVTg7jXUew" target="_blank" rel="noopener">Accuray su Unsplash</a></p>
     </div>
   </section>
@@ -511,10 +506,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .book__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem 3rem; }
   .book__t { max-width: 13ch; font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.8rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: #fff; }
   .book__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .book__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: clamp(3rem, 5vw, 4.5rem); padding-top: 2rem; border-top: 1px solid rgb(255 255 255 / 0.14); font-size: 0.92rem; line-height: 1.7; }
-  .book__k { display: block; margin-bottom: 0.5rem; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--azure); }
-  .book__row a, .book__credit a { color: #fff; text-decoration: none; }
-  .book__row a:hover { text-decoration: underline; }
+  .book__credit a { color: #fff; text-decoration: none; }
   .book__credit { margin-top: 2.5rem; font-size: 0.72rem; color: #8fb0bb; }
 
   /* ================= RESPONSIVE ================= */
@@ -552,6 +544,5 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .rail { padding-left: var(--pad); scroll-padding-left: var(--pad); }
     .doc { width: 64vw; }
     .voce { width: 82vw; }
-    .book__row { grid-template-columns: 1fr; }
   }
 </style>
