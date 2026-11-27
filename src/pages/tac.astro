@@ -26,6 +26,16 @@ const specs: [string, string][] = [
   ['Rotazione', 'fino a 0,33 secondi'],
   ['Tin Filter', 'riduce la dose di radiazioni'],
 ];
+/* esami e indicazioni dal materiale fornito da Praemedica (volantino TAC) */
+const districts = [
+  { icon: 'heartbeat', t: 'Cardio TAC' },
+  { icon: 'git-fork', t: 'Angio TAC' },
+  { icon: 'brain', t: 'Encefalo e collo' },
+  { icon: 'lungs', t: 'Torace' },
+  { icon: 'body-scan', t: 'Addome' },
+  { icon: 'stretching', t: 'Colonna' },
+  { icon: 'bone', t: 'Articolazioni' },
+];
 const steps = [
   { icon: 'clipboard-check', t: 'Prima dell’esame', d: 'Segnala se sei in gravidanza o pensi di esserlo, se hai allergie (in particolare al mezzo di contrasto) e se soffri di problemi ai reni. Togli oggetti metallici come collane, orecchini e occhiali. Se l’esame è con mezzo di contrasto ti daremo indicazioni precise su digiuno ed esami del sangue.' },
   { icon: 'bed', t: 'Sul lettino', d: 'Ti sdrai su un lettino che scorre lentamente all’interno dell’apertura del macchinario. L’apertura è ampia e non chiusa: puoi parlare con il tecnico in ogni momento.' },
@@ -41,7 +51,7 @@ const steps = [
         <nav class="th__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/alta-diagnostica/">Alta Diagnostica</a><span aria-hidden="true">/</span><span aria-current="page">TAC</span></nav>
         <p class="th__eye">Tomografia computerizzata</p>
         <h1 class="th__t" data-lines>TAC</h1>
-        <p class="th__sub" data-reveal>{slide.heading}</p>
+        <p class="th__sub" data-reveal><strong>Diagnosi precise in tempi rapidi.</strong> {slide.heading}.</p>
         <p class="th__stat" data-reveal><strong>128</strong><span>strati per rotazione: immagini sottilissime e nitide</span></p>
         <div class="th__act" data-reveal>
           <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota la TAC</a>
@@ -57,9 +67,20 @@ const steps = [
     </div>
   </section>
 
-  <!-- 01 Cos'è -->
+  <!-- 01 Gli esami: tutti i distretti corporei, inclusa la Cardio TAC -->
+  <section class="sec" aria-labelledby="esami-t">
+    <SectionHead n="01" id="esami-t" title="Gli esami TAC" desc="Si effettuano tutti i distretti corporei, inclusa la <strong>Cardio TAC</strong>." />
+    <div class="wrap">
+      <ul class="dist" role="list">
+        {districts.map((d) => <li data-reveal><span class="dist__ic"><Icon name={d.icon} /></span><span>{d.t}</span></li>)}
+        <li class="dist__mdc" data-reveal><Icon name="circle-check" /><span>TAC <strong>con o senza</strong> mezzo di contrasto</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 02 Cos'è -->
   <section class="sec" aria-labelledby="cose-t">
-    <SectionHead n="01" id="cose-t" title="Cos'è la TAC" />
+    <SectionHead n="02" id="cose-t" title="Cos'è la TAC" />
     <div class="wrap what">
       <div class="what__txt" data-reveal>
         <p class="what__lead">La tomografia computerizzata (TC o TAC) è un esame diagnostico che usa i raggi X per ottenere immagini del corpo in sezione, cioè a strati sottili.</p>
@@ -73,11 +94,11 @@ const steps = [
     </div>
   </section>
 
-  <!-- 02 Il macchinario: scheda tecnica -->
+  <!-- 03 Il macchinario: scheda tecnica -->
   <section class="sec" aria-labelledby="mac-t">
     <div class="wrap spec">
       <div class="spec__in">
-        <span class="spec__n">02</span>
+        <span class="spec__n">03</span>
         <h2 id="mac-t" class="spec__t" data-lines>Il macchinario</h2>
         <p class="spec__d" data-reveal>Siemens Healthineers SOMATOM go.Top: una TAC di ultima generazione, pensata per immagini nitide con la dose di radiazioni più bassa possibile.</p>
         <dl class="spec__list">
@@ -88,9 +109,9 @@ const steps = [
     </div>
   </section>
 
-  <!-- 03 Come si svolge: linea verticale di quattro momenti, con la foto -->
+  <!-- 04 Come si svolge: linea verticale di quattro momenti, con la foto -->
   <section class="sec" aria-labelledby="come-t">
-    <SectionHead n="03" id="come-t" title="Come si svolge" desc="Un esame rapido e indolore, in quattro momenti." />
+    <SectionHead n="04" id="come-t" title="Come si svolge" desc="Un esame rapido e indolore, in quattro momenti." />
     <div class="wrap how">
       <figure class="how__pic" data-img>
         <Picture src={patientPhoto} alt="Un tecnico di radiologia assiste una paziente sul lettino della TAC" formats={['webp']} widths={[600, 1000, 1400]} sizes="(min-width: 900px) 40vw, 92vw" />
@@ -121,7 +142,17 @@ const steps = [
   .th__crumbs a:hover { text-decoration: underline; }
   .th__eye { font-size: 0.95rem; font-weight: 500; color: var(--blue); }
   .th__t { font-size: clamp(3.6rem, 2rem + 5.5vw, 7.5rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.06em; color: var(--deep); }
-  .th__sub { font-size: 1.15rem; color: var(--ink-2); }
+  .th__sub { max-width: 30ch; font-size: 1.15rem; line-height: 1.5; color: var(--ink-2); }
+  .th__sub strong { font-weight: 500; color: var(--deep); }
+
+  /* ---------- 01 esami ---------- */
+  .dist { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+  .dist li { display: flex; align-items: center; gap: 1rem; min-height: 84px; padding: 1rem 1.3rem; background: var(--ice); border-radius: 18px; font-size: 1.12rem; font-weight: 500; letter-spacing: -0.015em; color: var(--deep); }
+  .dist__ic { display: grid; place-items: center; flex: none; width: 3rem; height: 3rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .dist__ic :global(.icon) { width: 1.5rem; height: 1.5rem; }
+  .dist .dist__mdc { background: var(--deep); color: #fff; font-weight: 400; }
+  .dist__mdc strong { font-weight: 600; color: #8fd69a; }
+  .dist__mdc :global(.icon) { flex: none; width: 1.6rem; height: 1.6rem; color: #8fd69a; }
   .th__stat { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem; width: 100%; margin-block: 0.6rem; padding-block: 1.2rem; border-block: 1px solid var(--line); }
   .th__stat strong { font-size: clamp(3rem, 2rem + 3vw, 4.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.06em; color: var(--green); font-variant-numeric: tabular-nums; }
   .th__stat span { max-width: 18ch; font-size: 1rem; line-height: 1.4; color: var(--ink-2); }
@@ -168,11 +199,13 @@ const steps = [
 
   @media (max-width: 900px) {
     .th__grid, .what, .how { grid-template-columns: 1fr; }
+    .dist { grid-template-columns: 1fr 1fr; }
     .spec__list { grid-template-columns: 1fr 1fr; }
     .how__pic { position: static; aspect-ratio: 4 / 3; }
   }
   @media (max-width: 560px) {
     .th__act, .th__act .btn { width: 100%; }
     .spec__list { grid-template-columns: 1fr; }
+    .dist { grid-template-columns: 1fr; }
   }
 </style>
