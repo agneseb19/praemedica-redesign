@@ -4,7 +4,9 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
-import ExamScroller from '../components/ExamScroller.astro';
+import Icon from '../components/Icon.astro';
+import { Picture } from 'astro:assets';
+import { machines } from '../lib/machines';
 import { getPage, stripTags, type Block } from '../lib/content';
 
 const home = getPage('home');
@@ -21,10 +23,58 @@ const tac = heroSlider.slides[0];
     <div class="col"><div class="prose" data-reveal set:html={diagText.html} /></div>
   </section>
 
-  <section class="sec sec--top" aria-labelledby="esami-t">
-    <SectionHead n="02" id="esami-t" title="Gli esami" desc="Scorri per conoscere i macchinari e gli esami del centro, con le informazioni tecniche essenziali." />
+  <!-- 02: mosaico degli esami, la TAC in grande -->
+  <section class="sec" aria-labelledby="esami-t">
+    <SectionHead n="02" id="esami-t" title="Gli esami" desc="Scegli l'esame per conoscere come funziona, quando è indicato e come prenotarlo." />
+    <ul class="wrap bento" role="list">
+      {machines.map((m, i) => (
+        <li class:list={['tile', { 'tile--big': i === 0 }]} data-reveal>
+          <a href={m.href}>
+            <span class="tile__txt">
+              <span class="tile__dev">{m.device}</span>
+              <span class="tile__t">{m.exam}</span>
+              {i === 0
+                ? <span class="tile__spec">{m.spec.map(([k, v]) => <span><small>{k}</small>{v}</span>)}</span>
+                : <span class="tile__s">{m.spec[0][1]}</span>}
+            </span>
+            <span class="tile__fig"><Picture src={m.img} alt={m.alt} formats={['webp']} widths={[500, 900, Math.min(1400, m.img.width)]} sizes={i === 0 ? '(min-width: 900px) 46vw, 92vw' : '(min-width: 900px) 24vw, 92vw'} /></span>
+            <span class="tile__go" aria-hidden="true"><Icon name="arrow-up-right" /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
-  <ExamScroller />
 
   <BookBand />
 </Base>
+
+<style>
+  .bento { list-style: none; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr); grid-auto-rows: minmax(300px, auto); gap: clamp(0.9rem, 1.5vw, 1.25rem); }
+  .tile--big { grid-row: span 2; }
+  .tile a { position: relative; display: flex; flex-direction: column; height: 100%; padding: clamp(1.4rem, 2.2vw, 2rem); background: var(--ice); border-radius: var(--r); text-decoration: none; overflow: hidden; transition: background-color 0.4s; }
+  .tile a:hover { background: #e4eef0; }
+  .tile__txt { position: relative; z-index: 1; display: grid; gap: 0.35rem; max-width: 22ch; }
+  .tile__dev { font-size: 0.8rem; color: var(--muted); }
+  .tile__t { font-size: clamp(1.35rem, 1.1rem + 0.7vw, 1.8rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.035em; color: var(--deep); }
+  .tile--big .tile__t { font-size: clamp(2rem, 1.4rem + 1.8vw, 3.2rem); }
+  .tile__s { font-size: 0.9rem; color: var(--ink-2); }
+  .tile__fig { flex: 1; display: grid; place-items: end center; min-height: 160px; margin-top: 1rem; }
+  .tile__fig :global(picture) { display: contents; }
+  .tile__fig :global(img) { width: 100%; height: 100%; max-height: 260px; object-fit: contain; object-position: bottom center; transition: transform 1s var(--ease); }
+  .tile--big .tile__txt { max-width: 30ch; }
+  .tile__spec { display: grid; margin-top: 1rem; border-top: 1px solid var(--azure); }
+  .tile__spec > span { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--azure); font-size: 0.95rem; color: var(--ink); }
+  .tile__spec small { font-size: 0.8rem; color: var(--muted); }
+  .tile--big .tile__fig { place-items: center; }
+  .tile--big .tile__fig :global(img) { max-height: 420px; }
+  .tile a:hover .tile__fig :global(img) { transform: scale(1.04); }
+  .tile__go { position: absolute; top: clamp(1.2rem, 2vw, 1.6rem); right: clamp(1.2rem, 2vw, 1.6rem); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--deep); transition: background-color 0.3s, color 0.3s, transform 0.4s var(--ease); }
+  .tile__go :global(.icon) { width: 1rem; height: 1rem; }
+  .tile a:hover .tile__go { background: var(--green); color: #fff; transform: rotate(45deg); }
+  @media (max-width: 960px) {
+    .bento { grid-template-columns: 1fr 1fr; }
+    .tile--big { grid-column: 1 / -1; grid-row: auto; }
+    .tile--big .tile__fig :global(img) { max-height: 340px; }
+  }
+  @media (max-width: 560px) { .bento { grid-template-columns: 1fr; } }
+</style>
