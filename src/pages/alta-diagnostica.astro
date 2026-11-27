@@ -1,25 +1,17 @@
 ---
 /** Alta Diagnostica: gli esami con testi e foto originali, nello schema della home. */
 import Base from '../layouts/Base.astro';
-import Img from '../components/Img.astro';
-import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
-import { getPage, summaryOf, stripTags, type Block } from '../lib/content';
-import { site, altaDiagnostica } from '../data/site';
+import ExamScroller from '../components/ExamScroller.astro';
+import { getPage, stripTags, type Block } from '../lib/content';
 
 const home = getPage('home');
-const [heroSlider, diagSlider] = home.blocks.filter((b) => b.type === 'slides') as Extract<Block, { type: 'slides' }>[];
+const [heroSlider] = home.blocks.filter((b) => b.type === 'slides') as Extract<Block, { type: 'slides' }>[];
 const diagText = (home.blocks.filter((b) => b.type === 'text') as Extract<Block, { type: 'text' }>[])[1];
 const claim = stripTags((home.blocks.find((b) => b.type === 'heading' && /^Alta Diagnostica/.test((b as any).html)) as any).html);
-const slideFor = (label: string) => diagSlider.slides.find((s) => label.toLowerCase().startsWith(s.heading.toLowerCase().slice(0, 10)));
-const exams = [
-  ...altaDiagnostica.map((d) => ({ ...summaryOf(d.href!, d.label), slide: slideFor(d.label) })),
-  { ...summaryOf('/radiologia/', 'Radiologia'), slide: diagSlider.slides.find((s) => s.heading === 'Radiografie') },
-];
 const tac = heroSlider.slides[0];
-const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Base title="Alta Diagnostica" description={claim}>
   <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Alta Diagnostica' }]} eyebrow={tac.heading} title={claim} img={tac.bg} alt={tac.alt} />
@@ -29,71 +21,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="col"><div class="prose" data-reveal set:html={diagText.html} /></div>
   </section>
 
-  <section class="sec" aria-labelledby="esami-t">
-    <SectionHead n="02" id="esami-t" title="Gli esami" desc="Scegli l'esame per conoscere come funziona, quando è indicato e come prenotarlo." />
-    <div class="wrap exams" data-switch>
-      <ol class="exams__list" role="list">
-        {exams.map((e, i) => (
-          <li>
-            <button type="button" class:list={['exams__btn', { 'is-on': i === 0 }]} data-switch-btn={String(i)} aria-pressed={i === 0 ? 'true' : 'false'}>
-              <span class="exams__n">{pad(i + 1)}</span>
-              <span class="exams__name">{e.label}</span>
-              <Icon name="arrow-right" />
-            </button>
-          </li>
-        ))}
-      </ol>
-      <div class="exams__panes" aria-live="polite">
-        {exams.map((e, i) => (
-          <article class:list={['ex', { 'is-on': i === 0 }]} data-switch-pane={String(i)}>
-            <a class="ex__img" href={e.href} tabindex="-1" aria-hidden="true"><Img src={e.slide?.bg ?? e.img!} alt={e.slide?.alt ?? e.alt ?? ''} sizes="(min-width: 1024px) 760px, 92vw" widths={[700, 1100, 1500]} /></a>
-            <div class="ex__body">
-              <h3 class="ex__t"><a href={e.href}>{e.label}</a></h3>
-              <p class="ex__d">{e.firstSentence}</p>
-              {e.services.length > 0 && <ul class="ex__svc" role="list">{e.services.slice(0, 6).map((s) => <li><Icon name="check" />{s}</li>)}</ul>}
-              <div class="ex__act">
-                <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
-                <a class="btn btn--line" href={site.phone.href}><Icon name="phone" /> Prenota ora</a>
-                <a class="more" href={e.href}>Scopri di più</a>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
+  <section class="sec sec--top" aria-labelledby="esami-t">
+    <SectionHead n="02" id="esami-t" title="Gli esami" desc="Scorri per conoscere i macchinari e gli esami del centro, con le informazioni tecniche essenziali." />
   </section>
+  <ExamScroller />
 
   <BookBand />
 </Base>
-
-<style>
-  .exams { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
-  .exams__list { list-style: none; position: sticky; top: calc(var(--bar-h) + 2rem); display: grid; gap: 0.6rem; }
-  .exams__btn { display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: center; gap: 0.8rem; width: 100%; padding: 1.2rem 1.3rem; border: 1px solid var(--line); border-radius: 18px; background: #fff; font: inherit; text-align: left; color: var(--deep); cursor: pointer; transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
-  .exams__btn:hover { border-color: var(--azure); background: var(--ice); }
-  .exams__btn:global(.is-on) { background: var(--deep); border-color: var(--deep); color: #fff; }
-  .exams__n { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--green); }
-  .exams__btn:global(.is-on) .exams__n { color: #8fd69a; }
-  .exams__name { font-size: 1.08rem; font-weight: 500; letter-spacing: -0.02em; }
-  .exams__btn :global(.icon) { width: 1rem; height: 1rem; opacity: 0.4; transition: transform 0.4s var(--ease), opacity 0.3s; }
-  .exams__btn:global(.is-on) :global(.icon) { opacity: 1; transform: translateX(3px); }
-  .exams__panes { display: grid; }
-  .ex { grid-area: 1 / 1; display: grid; gap: clamp(1.2rem, 2vw, 1.8rem); padding: clamp(1rem, 1.5vw, 1.25rem); background: var(--ice); border-radius: var(--r); opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.5s var(--ease), transform 0.6s var(--ease), visibility 0s 0.5s; }
-  .ex:global(.is-on) { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-  .ex__img { display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 16px; }
-  .ex__img :global(picture), .ex__img :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .ex__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem clamp(1.5rem, 3vw, 3rem); padding: 0 clamp(0.5rem, 1.5vw, 1.2rem) clamp(0.5rem, 1.5vw, 1.2rem); }
-  .ex__t { grid-column: 1 / -1; font-size: clamp(1.7rem, 1.2rem + 1.3vw, 2.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.04em; color: var(--deep); }
-  .ex__t a { text-decoration: none; }
-  .ex__d { font-size: 1rem; line-height: 1.65; color: var(--ink-2); }
-  .ex__svc { list-style: none; display: grid; gap: 0.55rem; align-content: start; }
-  .ex__svc li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.94rem; color: var(--ink); }
-  .ex__svc :global(.icon) { width: 1rem; height: 1rem; color: var(--green); flex: none; }
-  .ex__act { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.2rem; margin-top: 0.4rem; }
-  @media (max-width: 960px) {
-    .exams { grid-template-columns: 1fr; }
-    .exams__list { position: static; grid-template-columns: 1fr 1fr; }
-    .ex__body { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 560px) { .exams__list { grid-template-columns: 1fr; } .exams__btn { padding: 1rem 1.1rem; } }
-</style>

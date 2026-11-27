@@ -190,3 +190,7 @@ html.js:not(.reduced) [data-lines] { visibility: hidden; }
 .pills > li > a:hover { background: var(--deep); color: #fff; }
 .pills .icon { width: 1.1rem; height: 1.1rem; color: var(--green); flex: none; }
 .pills > li > a:hover .icon { color: #fff; }
+
+/* intestazione seguita direttamente dallo scorrimento delle schede (home, Alta Diagnostica) */
+.sec--top { padding-bottom: 0; display: flow-root; }
+.sec--top .sh { margin-bottom: 0; padding-bottom: clamp(2rem, 3vw, 3rem); }

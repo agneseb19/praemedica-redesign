@@ -7,16 +7,13 @@ import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
 import heroPhoto from '../assets/found/visita-diagnostica.jpg';
-import tacCut from '../assets/cutout/tac.png';
-import mammoCut from '../assets/cutout/mammo.png';
-import rxCut from '../assets/cutout/rx.png';
-import optCut from '../assets/cutout/opt.png';
-import mocCut from '../assets/cutout/moc.png';
+import ExamScroller from '../components/ExamScroller.astro';
+import { machines } from '../lib/machines';
 
 const home = getPage('home');
 const B = home.blocks;
 const of = <T extends Block['type']>(t: T) => B.filter((b) => b.type === t) as Extract<Block, { type: T }>[];
-const [heroSlider, diagSlider] = of('slides');
+const [heroSlider] = of('slides');
 const [receptionImg, waitingImg, fisioImg, palestraImg] = of('image');
 const heads = of('heading');
 const h = (re: RegExp) => stripTags(heads.find((x) => re.test(x.html))!.html);
@@ -46,19 +43,6 @@ const SPOTS: Record<string, { zone: string; mesh: string }> = {
 const spotted = specs.filter((s) => SPOTS[s.href]).map((s) => ({ ...s, ...SPOTS[s.href] }));
 const firstSpot = Math.max(0, spotted.findIndex((s) => s.href === '/cardiologia/'));
 
-/* ---------- alta diagnostica: l'esame in grande, il macchinario in piccolo; dati dalle pagine originali ---------- */
-const machines = [
-  { exam: 'TAC', device: tac.heading, href: '/alta-diagnostica/', img: tacCut, alt: tac.alt || tac.heading,
-    spec: [['Esame', 'Tomografia computerizzata'], ['Acquisizione', '128 strati'], ['Tecnologia', 'Siemens Healthineers']] },
-  { exam: diagSlider.slides[0].heading, device: 'Mammografo 3D con tomosintesi', href: '/mammografia-in-tomosintesi/', img: mammoCut, alt: diagSlider.slides[0].alt,
-    spec: [['Immagini', 'Tridimensionali ad alta risoluzione'], ['Dose', 'Proiezioni a bassa dose da diverse angolazioni'], ['Indicata', 'Per le donne sopra i 40 anni']] },
-  { exam: diagSlider.slides[1].heading, device: 'Radiologia generale', href: '/radiologia/', img: rxCut, alt: diagSlider.slides[1].alt,
-    spec: [['Servizio', 'Radiologia generale'], ['Tecnologia', 'Di ultima generazione'], ['Tempi', 'Diagnosi rapide, senza lunghe liste d’attesa']] },
-  { exam: diagSlider.slides[2].heading, device: 'Ortopantomografo', href: '/ortopanoramica/', img: optCut, alt: diagSlider.slides[2].alt,
-    spec: [['Esame', 'Radiografia panoramica dentale'], ['Area', 'Arcate dentarie, ossa mascellari, seni paranasali'], ['Paziente', 'Non invasiva, sicura e rapida']] },
-  { exam: diagSlider.slides[3].heading, device: 'Densitometro MOC DXA', href: '/densitometria-ossea/', img: mocCut, alt: diagSlider.slides[3].alt,
-    spec: [['Tecnica', 'MOC DXA, il gold standard'], ['Misura', 'Densità minerale ossea (BMD)'], ['Per', 'Prevenzione e monitoraggio dell’osteoporosi']] },
-];
 
 /* ---------- medici ---------- */
 const medici = getPage('medici');
@@ -229,34 +213,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
       </div>
     </header>
   </section>
-  <section class="prod" aria-label="Gli esami di alta diagnostica" data-prod style={`--n:${machines.length}`}>
-    <div class="prod__pin">
-      <div class="wrap prod__list">
-        {machines.map((m, i) => (
-          <article class:list={['prod__item', { 'is-on': i === 0 }]} data-prod-item>
-            <div class="prod__info">
-              <span class="prod__i">{String(i + 1).padStart(2, '0')} / {String(machines.length).padStart(2, '0')}</span>
-              <h3 class="prod__t"><a href={m.href}>{m.exam}</a></h3>
-              <p class="prod__dev">{m.device}</p>
-              <dl class="prod__spec">
-                {m.spec.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
-              </dl>
-              <div class="prod__act">
-                <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
-                <a class="more" href={m.href}>Scopri di più</a>
-              </div>
-            </div>
-            <figure class="prod__fig">
-              <Picture src={m.img} alt={m.alt} formats={['webp']} widths={[600, 1000, Math.min(1500, m.img.width)]} sizes="(min-width: 1025px) 50vw, 90vw" />
-            </figure>
-          </article>
-        ))}
-      </div>
-      <div class="wrap prod__nav" aria-hidden="true">
-        {machines.map((m, i) => <span class:list={['prod__dot', { 'is-on': i === 0 }]} data-prod-dot>{m.exam}</span>)}
-      </div>
-    </div>
-  </section>
+  <ExamScroller />
 
   <!-- 05 · SPECIALISTI -->
   <section class="sec" aria-labelledby="team-t">
@@ -485,39 +442,6 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .pane__docs { font-size: 0.84rem; color: var(--muted); }
   .pane__act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; margin-top: 0.3rem; }
 
-  /* ================= 03 · ALTA DIAGNOSTICA ================= */
-  .prod { background: #fff; padding-block: 0 clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); overflow-x: clip; }
-  .prod__list { display: grid; gap: 1.5rem; }
-  .prod__item { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding: clamp(1.5rem, 3vw, 3rem); background: var(--ice); border-radius: 24px; }
-  .prod__i { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--green); }
-  .prod__t { margin-top: 0.7rem; font-size: clamp(1.9rem, 1.3rem + 1.8vw, 3rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.02; color: var(--deep); }
-  .prod__t a { text-decoration: none; }
-  .prod__dev { margin-top: 0.5rem; font-size: 0.92rem; color: var(--muted); }
-  .prod__spec { margin: 1.6rem 0; border-top: 1px solid var(--line); }
-  .prod__spec div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
-  .prod__spec dt { font-size: 0.8rem; color: var(--muted); }
-  .prod__spec dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
-  .prod__act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; }
-  .prod__fig { margin: 0; height: clamp(280px, 50vh, 560px); }
-  .prod__fig :global(picture) { display: contents; }
-  .prod__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
-  .prod__nav { display: none; }
-  @media (min-width: 1025px) {
-    :global(html.js:not(.reduced)) .prod { height: calc(var(--n) * 85svh + 30svh); padding: 0; }
-    :global(html.js:not(.reduced)) .prod__pin { position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); display: flex; flex-direction: column; justify-content: center; gap: 2.5vh; padding-block: 4vh; }
-    :global(html.js:not(.reduced)) .prod__list { position: relative; flex: 1; display: grid; }
-    :global(html.js:not(.reduced)) .prod__item { grid-area: 1 / 1; visibility: hidden; transition: visibility 0s 0.8s; }
-    :global(html.js:not(.reduced)) .prod__item:global(.is-on) { visibility: visible; transition-delay: 0s; }
-    :global(html.js:not(.reduced)) .prod__info { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); }
-    :global(html.js:not(.reduced)) .prod__fig { height: min(56vh, 600px); opacity: 0; transform: translateX(10%) scale(0.92); transition: opacity 0.7s var(--ease), transform 1.1s var(--ease); }
-    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__info { opacity: 1; transform: none; transition-delay: 0.15s; }
-    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__fig { opacity: 1; transform: none; }
-    :global(html.js:not(.reduced)) .prod__item:global(.is-past) .prod__fig { transform: translateX(-10%) scale(0.92); }
-    :global(html.js:not(.reduced)) .prod__nav { display: flex; gap: 0.4rem; padding-right: calc(var(--pad) + 22rem); }
-    .prod__dot { flex: 1; padding-top: 0.7rem; border-top: 2px solid var(--azure); font-size: 0.78rem; color: var(--muted); transition: border-color 0.4s, color 0.4s; }
-    .prod__dot:global(.is-on) { border-color: var(--deep); color: var(--deep); }
-  }
-
   /* ================= file scorrevoli (medici, recensioni) ================= */
   .rail { list-style: none; display: flex; gap: clamp(1rem, 1.5vw, 1.25rem); padding: 0 var(--pad) 0.5rem max(var(--pad), calc((100vw - var(--max)) / 2)); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: max(var(--pad), calc((100vw - var(--max)) / 2)); scrollbar-width: none; }
   .rail::-webkit-scrollbar { display: none; }
@@ -607,9 +531,6 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .facts { grid-template-columns: 1fr 1fr; }
     .fact:nth-child(3) { border-left: 0; }
     .fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
-    .prod__list { gap: 1rem; }
-    .prod__item { grid-template-columns: 1fr; }
-    .prod__fig { order: -1; height: clamp(240px, 56vw, 440px); }
     .body__list { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 760px) {

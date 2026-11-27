@@ -1,0 +1,78 @@
+---
+/**
+ * Scorrimento delle schede dei macchinari (desktop): la sezione si ferma e un esame alla volta
+ * prende la scena. Su telefono e con movimento ridotto le schede sono una sotto l'altra.
+ * Il cambio di scheda lo gestisce motion.ts tramite data-prod.
+ */
+import { Picture } from 'astro:assets';
+import { machines } from '../lib/machines';
+import { site } from '../data/site';
+---
+<section class="prod" aria-label="Gli esami di alta diagnostica" data-prod style={`--n:${machines.length}`}>
+  <div class="prod__pin">
+    <div class="wrap prod__list">
+      {machines.map((m, i) => (
+        <article class:list={['prod__item', { 'is-on': i === 0 }]} data-prod-item>
+          <div class="prod__info">
+            <span class="prod__i">{String(i + 1).padStart(2, '0')} / {String(machines.length).padStart(2, '0')}</span>
+            <h3 class="prod__t"><a href={m.href}>{m.exam}</a></h3>
+            <p class="prod__dev">{m.device}</p>
+            <dl class="prod__spec">
+              {m.spec.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+            </dl>
+            <div class="prod__act">
+              <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
+              <a class="more" href={m.href}>Scopri di più</a>
+            </div>
+          </div>
+          <figure class="prod__fig">
+            <Picture src={m.img} alt={m.alt} formats={['webp']} widths={[600, 1000, Math.min(1500, m.img.width)]} sizes="(min-width: 1025px) 50vw, 90vw" />
+          </figure>
+        </article>
+      ))}
+    </div>
+    <div class="wrap prod__nav" aria-hidden="true">
+      {machines.map((m, i) => <span class:list={['prod__dot', { 'is-on': i === 0 }]} data-prod-dot>{m.exam}</span>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .prod { background: #fff; padding-block: 0 clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem); overflow-x: clip; }
+  .prod__list { display: grid; gap: 1.5rem; }
+  .prod__item { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; padding: clamp(1.5rem, 3vw, 3rem); background: var(--ice); border-radius: 24px; }
+  .prod__i { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--green); }
+  .prod__t { margin-top: 0.7rem; font-size: clamp(1.9rem, 1.3rem + 1.8vw, 3rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.02; color: var(--deep); }
+  .prod__t a { text-decoration: none; }
+  .prod__dev { margin-top: 0.5rem; font-size: 0.92rem; color: var(--muted); }
+  .prod__spec { margin: 1.6rem 0; border-top: 1px solid var(--line); }
+  .prod__spec div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+  .prod__spec dt { font-size: 0.8rem; color: var(--muted); }
+  .prod__spec dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
+  .prod__act { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; }
+  .prod__fig { margin: 0; height: clamp(280px, 50vh, 560px); }
+  .prod__fig :global(picture) { display: contents; }
+  .prod__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  .prod__nav { display: none; }
+  @media (min-width: 1025px) {
+    :global(html.js:not(.reduced)) .prod { height: calc(var(--n) * 85svh + 30svh); padding: 0; }
+    :global(html.js:not(.reduced)) .prod__pin { position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); display: flex; flex-direction: column; justify-content: center; gap: 2.5vh; padding-block: 4vh; }
+    :global(html.js:not(.reduced)) .prod__list { position: relative; flex: 1; display: grid; }
+    :global(html.js:not(.reduced)) .prod__item { grid-area: 1 / 1; visibility: hidden; transition: visibility 0s 0.8s; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) { visibility: visible; transition-delay: 0s; }
+    :global(html.js:not(.reduced)) .prod__info { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); }
+    :global(html.js:not(.reduced)) .prod__fig { height: min(56vh, 600px); opacity: 0; transform: translateX(10%) scale(0.92); transition: opacity 0.7s var(--ease), transform 1.1s var(--ease); }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__info { opacity: 1; transform: none; transition-delay: 0.15s; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-on) .prod__fig { opacity: 1; transform: none; }
+    :global(html.js:not(.reduced)) .prod__item:global(.is-past) .prod__fig { transform: translateX(-10%) scale(0.92); }
+    :global(html.js:not(.reduced)) .prod__nav { display: flex; gap: 0.4rem; padding-right: calc(var(--pad) + 22rem); }
+    .prod__dot { flex: 1; padding-top: 0.7rem; border-top: 2px solid var(--azure); font-size: 0.78rem; color: var(--muted); transition: border-color 0.4s, color 0.4s; }
+    .prod__dot:global(.is-on) { border-color: var(--deep); color: var(--deep); }
+  }
+
+  @media (max-width: 1024px) {
+    .prod__list { gap: 1rem; }
+    .prod__item { grid-template-columns: 1fr; }
+    .prod__fig { order: -1; height: clamp(240px, 56vw, 440px); }
+  }
+</style>
