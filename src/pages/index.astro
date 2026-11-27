@@ -360,10 +360,9 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
   .hero__pic { position: absolute; inset: -5% 0; z-index: -3; margin: 0; }
   .hero__pic :global(picture), .hero__pic :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 8% 45%; }
-  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(270deg, rgb(18 60 80 / 0.78) 0%, rgb(18 60 80 / 0.62) 26%, rgb(18 60 80 / 0.28) 44%, rgb(18 60 80 / 0.06) 58%, rgb(18 60 80 / 0) 66%); }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(270deg, rgb(18 60 80 / 0.74) 0%, rgb(18 60 80 / 0.58) 35%, rgb(18 60 80 / 0.36) 65%, rgb(18 60 80 / 0.26) 100%), linear-gradient(0deg, rgb(18 60 80 / 0.25) 0%, rgb(18 60 80 / 0) 40%); }
   .hero__copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 1.4rem 0; justify-items: start; padding-block: 4rem 8.5rem; }
   .hero__copy > * { grid-column: 2; }
-  .hero__t, .hero__k, .hero__p { text-shadow: 0 1px 24px rgb(18 60 80 / 0.35); }
   .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
   .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.6vw, 5rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: #fff; }
   .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgb(255 255 255 / 0.92); }
