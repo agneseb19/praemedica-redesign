@@ -6,7 +6,7 @@ import { getPage, summaryOf, stripTags, fixLogo, type Block } from '../lib/conte
 import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
-import heroPhoto from '../assets/found/home-cura.jpg';
+import heroPhoto from '../assets/found/home-visita.jpg';
 import ExamScroller from '../components/ExamScroller.astro';
 import BookBand from '../components/BookBand.astro';
 import { machines } from '../lib/machines';
@@ -65,10 +65,10 @@ const noText = reviews.reviews.filter((r) => !r.text);
 ---
 <Base title="Praemedica - Centro Diagnostico Polispecialistico" description={home.seo?.description}>
 
-  <!-- HERO: un momento di cura, a tutto schermo (foto 4961px, nitida anche su schermi 4K) -->
+  <!-- HERO: una visita in uno studio luminoso, a tutto schermo (foto 6483px, nitida anche su schermi 4K) -->
   <section class="hero" aria-labelledby="hero-t">
     <div class="hero__bg" data-parallax="5">
-      <Picture src={heroPhoto} alt="Un'operatrice sanitaria sorride a una signora anziana" formats={['webp']} widths={[1000, 1600, 2400, 3200, 3840]} sizes="100vw" quality={82} loading="eager" fetchpriority="high" />
+      <Picture src={heroPhoto} alt="Una dottoressa sorridente mostra il tablet a un paziente durante la visita" formats={['webp']} widths={[1000, 1600, 2400, 3200, 3840]} sizes="100vw" quality={82} loading="eager" fetchpriority="high" />
     </div>
     <div class="wrap hero__copy">
       <p class="hero__k" data-reveal>{h(/^CENTRO DIAGNOSTICO/)} {h(/^PRAEMEDICA/)} · Palestrina</p>
@@ -357,7 +357,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
   /* ================= HERO ================= */
   .hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
   .hero__bg { position: absolute; inset: -5% 0; z-index: -2; }
-  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
   .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(75deg, rgb(18 60 80 / 0.88) 0%, rgb(18 60 80 / 0.66) 34%, rgb(18 60 80 / 0) 60%); }
   .hero__copy { display: grid; gap: 1.3rem; justify-items: start; padding-block: 4rem 8.5rem; }
   .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
@@ -515,7 +515,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .reha__pics { min-height: 260px; }
     .hero { min-height: 0; flex-direction: column; align-items: stretch; background: var(--deep); }
     .hero__bg { position: relative; inset: auto; height: 46svh; }
-    .hero__bg :global(img) { object-position: 66% 25%; }
+    .hero__bg :global(img) { object-position: 62% 30%; }
     .hero::after { inset: auto 0 0; top: calc(46svh - 5rem); height: 5rem; background: linear-gradient(0deg, var(--deep), rgb(18 60 80 / 0)); }
     .hero__copy { padding-block: 1.5rem 5.5rem; }
     .hero__btns .btn { flex: 1 1 auto; }
