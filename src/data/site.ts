@@ -48,6 +48,7 @@ export const site = {
 export type NavItem = { label: string; href?: string; children?: NavItem[] };
 
 export const altaDiagnostica: NavItem[] = [
+  { label: 'TAC', href: '/tac/' },
   { label: 'Densitometria Ossea (MOC)', href: '/densitometria-ossea/' },
   { label: 'Mammografia 3D in Tomosintesi', href: '/mammografia-in-tomosintesi/' },
   { label: 'Ortopanoramica', href: '/ortopanoramica/' },

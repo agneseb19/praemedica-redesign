@@ -18,7 +18,7 @@ const tac = heroSlider.slides[0];
 const d = diagSlider.slides;
 
 export const machines: Machine[] = [
-  { exam: 'TAC', device: tac.heading, href: '/alta-diagnostica/', img: tacCut, alt: tac.alt || tac.heading,
+  { exam: 'TAC', device: tac.heading, href: '/tac/', img: tacCut, alt: tac.alt || tac.heading,
     spec: [['Esame', 'Tomografia computerizzata'], ['Acquisizione', '128 strati'], ['Tecnologia', 'Siemens Healthineers']] },
   { exam: d[0].heading, device: 'Mammografo 3D con tomosintesi', href: '/mammografia-in-tomosintesi/', img: mammoCut, alt: d[0].alt,
     spec: [['Immagini', 'Tridimensionali ad alta risoluzione'], ['Dose', 'Proiezioni a bassa dose da diverse angolazioni'], ['Indicata', 'Per le donne sopra i 40 anni']] },
@@ -38,6 +38,8 @@ export const machines: Machine[] = [
 export function otherExams(href: string): Summary[] {
   const rx = d[1];
   return [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
+    /* la TAC non ha una pagina sul sito originale: foto e nome dalla prima slide della home */
+    if (x.href === '/tac/') return { slug: 'tac', label: x.label, href: x.href, img: tac.bg, alt: tac.alt || tac.heading, services: [tac.heading], doctors: [], firstSentence: '' };
     const s = summaryOf(x.href!, x.label);
     if (x.href === '/radiologia/') return { ...s, img: rx.bg, alt: rx.alt, services: ['Radiografie', 'Radiologia generale'] };
     const dev = machines.find((m) => m.href === x.href)?.device;

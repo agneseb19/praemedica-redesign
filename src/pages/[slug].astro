@@ -15,11 +15,10 @@ import BookBand from '../components/BookBand.astro';
 import { allPages, toArticle, summaryOf, stripTags, type Page } from '../lib/content';
 import { specializzazioniMenu, altaDiagnostica } from '../data/site';
 import Icon from '../components/Icon.astro';
-import { Picture } from 'astro:assets';
 import { machines, otherExams } from '../lib/machines';
 
 export function getStaticPaths() {
-  const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti', 'mammografia-in-tomosintesi']);
+  const CUSTOM = new Set(['home', 'chi-siamo', 'medici', 'convenzioni', 'contatti', 'mammografia-in-tomosintesi', 'ortopanoramica', 'radiologia']);
   return allPages().filter((p) => !CUSTOM.has(p.slug)).map((p) => ({ params: { slug: p.slug }, props: { page: p } }));
 }
 
@@ -42,13 +41,13 @@ const introMore = [...introParas.slice(1), ...introRest.map((b: any) => b.html)]
 const pad = (n: number) => String(n).padStart(2, '0');
 let n = introFirst ? 1 : 0;
 
-const pool = [...specializzazioniMenu, ...altaDiagnostica].filter((x) => x.href !== href) as { label: string; href: string }[];
+const pool = [...specializzazioniMenu, ...altaDiagnostica].filter((x) => x.href !== href && x.href !== '/tac/') as { label: string; href: string }[];
 const start = Math.max(0, specializzazioniMenu.findIndex((x) => x.href === href));
 const related = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 4).map((x) => summaryOf(x.href, x.label));
 
 /* ---------- pagine di alta diagnostica: apertura propria per ogni esame, servizi prima del testo ---------- */
-const DIAG_HERO: Record<string, 'split' | 'dark' | 'center' | 'photo'> = {
-  '/densitometria-ossea/': 'split', '/ortopanoramica/': 'center', '/radiologia/': 'photo',
+const DIAG_HERO: Record<string, 'split' | 'photo'> = {
+  '/densitometria-ossea/': 'split', '/radiologia/': 'photo',
 };
 const machine = machines.find((m) => m.href === href);
 const services = a.sections.filter((s) => s.kind === 'services');
@@ -67,14 +66,8 @@ const others = otherExams(href);
         img={hero1?.src} alt={hero1?.alt}
         variant={DIAG_HERO[href] ?? 'photo'}
       >
-        {machine && DIAG_HERO[href] !== 'center' && (
+        {machine && (
           <ul class="dfacts" role="list" slot="extra">{machine.spec.map(([k, v]) => <li><small>{k}</small><span>{v}</span></li>)}</ul>
-        )}
-        {machine && DIAG_HERO[href] === 'center' && (
-          <div class="dshow" slot="strip">
-            <figure class="dshow__fig"><Picture src={machine.img} alt={machine.alt} formats={['webp']} widths={[600, 1000]} sizes="(min-width: 900px) 40vw, 80vw" loading="eager" /></figure>
-            <ul class="dfacts dfacts--row" role="list">{machine.spec.map(([k, v]) => <li><small>{k}</small><span>{v}</span></li>)}</ul>
-          </div>
         )}
       </PageHero>
 
@@ -107,9 +100,8 @@ const others = otherExams(href);
               <p class="ds__k">01</p>
               <h3 class="ds__h">In breve</h3>
               {introLead && <p class="ds__lead" set:html={introLead} />}
-              {(hero2 || (DIAG_HERO[href] === 'center' && hero1)) && (
+              {hero2 && (
                 <div class="ds__pics">
-                  {DIAG_HERO[href] === 'center' && hero1 && <figure class="ds__pic"><Img src={hero1.src} alt={hero1.alt} sizes="(min-width: 900px) 420px, 92vw" widths={[500, 900]} /></figure>}
                   {hero2 && <figure class="ds__pic"><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 900px) 420px, 92vw" widths={[500, 900]} /></figure>}
                 </div>
               )}
@@ -205,11 +197,6 @@ const others = otherExams(href);
   :global(.ph--dark) .dfacts, :global(.ph--photo) .dfacts { border-color: rgb(255 255 255 / 0.2); }
   :global(.ph--dark) .dfacts small, :global(.ph--photo) .dfacts small { color: rgb(255 255 255 / 0.7); }
   :global(.ph--dark) .dfacts span, :global(.ph--photo) .dfacts span { color: #fff; }
-  .dshow { display: grid; justify-items: center; gap: 1.5rem; }
-  .dshow__fig { width: min(100%, 520px); height: clamp(260px, 36vh, 380px); margin: 0; padding: 1.5rem; background: #fff; border-radius: var(--r); }
-  .dshow__fig :global(picture) { display: contents; }
-  .dshow__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
-  .dfacts--row { max-width: 760px; text-align: left; }
 
   /* "Da sapere": indice degli argomenti a sinistra, un argomento alla volta a destra */
   .ds { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }

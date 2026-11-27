@@ -6,7 +6,6 @@ import { getPage, summaryOf, stripTags, fixLogo, type Block } from '../lib/conte
 import { site } from '../data/site';
 import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
-import heroPhoto from '../assets/found/visita-diagnostica.jpg';
 import ExamScroller from '../components/ExamScroller.astro';
 import BookBand from '../components/BookBand.astro';
 import { machines } from '../lib/machines';
@@ -65,18 +64,19 @@ const noText = reviews.reviews.filter((r) => !r.text);
 ---
 <Base title="Praemedica - Centro Diagnostico Polispecialistico" description={home.seo?.description}>
 
-  <!-- HERO: una visita, a tutto schermo -->
+  <!-- HERO: l'accoglienza di Praemedica, a destra fino al bordo; testo a sinistra.
+       La foto originale è larga 1366px: occupa metà schermo, così resta nitida. -->
   <section class="hero" aria-labelledby="hero-t">
-    <div class="hero__bg" data-parallax="6">
-      <Picture src={heroPhoto} alt="Una dottoressa spiega l'esame a una paziente accanto al macchinario" formats={['webp']} widths={[960, 1600, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
-    </div>
+    <figure class="hero__media" data-img>
+      <Img src="wp/2025/02/chi-siamo-praemedica.jpg" alt="L'accoglienza del centro Praemedica, con il bancone e il logo" loading="eager" fetchpriority="high" sizes="(min-width: 760px) 52vw, 100vw" widths={[700, 1000, 1366]} />
+    </figure>
     <div class="wrap hero__copy">
       <p class="hero__k" data-reveal>{h(/^CENTRO DIAGNOSTICO/)} {h(/^PRAEMEDICA/)} · Palestrina</p>
       <h1 id="hero-t" class="hero__t" data-lines>La tecnologia al servizio della tua salute.</h1>
       <p class="hero__p" data-reveal>Il punto di riferimento per la tua salute: visite specialistiche, alta diagnostica e riabilitazione in un unico centro.</p>
       <div class="hero__btns" data-reveal>
         <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota una visita</a>
-        <a class="btn btn--white" href="#esplora">Esplora le prestazioni</a>
+        <a class="btn btn--line" href="#esplora">Esplora le prestazioni</a>
       </div>
     </div>
   </section>
@@ -355,14 +355,15 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .pillar__p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
 
   /* ================= HERO ================= */
-  .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; color: #fff; }
-  .hero__bg { position: absolute; inset: -6% 0; z-index: -2; }
-  .hero__bg :global(picture), .hero__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
-  .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(18 60 80 / 0.78) 0%, rgb(18 60 80 / 0.5) 42%, rgb(18 60 80 / 0.05) 70%); }
+  .hero { position: relative; isolation: isolate; display: flex; align-items: center; min-height: calc(100svh - var(--bar-h)); overflow: hidden; background: var(--ice); }
+  .hero__media { position: absolute; top: 0; right: 0; bottom: 0; width: 52vw; margin: 0; overflow: hidden; border-radius: 0 0 0 var(--r); }
+  .hero__media :global(picture), .hero__media :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 58% 62%; }
   .hero__copy { display: grid; gap: 1.5rem; justify-items: start; padding-block: 4rem 9rem; }
-  .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
-  .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.8vw, 5.2rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: #fff; }
-  .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: rgb(255 255 255 / 0.9); }
+  .hero__copy > * { max-width: min(100%, calc(48vw - var(--pad) - 3rem)); }
+  .hero__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+  .hero__t { max-width: 11ch; font-size: clamp(2.6rem, 1.3rem + 3.8vw, 5.2rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--deep); }
+  .hero__p { max-width: 34ch; font-size: 1.1rem; line-height: 1.6; color: var(--ink-2); }
+  .hero__btns .btn--line { background: #fff; }
   .hero__btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
 
   .facts-wrap { position: relative; z-index: 3; margin-top: -4.5rem; }
@@ -513,12 +514,12 @@ const noText = reviews.reviews.filter((r) => !r.text);
     .pillars { grid-template-columns: 1fr; }
     .why { grid-template-columns: 1fr; }
     .reha__pics { min-height: 260px; }
-    .hero { min-height: 88svh; align-items: flex-end; }
-    .hero__bg :global(img) { object-position: 74% 30%; }
-    .hero::after { background: linear-gradient(0deg, rgb(18 60 80 / 0.85) 0%, rgb(18 60 80 / 0.55) 55%, rgb(18 60 80 / 0.15) 100%); }
-    .hero__copy { padding-block: 3rem 6.5rem; }
+    .hero { min-height: 0; flex-direction: column; align-items: stretch; }
+    .hero__media { position: relative; order: 2; width: 100%; height: 42svh; border-radius: 0; }
+    .hero__copy { padding-block: 2.5rem 2rem; }
+    .hero__copy > * { max-width: 100%; }
     .hero__btns .btn { flex: 1 1 auto; }
-    .facts-wrap { margin-top: -3rem; }
+    .facts-wrap { margin-top: -2.5rem; }
     .facts { grid-template-columns: 1fr; }
     .fact { border-left: 0; }
     .fact:nth-child(n + 2) { border-top: 1px solid var(--line); }

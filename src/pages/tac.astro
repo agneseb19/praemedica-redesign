@@ -1,0 +1,178 @@
+---
+/**
+ * TAC (tomografia computerizzata). Pagina nuova: sul sito originale la TAC compare solo nella home
+ * ("Tac Somatom go.Top 128 strati"). Per ora contiene solo informazioni generali e sicure:
+ * - cos'è la TAC e come si svolge: indicazioni generali, valide per ogni centro;
+ * - scheda tecnica: dati pubblici del costruttore (Siemens Healthineers, SOMATOM go.Top).
+ * I testi definitivi (prestazioni, preparazione, medici) arriveranno da Praemedica.
+ */
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { Picture } from 'astro:assets';
+import { machines } from '../lib/machines';
+import { getPage, type Block } from '../lib/content';
+import { site } from '../data/site';
+import patientPhoto from '../assets/found/tac-paziente.jpg';
+
+const tac = machines.find((m) => m.href === '/tac/')!;
+const slide = (getPage('home').blocks.filter((b) => b.type === 'slides')[0] as Extract<Block, { type: 'slides' }>).slides[0];
+
+const specs: [string, string][] = [
+  ['Strati per rotazione', '128'],
+  ['Apertura del gantry', '70 cm'],
+  ['Rotazione', 'fino a 0,33 secondi'],
+  ['Tin Filter', 'riduce la dose di radiazioni'],
+];
+const steps = [
+  { icon: 'clipboard-check', t: 'Prima dell’esame', d: 'Segnala se sei in gravidanza o pensi di esserlo, se hai allergie (in particolare al mezzo di contrasto) e se soffri di problemi ai reni. Togli oggetti metallici come collane, orecchini e occhiali. Se l’esame è con mezzo di contrasto ti daremo indicazioni precise su digiuno ed esami del sangue.' },
+  { icon: 'bed', t: 'Sul lettino', d: 'Ti sdrai su un lettino che scorre lentamente all’interno dell’apertura del macchinario. L’apertura è ampia e non chiusa: puoi parlare con il tecnico in ogni momento.' },
+  { icon: 'clock', t: 'Durante la scansione', d: 'L’acquisizione dura pochi minuti. Ti chiediamo di restare fermo e, in alcuni momenti, di trattenere il respiro per pochi secondi.' },
+  { icon: 'circle-check', t: 'Dopo', d: 'Puoi tornare subito alle tue attività. Le immagini vengono valutate dal medico radiologo, che redige il referto.' },
+];
+---
+<Base title="TAC: tomografia computerizzata" description="TAC a Palestrina con Siemens SOMATOM go.Top a 128 strati: cos'è l'esame, come si svolge e come prenotarlo da Praemedica.">
+  <!-- Apertura: il numero degli strati in grande, il macchinario davanti -->
+  <section class="th">
+    <div class="wrap th__grid">
+      <div class="th__in">
+        <nav class="th__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/alta-diagnostica/">Alta Diagnostica</a><span aria-hidden="true">/</span><span aria-current="page">TAC</span></nav>
+        <p class="th__eye">Tomografia computerizzata</p>
+        <h1 class="th__t" data-lines>TAC</h1>
+        <p class="th__sub" data-reveal>{slide.heading}</p>
+        <p class="th__stat" data-reveal><strong>128</strong><span>strati per rotazione: immagini sottilissime e nitide</span></p>
+        <div class="th__act" data-reveal>
+          <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota la TAC</a>
+          <a class="btn btn--line" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+        </div>
+      </div>
+      <div class="th__stage" aria-hidden="true">
+        <span class="th__ring"></span>
+        <div class="th__fig" data-img>
+          <Picture src={tac.img} alt="" formats={['webp']} widths={[800, 1300, 1800]} sizes="(min-width: 900px) 58vw, 100vw" loading="eager" fetchpriority="high" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Cos'è -->
+  <section class="sec" aria-labelledby="cose-t">
+    <SectionHead n="01" id="cose-t" title="Cos'è la TAC" />
+    <div class="wrap what">
+      <div class="what__txt" data-reveal>
+        <p class="what__lead">La tomografia computerizzata (TC o TAC) è un esame diagnostico che usa i raggi X per ottenere immagini del corpo in sezione, cioè a strati sottili.</p>
+        <p>Un computer elabora gli strati e può ricostruirli anche in tre dimensioni: così il medico vede organi, ossa, vasi sanguigni e tessuti con molto più dettaglio di una radiografia tradizionale.</p>
+        <p>A seconda dell’esame richiesto, la TAC può essere eseguita senza oppure con mezzo di contrasto, una sostanza iniettata in vena che rende più evidenti alcune strutture.</p>
+      </div>
+      <figure class="what__pic" data-img>
+        <Img src={slide.bg} alt={slide.alt || 'La TAC di Praemedica'} sizes="(min-width: 900px) 50vw, 92vw" widths={[700, 1200, 1800]} />
+        <figcaption>La TAC di Praemedica</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 02 Il macchinario: scheda tecnica -->
+  <section class="sec" aria-labelledby="mac-t">
+    <div class="wrap spec">
+      <div class="spec__in">
+        <span class="spec__n">02</span>
+        <h2 id="mac-t" class="spec__t" data-lines>Il macchinario</h2>
+        <p class="spec__d" data-reveal>Siemens Healthineers SOMATOM go.Top: una TAC di ultima generazione, pensata per immagini nitide con la dose di radiazioni più bassa possibile.</p>
+        <dl class="spec__list">
+          {specs.map(([k, v]) => <div data-reveal><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+        <p class="spec__src">Dati tecnici del costruttore.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Come si svolge: linea verticale di quattro momenti, con la foto -->
+  <section class="sec" aria-labelledby="come-t">
+    <SectionHead n="03" id="come-t" title="Come si svolge" desc="Un esame rapido e indolore, in quattro momenti." />
+    <div class="wrap how">
+      <figure class="how__pic" data-img>
+        <Picture src={patientPhoto} alt="Un tecnico di radiologia assiste una paziente sul lettino della TAC" formats={['webp']} widths={[600, 1000, 1400]} sizes="(min-width: 900px) 40vw, 92vw" />
+      </figure>
+      <ol class="how__steps" role="list">
+        {steps.map((s, i) => (
+          <li data-reveal>
+            <span class="how__dot"><Icon name={s.icon} /></span>
+            <span class="how__k">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="how__t">{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  /* ---------- apertura: dato in grande a sinistra, il macchinario davanti a un anello ---------- */
+  .th { overflow: hidden; background: #fff; }
+  .th__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: center; gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+  .th__in { display: grid; gap: 1rem; justify-items: start; }
+  .th__crumbs { display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); }
+  .th__crumbs a { color: inherit; text-decoration: none; }
+  .th__crumbs a:hover { text-decoration: underline; }
+  .th__eye { font-size: 0.95rem; font-weight: 500; color: var(--blue); }
+  .th__t { font-size: clamp(3.6rem, 2rem + 5.5vw, 7.5rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.06em; color: var(--deep); }
+  .th__sub { font-size: 1.15rem; color: var(--ink-2); }
+  .th__stat { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem; width: 100%; margin-block: 0.6rem; padding-block: 1.2rem; border-block: 1px solid var(--line); }
+  .th__stat strong { font-size: clamp(3rem, 2rem + 3vw, 4.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.06em; color: var(--green); font-variant-numeric: tabular-nums; }
+  .th__stat span { max-width: 18ch; font-size: 1rem; line-height: 1.4; color: var(--ink-2); }
+  .th__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+  .th__stage { position: relative; display: grid; place-items: center; aspect-ratio: 5 / 4; }
+  .th__ring { position: absolute; left: 50%; top: 50%; width: 86%; aspect-ratio: 1; translate: -50% -50%; border: clamp(28px, 4vw, 56px) solid var(--ice); border-radius: 50%; }
+  .th__fig { position: relative; z-index: 1; width: 100%; }
+  .th__fig :global(img) { width: 100%; height: auto; }
+
+  /* ---------- 01 cos'è ---------- */
+  .what { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .what__txt { display: grid; gap: 1.1rem; font-size: 1.05rem; line-height: 1.7; color: var(--ink-2); }
+  .what__lead { font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.7rem); line-height: 1.4; letter-spacing: -0.02em; color: var(--deep); }
+  .what__pic { margin: 0; }
+  .what__pic :global(picture) { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); }
+  .what__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .what__pic figcaption { margin-top: 0.7rem; font-size: 0.88rem; color: var(--muted); }
+
+  /* ---------- 02 scheda tecnica ---------- */
+  .spec { display: block; padding: clamp(2rem, 5vw, 4.5rem); background: var(--deep); border-radius: var(--r); color: #fff; overflow: hidden; }
+  .spec__in { display: grid; gap: 1.2rem; }
+  .spec__n { font-size: 0.85rem; color: #8fd69a; }
+  .spec__t { font-size: var(--t-h2); font-weight: 500; line-height: 1.05; letter-spacing: -0.045em; color: #fff; }
+  .spec__d { max-width: 46ch; font-size: 1.05rem; line-height: 1.65; color: rgb(255 255 255 / 0.85); }
+  .spec__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 2rem; margin-top: 0.6rem; }
+  .spec__list div { display: grid; gap: 0.25rem; padding-block: 1.1rem; border-top: 1px solid rgb(255 255 255 / 0.18); }
+  .spec__list dt { font-size: 0.85rem; color: rgb(255 255 255 / 0.65); }
+  .spec__list dd { margin: 0; font-size: clamp(1.2rem, 1rem + 0.6vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; }
+  .spec__src { font-size: 0.8rem; color: rgb(255 255 255 / 0.55); }
+
+  /* ---------- 03 come si svolge ---------- */
+  .how { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .how__pic { position: sticky; top: 110px; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r); }
+  .how__pic :global(picture), .how__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .how__steps { list-style: none; position: relative; display: grid; gap: clamp(1.8rem, 3vw, 2.6rem); }
+  .how__steps::before { content: ''; position: absolute; left: 1.6rem; top: 1.6rem; bottom: 1.6rem; width: 1px; background: var(--line-2); }
+  .how__steps li { position: relative; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); column-gap: 1.4rem; row-gap: 0.4rem; }
+  .how__dot { grid-row: 1 / span 3; display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--ice); color: var(--green); position: relative; z-index: 1; box-shadow: 0 0 0 6px #fff; }
+  .how__dot :global(.icon) { width: 1.4rem; height: 1.4rem; }
+  .how__k { font-size: 0.85rem; color: var(--green); font-variant-numeric: tabular-nums; }
+  .how__t { font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .how__steps p { font-size: 1.02rem; line-height: 1.65; color: var(--ink-2); }
+
+  @media (max-width: 900px) {
+    .th__grid, .what, .how { grid-template-columns: 1fr; }
+    .spec__list { grid-template-columns: 1fr 1fr; }
+    .how__pic { position: static; aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 560px) {
+    .th__act, .th__act .btn { width: 100%; }
+    .spec__list { grid-template-columns: 1fr; }
+  }
+</style>

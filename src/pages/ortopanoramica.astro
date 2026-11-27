@@ -1,0 +1,267 @@
+---
+/**
+ * Ortopanoramica. L'idea viene dall'esame stesso: una lastra panoramica.
+ * Apertura come un negativoscopio (la panoramica attraversa lo schermo, una linea la "scansiona"),
+ * poi l'esame con i servizi, le quattro situazioni in cui farla, la lastra da esplorare
+ * (cosa vede) e come funziona in tre colonne. Testi 1:1 dall'originale.
+ */
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import SectionHead from '../components/SectionHead.astro';
+import BookBand from '../components/BookBand.astro';
+import { getPage, toArticle, stripTags, type Block } from '../lib/content';
+import { machines } from '../lib/machines';
+import { site } from '../data/site';
+
+const page = getPage('ortopanoramica');
+const a = toArticle(page);
+const blocks = page.blocks;
+const of = <T extends Block['type']>(t: T) => blocks.filter((b): b is Extract<Block, { type: T }> => b.type === t);
+const [, hQuando, hVede, hCome, hServizi] = of('heading').map((b) => b.html);
+const [tIntro, tQuando, tVede, tCome, tPrec, tVant] = of('text').map((b) => b.html);
+const [hPrec, hVant] = of('headline').map((b) => b.text);
+const [imgMachine, imgXray] = of('image');
+const services = of('carousel').flatMap((c) => c.slides.flat()).filter((b: any) => b.type === 'iconbox').map((b: any) => b.title as string);
+const machine = machines.find((m) => m.href === '/ortopanoramica/');
+
+const paras = (html: string) => html.match(/<p[\s\S]*?<\/p>/g) ?? [];
+const items = (html: string) =>
+  (html.match(/<li>[\s\S]*?<\/li>/g) ?? []).map((li) => {
+    const inner = li.replace(/^<li>\s*|\s*<\/li>$/g, '').replace(/^<p>|<\/p>$/g, '').trim();
+    const m = inner.match(/^<strong>([\s\S]*?)<\/strong>:?\s*([\s\S]*)$/);
+    return { title: (m?.[1] ?? '').replace(/:$/, ''), body: (m?.[2] ?? inner).replace(/^:\s*/, '') };
+  });
+/* testo prima e dopo l'elenco */
+const around = (html: string) => {
+  const [before, after = ''] = html.split(/<ul>[\s\S]*<\/ul>/);
+  return { before: paras(before).join(''), after: paras(after).join('') };
+};
+const quando = { ...around(tQuando), list: items(tQuando) };
+const vede = { ...around(tVede), list: items(tVede) };
+
+/* punti sulla lastra (in % dell'immagine), nello stesso ordine dell'elenco originale */
+const SPOTS = [
+  { x: 38, y: 50, icon: 'dental' },
+  { x: 56, y: 80, icon: 'bone' },
+  { x: 50, y: 17, icon: 'scan-eye' },
+  { x: 7, y: 33, icon: 'scan-position' },
+];
+const longTitle = a.title !== page.title && a.title.length > page.title.length;
+const h1 = longTitle ? page.title : a.titleHtml;
+---
+<Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
+  <!-- Apertura: la lastra panoramica su un negativoscopio scuro -->
+  <section class="lb">
+    <div class="wrap lb__top">
+      <div class="lb__in">
+        <nav class="lb__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/alta-diagnostica/">Alta Diagnostica</a><span aria-hidden="true">/</span><span aria-current="page">{stripTags(page.title)}</span></nav>
+        <h1 class="lb__t" data-lines set:html={h1} />
+      </div>
+      <div class="lb__side">
+        {longTitle && <p class="lb__sub" data-reveal set:html={a.titleHtml} />}
+        <div class="lb__act" data-reveal>
+          <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota l'esame</a>
+          <a class="btn btn--white" href={site.phone.href}><Icon name="phone" /> {site.phone.label}</a>
+        </div>
+      </div>
+    </div>
+    <figure class="lb__film" aria-hidden="true">
+      <div class="lb__plate">
+        <Img src={imgXray.src} alt="" loading="eager" fetchpriority="high" sizes="(min-width: 1000px) 1000px, 100vw" widths={[700, 1080]} />
+        <span class="lb__beam"></span>
+      </div>
+    </figure>
+    {machine && (
+      <ul class="wrap lb__facts" role="list">
+        {machine.spec.map(([k, v]) => <li data-reveal><small>{k}</small><span>{v}</span></li>)}
+      </ul>
+    )}
+  </section>
+
+  <!-- 01 L'esame: macchinario, cos'è, servizi -->
+  <section class="sec" aria-labelledby="esame-t">
+    <SectionHead n="01" id="esame-t" title="L'esame" />
+    <div class="wrap ex">
+      <figure class="ex__pic" data-img><Img src={imgMachine.src} alt={imgMachine.alt} sizes="(min-width: 1000px) 28vw, 92vw" widths={[500, 900]} /></figure>
+      <div class="ex__txt prose" data-reveal set:html={tIntro} />
+      <aside class="ex__book" data-reveal aria-labelledby="serv-t">
+        <h3 id="serv-t" class="ex__h" set:html={hServizi} />
+        <ul class="ex__list" role="list">
+          {services.map((s) => <li><Icon name="dental" /><span>{s}</span></li>)}
+        </ul>
+        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota online</a>
+        <a class="btn btn--white" href={site.phone.href}><Icon name="phone" /> Prenota ora</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 02 Quando farla: quattro situazioni in fila -->
+  <section class="sec" aria-labelledby="quando-t">
+    <SectionHead n="02" id="quando-t" title={hQuando} desc={quando.before} />
+    <div class="wrap">
+      <ol class="when" role="list">
+        {quando.list.map((it, i) => (
+          <li data-reveal><span class="when__n">{String(i + 1).padStart(2, '0')}</span><h3 class="when__t">{it.title}</h3><p set:html={it.body} /></li>
+        ))}
+      </ol>
+      <p class="when__note" data-reveal><Icon name="info-circle" /><span set:html={stripTags(quando.after)} /></p>
+    </div>
+  </section>
+
+  <!-- 03 Cosa vede: la lastra da esplorare -->
+  <section class="sec" aria-labelledby="vede-t">
+    <SectionHead n="03" id="vede-t" title={hVede} desc={vede.before} />
+    <div class="wrap see" data-switch data-switch-click>
+      <figure class="see__film">
+        <Img src={imgXray.src} alt={imgXray.alt} sizes="(min-width: 1000px) 44vw, 92vw" widths={[600, 1000]} />
+        {vede.list.map((it, i) => SPOTS[i] && (
+          <button type="button" class:list={['see__spot', { 'is-on': i === 0 }]} style={`--x:${SPOTS[i].x}%;--y:${SPOTS[i].y}%`} data-switch-btn={String(i)} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={it.title}>{i + 1}</button>
+        ))}
+      </figure>
+      <div class="see__side">
+        <p class="see__hint">Tocca un punto sulla lastra, oppure scegli qui sotto.</p>
+        <div class="see__tabs" role="group" aria-label="Cosa vede l'ortopanoramica">
+          {vede.list.map((it, i) => (
+            <button type="button" class:list={['see__tab', { 'is-on': i === 0 }]} data-switch-btn={String(i)} aria-pressed={i === 0 ? 'true' : 'false'}><span>{i + 1}</span>{it.title}</button>
+          ))}
+        </div>
+        {vede.list.map((it, i) => (
+          <article class:list={['see__pane', { 'is-on': i === 0 }]} data-switch-pane={String(i)}>
+            <span class="see__ic"><Icon name={SPOTS[i]?.icon ?? 'scan'} /></span>
+            <h3 class="see__t">{it.title}</h3>
+            <p set:html={it.body} />
+          </article>
+        ))}
+        <p class="see__after" set:html={stripTags(vede.after)} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Come funziona, precauzioni, vantaggi -->
+  <section class="sec how" aria-labelledby="come-t">
+    <SectionHead n="04" id="come-t" title={hCome} />
+    <div class="wrap how__cols">
+      <div class="how__c" data-reveal><span class="how__ic"><Icon name="scan" /></span><h3>Come si svolge</h3><div class="how__b" set:html={tCome} /></div>
+      <div class="how__c" data-reveal><span class="how__ic"><Icon name="alert-triangle" /></span><h3>{hPrec}</h3><div class="how__b" set:html={tPrec} /></div>
+      <div class="how__c" data-reveal><span class="how__ic"><Icon name="shield-check" /></span><h3>{hVant}</h3><div class="how__b" set:html={tVant} /></div>
+    </div>
+  </section>
+
+  <BookBand />
+</Base>
+
+<style>
+  /* ---------- apertura: negativoscopio ---------- */
+  .lb { --lb: #0a1820; background: var(--lb); color: #fff; overflow: hidden; }
+  .lb__top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: 1.5rem clamp(2rem, 5vw, 5rem); padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 3vw, 3rem); }
+  .lb__in { display: grid; gap: 1.2rem; }
+  .lb__crumbs { display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.85rem; color: rgb(255 255 255 / 0.65); }
+  .lb__crumbs a { color: inherit; text-decoration: none; }
+  .lb__crumbs a:hover { color: #fff; }
+  .lb__t { font-size: clamp(3rem, 1.4rem + 6vw, 7.5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.06em; color: #fff; }
+  .lb__side { display: grid; gap: 1.3rem; justify-items: start; }
+  .lb__sub { font-size: 1.1rem; line-height: 1.5; color: rgb(255 255 255 / 0.82); }
+  .lb__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+  /* la lastra: una fascia larga quanto lo schermo, scoperta da una linea che passa */
+  .lb__film { margin: 0; }
+  .lb__plate { position: relative; width: min(100%, 1000px); height: clamp(240px, 40vh, 400px); margin-inline: auto; overflow: hidden; }
+  .lb__plate :global(picture), .lb__plate :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; }
+  .lb__plate::before, .lb__plate::after { content: ''; position: absolute; top: 0; bottom: 0; width: 18%; z-index: 1; pointer-events: none; }
+  .lb__plate::before { left: 0; background: linear-gradient(90deg, var(--lb), transparent); }
+  .lb__plate::after { right: 0; background: linear-gradient(-90deg, var(--lb), transparent); }
+  .lb__plate :global(picture) { display: block; clip-path: inset(0 0 0 0); animation: lb-reveal 2.6s var(--ease) 0.3s both; }
+  .lb__beam { position: absolute; top: 0; bottom: 0; left: 0; z-index: 2; width: 2px; background: #6fd27b; box-shadow: 0 0 18px 4px rgb(111 210 123 / 0.55); opacity: 0; animation: lb-beam 2.6s var(--ease) 0.3s both; }
+  @keyframes lb-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes lb-beam { 0% { left: 0; opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+  .lb__facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem clamp(1.5rem, 3vw, 3rem); padding-block: clamp(1.8rem, 3vw, 2.6rem); }
+  .lb__facts li { display: grid; gap: 0.3rem; padding-top: 1rem; border-top: 1px solid rgb(255 255 255 / 0.18); }
+  .lb__facts small { font-size: 0.82rem; color: rgb(255 255 255 / 0.6); }
+  .lb__facts span { font-size: 1.05rem; font-weight: 500; line-height: 1.4; }
+
+  /* ---------- 01 l'esame: tre colonne ---------- */
+  .ex { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: stretch; }
+  .ex__pic { margin: 0; min-height: 420px; overflow: hidden; border-radius: var(--r); }
+  .ex__pic :global(picture), .ex__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .ex__txt { align-self: center; font-size: 1.05rem; line-height: 1.7; }
+  .ex__book { display: grid; align-content: center; gap: 0.8rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--deep); border-radius: var(--r); color: #fff; }
+  .ex__h { font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; color: #fff; }
+  .ex__list { list-style: none; display: grid; gap: 0.6rem; margin-block: 0.4rem 0.8rem; }
+  .ex__list li { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.1rem; background: rgb(255 255 255 / 0.08); border-radius: 14px; font-size: 1.05rem; font-weight: 500; }
+  .ex__list :global(.icon) { flex: none; width: 1.3rem; height: 1.3rem; color: #8fd69a; }
+  .ex__book .btn { width: 100%; }
+
+  /* ---------- 02 quando: quattro colonne con il numero in alto ---------- */
+  .when { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.2rem, 2.5vw, 2.5rem); }
+  .when li { display: grid; align-content: start; gap: 0.8rem; padding-top: 1.4rem; border-top: 2px solid var(--deep); }
+  .when__n { font-size: clamp(2.4rem, 1.8rem + 1.8vw, 3.6rem); font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--green); font-variant-numeric: tabular-nums; }
+  .when__t { font-size: 1.2rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.02em; color: var(--deep); }
+  .when p { font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
+  .when__note { display: flex; align-items: flex-start; gap: 0.8rem; max-width: 62rem; margin: clamp(2.2rem, 4vw, 3rem) auto 0; padding: 1.2rem 1.5rem; background: var(--ice); border-radius: 18px; font-size: 1.02rem; line-height: 1.6; color: var(--ink-2); }
+  .when__note :global(.icon) { flex: none; width: 1.3rem; height: 1.3rem; margin-top: 0.15rem; color: var(--blue); }
+
+  /* ---------- 03 cosa vede: lastra con i punti ---------- */
+  .see { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .see__film { position: relative; margin: 0; aspect-ratio: 4 / 5; max-height: 720px; overflow: hidden; border-radius: var(--r); background: #000; }
+  .see__film :global(picture), .see__film :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .see__spot { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: 48px; height: 48px; translate: -50% -50%; border: 2px solid #fff; border-radius: 50%; background: rgb(10 24 32 / 0.55); font: inherit; font-size: 1rem; font-weight: 600; color: #fff; cursor: pointer; transition: background-color 0.3s, transform 0.3s var(--ease); }
+  .see__spot::after { content: ''; position: absolute; inset: -8px; border: 1px solid rgb(255 255 255 / 0.5); border-radius: 50%; animation: see-pulse 2.4s ease-out infinite; }
+  .see__spot:hover { transform: scale(1.08); }
+  .see__spot.is-on { background: var(--green); border-color: var(--green); }
+  @keyframes see-pulse { from { opacity: 1; transform: scale(0.9); } to { opacity: 0; transform: scale(1.5); } }
+  .see__side { display: grid; gap: 1.2rem; }
+  .see__hint { font-size: 0.95rem; color: var(--muted); }
+  .see__tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .see__tab { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 48px; padding: 0 1.1rem 0 0.5rem; background: var(--ice); border: 0; border-radius: 999px; font: inherit; font-size: 0.98rem; color: var(--deep); cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+  .see__tab span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #fff; font-size: 0.85rem; font-weight: 600; }
+  .see__tab:hover { background: var(--azure); }
+  .see__tab.is-on { background: var(--deep); color: #fff; }
+  .see__tab.is-on span { background: var(--green); color: #fff; }
+  .see__pane { display: none; gap: 0.9rem; padding: clamp(1.6rem, 3vw, 2.4rem); border: 1px solid var(--line-2); border-radius: var(--r); }
+  .see__pane.is-on { display: grid; animation: see-in 0.45s var(--ease); }
+  @keyframes see-in { from { opacity: 0; transform: translateY(8px); } }
+  .see__ic { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--ice); color: var(--green); }
+  .see__ic :global(.icon) { width: 1.5rem; height: 1.5rem; }
+  .see__t { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.035em; color: var(--deep); }
+  .see__pane p { font-size: 1.08rem; line-height: 1.7; color: var(--ink-2); }
+  .see__pane p::first-letter { text-transform: uppercase; }
+  .see__after { font-size: 0.98rem; line-height: 1.65; color: var(--muted); }
+
+  /* ---------- 04 come funziona: tre colonne su fascia ghiaccio ---------- */
+  .how { background: var(--ice); padding-top: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem) !important; }
+  .how__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .how__c { display: grid; align-content: start; gap: 1rem; padding: 0 clamp(1.2rem, 3vw, 2.8rem); }
+  .how__c + .how__c { border-left: 1px solid var(--line-2); }
+  .how__c:first-child { padding-left: 0; }
+  .how__c:last-child { padding-right: 0; }
+  .how__ic { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .how__ic :global(.icon) { width: 1.5rem; height: 1.5rem; }
+  .how__c h3 { font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.025em; color: var(--deep); }
+  .how__b { display: grid; gap: 1em; font-size: 1rem; line-height: 1.7; color: var(--ink-2); }
+  .how__b :global(strong) { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 1000px) {
+    .ex { grid-template-columns: 1fr 1fr; }
+    .ex__book { grid-column: 1 / -1; }
+    .when { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 800px) {
+    .lb__top, .see, .ex { grid-template-columns: 1fr; }
+    .lb__facts { grid-template-columns: 1fr; gap: 0; }
+    .ex__pic { min-height: 0; aspect-ratio: 4 / 3; }
+    .how__cols { grid-template-columns: 1fr; gap: 2.2rem; }
+    .how__c { padding: 0; }
+    .how__c + .how__c { padding-top: 2.2rem; border-left: 0; border-top: 1px solid var(--line-2); }
+  }
+  @media (max-width: 560px) {
+    .when { grid-template-columns: 1fr; }
+    .lb__act, .lb__act .btn { width: 100%; }
+    .lb__plate { height: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lb__plate :global(picture), .lb__beam, .see__spot::after, .see__pane.is-on { animation: none; }
+    .lb__beam { display: none; }
+  }
+</style>
