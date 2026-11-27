@@ -56,6 +56,7 @@ const team = a.sections.filter((s) => s.kind === 'team');
 const reading = a.sections.filter((s) => s.kind === 'default');
 /* Radiologia non ha una foto propria in apertura e le sue liste sono quelle degli altri esami: foto e voce delle Radiografie dalla home */
 const rxSlide = (getPage('home').blocks.filter((b) => b.type === 'slides')[1] as any)?.slides?.[1];
+const topics = [{ title: 'In breve' }, ...reading.map((r) => ({ title: r.titleHtml || 'Approfondimento' }))];
 const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
   const s = summaryOf(x.href!, x.label);
   if (x.href === '/radiologia/' && rxSlide) return { ...s, img: rxSlide.bg, alt: rxSlide.alt, services: ['Radiografie', 'Radiologia generale'] };
@@ -99,24 +100,52 @@ const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologi
       ))}
 
       <section class="sec" aria-labelledby="sapere-t">
-        <SectionHead n={pad(services.length + team.length + 1)} id="sapere-t" title="Da sapere" desc="Le informazioni sull'esame, divise per argomento: apri quello che ti interessa." />
-        <div class="col faq">
-          <details class="faq__i">
-            <summary>Cos'è l'esame <Icon name="plus" /></summary>
-            <div class="faq__body">
-              {introLead && <p set:html={introLead} />}
-              {introMore && <div class="prose" set:html={introMore} />}
-              {DIAG_HERO[href] === 'center' && hero1 && <figure class="faq__pic"><Img src={hero1.src} alt={hero1.alt} sizes="(min-width: 800px) 720px, 92vw" widths={[600, 1000]} /></figure>}
-              {hero2 && <figure class="faq__pic"><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 800px) 720px, 92vw" widths={[600, 1000]} /></figure>}
-            </div>
-          </details>
-          {reading.map((r) => (
-            <details class="faq__i" id={r.id}>
-              <summary><span set:html={r.titleHtml || 'Approfondimento'} /> <Icon name="plus" /></summary>
-              <div class="faq__body"><Blocks blocks={r.blocks} /></div>
-            </details>
-          ))}
+        <SectionHead n={pad(services.length + team.length + 1)} id="sapere-t" title="Da sapere" desc="Le informazioni sull'esame, divise per argomento. Scegli quello che ti interessa." />
+        <div class="wrap ds" data-switch data-switch-click>
+          <ol class="ds__nav" role="list" aria-label="Argomenti">
+            {topics.map((tp, i) => (
+              <li><button type="button" class:list={['ds__btn', { 'is-on': i === 0 }]} data-switch-btn={String(i)} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls={`ds-${i}`}>
+                <span class="ds__n">{pad(i + 1)}</span><span class="ds__t" set:html={tp.title} /><Icon name="arrow-right" />
+              </button></li>
+            ))}
+          </ol>
+          <div class="ds__panes">
+            <article id="ds-0" class="ds__pane is-on" data-switch-pane="0">
+              <p class="ds__k">01</p>
+              <h3 class="ds__h">In breve</h3>
+              {introLead && <p class="ds__lead" set:html={introLead} />}
+              {(hero2 || (DIAG_HERO[href] === 'center' && hero1)) && (
+                <div class="ds__pics">
+                  {DIAG_HERO[href] === 'center' && hero1 && <figure class="ds__pic"><Img src={hero1.src} alt={hero1.alt} sizes="(min-width: 900px) 420px, 92vw" widths={[500, 900]} /></figure>}
+                  {hero2 && <figure class="ds__pic"><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 900px) 420px, 92vw" widths={[500, 900]} /></figure>}
+                </div>
+              )}
+              {introMore && <div class="prose ds__body" set:html={introMore} />}
+            </article>
+            {reading.map((r, i) => (
+              <article id={`ds-${i + 1}`} class="ds__pane" data-switch-pane={String(i + 1)}>
+                <p class="ds__k">{pad(i + 2)}</p>
+                <h3 class="ds__h" id={r.id} set:html={r.titleHtml || 'Approfondimento'} />
+                <div class="ds__body"><Blocks blocks={r.blocks} /></div>
+              </article>
+            ))}
+          </div>
         </div>
+        <script>
+          /* dopo la scelta di un argomento, se il testo non è in vista (telefono) ci si porta lì */
+          document.querySelectorAll<HTMLElement>('.ds').forEach((ds) => {
+            ds.querySelectorAll<HTMLElement>('[data-switch-btn]').forEach((b) => b.addEventListener('click', () => {
+              const pane = ds.querySelector<HTMLElement>(`[data-switch-pane="${b.dataset.switchBtn}"]`);
+              if (!pane) return;
+              const top = pane.getBoundingClientRect().top;
+              if (top < 80 || top > innerHeight * 0.6) {
+                const y = top + scrollY - 100;
+                const lenis = (window as any).__lenis;
+                lenis ? lenis.scrollTo(y) : scrollTo({ top: y, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+              }
+            }));
+          });
+        </script>
       </section>
 
       <section class="sec" aria-labelledby="rel-title">
@@ -189,16 +218,34 @@ const otherExams = [...altaDiagnostica, { label: 'Radiologia', href: '/radiologi
   .dshow__fig :global(img) { width: 100%; height: 100%; object-fit: contain; }
   .dfacts--row { max-width: 760px; text-align: left; }
 
-  /* "Da sapere": il testo lungo in pannelli che si aprono */
-  .faq { display: grid; gap: 0.75rem; }
-  .faq__i { background: var(--ice); border-radius: 18px; }
-  .faq__i summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem 1.4rem; font-size: 1.12rem; font-weight: 500; letter-spacing: -0.02em; color: var(--deep); cursor: pointer; list-style: none; }
-  .faq__i summary::-webkit-details-marker { display: none; }
-  .faq__i summary :global(.icon) { flex: none; width: 1.2rem; height: 1.2rem; color: var(--green); transition: transform 0.4s var(--ease); }
-  .faq__i[open] summary :global(.icon) { transform: rotate(45deg); }
-  .faq__body { padding: 0 1.4rem 1.5rem; font-size: 1rem; line-height: 1.7; color: var(--ink-2); }
-  .faq__body > * + * { margin-top: 1rem; }
-  .faq__pic { margin: 1.2rem 0 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; }
-  .faq__pic :global(picture), .faq__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* "Da sapere": indice degli argomenti a sinistra, un argomento alla volta a destra */
+  .ds { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+  .ds__nav { position: sticky; top: 110px; list-style: none; display: grid; gap: 0.5rem; }
+  .ds__btn { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; width: 100%; min-height: 64px; padding: 1rem 1.2rem; background: var(--ice); border: 0; border-radius: 16px; font: inherit; text-align: left; color: var(--deep); cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+  .ds__btn:hover { background: var(--azure); }
+  .ds__btn.is-on { background: var(--deep); color: #fff; }
+  .ds__n { font-size: 0.85rem; font-variant-numeric: tabular-nums; color: var(--green); }
+  .ds__btn.is-on .ds__n { color: #8fd69a; }
+  .ds__t { font-size: 1.05rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; }
+  .ds__btn :global(.icon) { width: 1.1rem; height: 1.1rem; opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.4s var(--ease); }
+  .ds__btn.is-on :global(.icon) { opacity: 1; transform: none; }
+
+  .ds__pane { display: none; padding: clamp(1.6rem, 3vw, 2.8rem); background: #fff; border: 1px solid var(--azure); border-radius: var(--r); }
+  .ds__pane.is-on { display: block; animation: ds-in 0.5s var(--ease); }
+  @keyframes ds-in { from { opacity: 0; transform: translateY(10px); } }
+  .ds__k { font-size: 0.85rem; font-variant-numeric: tabular-nums; color: var(--green); }
+  .ds__h { margin-top: 0.4rem; font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.3rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.035em; color: var(--deep); }
+  .ds__lead { margin-top: 1.2rem; font-size: 1.15rem; line-height: 1.6; color: var(--deep); }
+  .ds__body { margin-top: 1.4rem; font-size: 1.02rem; line-height: 1.7; color: var(--ink-2); }
+  .ds__body > :global(* + *) { margin-top: 1rem; }
+  .ds__pics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; margin-top: 1.6rem; }
+  .ds__pic { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 16px; }
+  .ds__pic:only-child { aspect-ratio: 16 / 9; }
+  .ds__pic :global(picture), .ds__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 900px) {
+    .ds { grid-template-columns: 1fr; }
+    .ds__nav { position: static; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ds__pane.is-on { animation: none; } }
   @media (max-width: 640px) { .dfacts { grid-template-columns: 1fr; } }
 </style>
