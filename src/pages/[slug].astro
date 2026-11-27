@@ -70,10 +70,22 @@ const specServices = svSections.length ? {
   book: svSections.flatMap((s) => flatB(s.blocks)).find((b) => b.type === 'button' && String(b.href).startsWith('tel:')),
   rest: svSections.flatMap((s) => flatB(s.blocks).filter((b) => b.type !== 'iconbox' && !(b.type === 'button' && String(b.href).startsWith('tel:')))),
 } : null;
-const specQuestions = a.sections.filter((s) => s.kind === 'default').map((s) => ({ id: s.id, titleHtml: s.titleHtml || 'In breve', blocks: s.blocks }));
+/* testi essenziali: in vista il primo paragrafo, il resto (testo, elenchi, pulsanti) dietro "Leggi tutto"; le foto a parte, piccole */
+const splitShort = (blocks: any[]) => {
+  const fl = flatB(blocks);
+  const firstText = fl.findIndex((b) => b.type === 'text');
+  const paras = firstText >= 0 ? (fl[firstText].html.match(/<(p|ul|ol)[\s\S]*?<\/\1>/g) ?? [fl[firstText].html]) : [];
+  return {
+    short: paras[0] ?? '',
+    restHtml: paras.slice(1).join(''),
+    restBlocks: fl.filter((b, i) => i !== firstText && b.type !== 'image'),
+    images: fl.filter((b) => b.type === 'image').map((b) => ({ src: b.src, alt: b.alt })),
+  };
+};
+const specQuestions = a.sections.filter((s) => s.kind === 'default').map((s) => ({ id: s.id, titleHtml: s.titleHtml || 'In breve', ...splitShort(s.blocks) }));
 const specTeam = a.sections.filter((s) => s.kind === 'team').map((s) => ({ id: s.id, titleHtml: s.titleHtml, people: s.people, blocks: s.blocks }));
 const specDoctors = specTeam.flatMap((s) => s.people ?? []).map((p) => p.name);
-const specIntro = [...introParas, ...introRest.map((b: any) => b.html ?? '')].join('\n');
+const specIntro = { short: introParas[0] ?? '', restHtml: [...introParas.slice(1), ...introRest.map((b: any) => b.html ?? '')].join('\n') };
 const rot = specIdx >= 0 ? specIdx : page.slug.length;
 ---
 <Base title={page.seo?.title ?? stripTags(h1)} description={page.seo?.description}>
@@ -176,7 +188,7 @@ const rot = specIdx >= 0 ? specIdx : page.slug.length;
       <SpecBody
         recipe={(rot % 5) as 0 | 1 | 2 | 3 | 4}
         label={stripTags(page.title)}
-        introMore={specIntro}
+        intro={specIntro}
         photo={hero2 ? { src: hero2.src, alt: hero2.alt } : undefined}
         questions={specQuestions}
         services={specServices ? { ...specServices, book: specServices.book ? { href: specServices.book.href, text: specServices.book.text } : undefined } : null}
@@ -202,8 +214,10 @@ const rot = specIdx >= 0 ? specIdx : page.slug.length;
       {introFirst && (
         <section class="sec" aria-labelledby="in-breve">
           <SectionHead n="01" id="in-breve" title="In breve" desc={introLead} />
-          {introMore && <div class="col"><div class="prose" data-reveal set:html={introMore} /></div>}
-          {hero2 && <figure class="wide-pic" data-img><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 1100px) 1100px, 92vw" widths={[800, 1100, 1600]} /></figure>}
+          <div class="wrap post-in">
+            {introMore && <div class="prose" data-reveal set:html={introMore} />}
+            {hero2 && <figure class="post-in__pic" data-img><Img src={hero2.src} alt={hero2.alt} sizes="(min-width: 900px) 34vw, 92vw" widths={[500, 900]} /></figure>}
+          </div>
         </section>
       )}
 
@@ -234,6 +248,10 @@ const rot = specIdx >= 0 ? specIdx : page.slug.length;
 </Base>
 
 <style>
+  .post-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .post-in__pic { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); }
+  .post-in__pic :global(picture), .post-in__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 900px) { .post-in { grid-template-columns: 1fr; } }
   .rel-exams :global(.ph) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   @media (max-width: 760px) { .rel-exams :global(.ph) { grid-template-columns: 1fr; } }
   .rel__all { display: flex; justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
