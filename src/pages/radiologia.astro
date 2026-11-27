@@ -42,7 +42,7 @@ const tidy = (s: string) => s.split(' ').map((w, i) => (KEEP.has(w) ? w : i === 
   <section class="rh">
     <div class="wrap rh__grid">
       <div class="rh__in">
-        <nav class="rh__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/alta-diagnostica/">Alta Diagnostica</a><span aria-hidden="true">/</span><span aria-current="page">Radiologia</span></nav>
+        <nav class="rh__crumbs" aria-label="Percorso"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/specializzazioni/">Specializzazioni</a><span aria-hidden="true">/</span><span aria-current="page">Radiologia</span></nav>
         <h1 class="rh__t" data-lines set:html={h1} />
         <p class="rh__lead" data-reveal>Quattro esami, {groups.reduce((n, g) => n + g.services.length, 0)} prestazioni. Scegli l'esame per vedere cosa puoi prenotare.</p>
         <div class="rh__act" data-reveal>

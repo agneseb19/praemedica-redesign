@@ -9,7 +9,7 @@ import { site, specializzazioniMenu, altaDiagnostica } from '../data/site';
 const path = Astro.url.pathname;
 const on = (href: string) => path.startsWith(href);
 const specOn = on('/specializzazioni/') || specializzazioniMenu.some((s) => path === s.href);
-const diagOn = on('/alta-diagnostica/') || altaDiagnostica.some((s) => path === s.href) || path === '/radiologia/';
+const diagOn = on('/alta-diagnostica/') || altaDiagnostica.some((s) => path === s.href);
 const half = Math.ceil(specializzazioniMenu.length / 3);
 const cols = [0, 1, 2].map((i) => specializzazioniMenu.slice(i * half, (i + 1) * half));
 ---
@@ -27,7 +27,6 @@ const cols = [0, 1, 2].map((i) => specializzazioniMenu.slice(i * half, (i + 1) *
           <p class="label">Alta Diagnostica</p>
           <ul role="list">
             {altaDiagnostica.map((d) => <li><a href={d.href}>{d.label}</a></li>)}
-            <li><a href="/radiologia/">Radiologia</a></li>
           </ul>
           <a class="more" href="/alta-diagnostica/">Panoramica <Icon name="arrow-right" /></a>
         </div>
@@ -64,7 +63,6 @@ const cols = [0, 1, 2].map((i) => specializzazioniMenu.slice(i * half, (i + 1) *
         <summary>Alta Diagnostica <Icon name="plus" /></summary>
         <a href="/alta-diagnostica/">Panoramica</a>
         {altaDiagnostica.map((d) => <a href={d.href}>{d.label}</a>)}
-        <a href="/radiologia/">Radiologia</a>
       </details>
       <details class="menu__g">
         <summary>Specializzazioni <Icon name="plus" /></summary>

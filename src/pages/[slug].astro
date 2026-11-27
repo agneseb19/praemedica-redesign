@@ -26,7 +26,7 @@ const { page } = Astro.props as { page: Page };
 const a = toArticle(page);
 const href = `/${page.slug}/`;
 const isPost = page.type === 'post';
-const isDiag = altaDiagnostica.some((x) => x.href === href) || page.slug === 'radiologia';
+const isDiag = altaDiagnostica.some((x) => x.href === href);
 const parent = isPost ? { label: 'Approfondimenti' } : isDiag ? { label: 'Alta Diagnostica', href: '/alta-diagnostica/' } : { label: 'Specializzazioni', href: '/specializzazioni/' };
 const longTitle = a.title !== page.title && a.title.length > page.title.length;
 const h1 = longTitle ? page.title : a.titleHtml;
@@ -47,7 +47,7 @@ const related = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 4).map(
 
 /* ---------- pagine di alta diagnostica: apertura propria per ogni esame, servizi prima del testo ---------- */
 const DIAG_HERO: Record<string, 'split' | 'photo'> = {
-  '/densitometria-ossea/': 'split', '/radiologia/': 'photo',
+  '/densitometria-ossea/': 'split',
 };
 const machine = machines.find((m) => m.href === href);
 const services = a.sections.filter((s) => s.kind === 'services');

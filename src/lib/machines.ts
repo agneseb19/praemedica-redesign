@@ -32,16 +32,13 @@ export const machines: Machine[] = [
 
 /**
  * "Altri esami" per le pagine di alta diagnostica: gli altri esami con foto e una riga sotto.
- * Radiologia non ha una foto propria e le sue liste sono quelle degli altri esami:
- * prende foto e voce delle Radiografie dalla home. Dove mancano le prestazioni, il nome del macchinario.
+ * Dove mancano le prestazioni, il nome del macchinario.
  */
 export function otherExams(href: string): Summary[] {
-  const rx = d[1];
-  return [...altaDiagnostica, { label: 'Radiologia', href: '/radiologia/' }].filter((x) => x.href !== href).map((x) => {
+  return altaDiagnostica.filter((x) => x.href !== href).map((x) => {
     /* la TAC non ha una pagina sul sito originale: foto e nome dalla prima slide della home */
     if (x.href === '/tac/') return { slug: 'tac', label: x.label, href: x.href, img: tac.bg, alt: tac.alt || tac.heading, services: [tac.heading], doctors: [], firstSentence: '' };
     const s = summaryOf(x.href!, x.label);
-    if (x.href === '/radiologia/') return { ...s, img: rx.bg, alt: rx.alt, services: ['Radiografie', 'Radiologia generale'] };
     const dev = machines.find((m) => m.href === x.href)?.device;
     return s.services.length || !dev ? s : { ...s, services: [dev] };
   });
