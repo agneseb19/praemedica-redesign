@@ -8,6 +8,7 @@ import reviews from '../data/reviews.json';
 import { Picture } from 'astro:assets';
 import heroPhoto from '../assets/found/visita-diagnostica.jpg';
 import ExamScroller from '../components/ExamScroller.astro';
+import BookBand from '../components/BookBand.astro';
 import { machines } from '../lib/machines';
 
 const home = getPage('home');
@@ -316,18 +317,7 @@ const noText = reviews.reviews.filter((r) => !r.text);
   </section>
 
   <!-- PRENOTA -->
-  <section class="book" aria-labelledby="book-t">
-    <div class="wrap">
-      <div class="book__top">
-        <h2 id="book-t" class="book__t" data-lines>Prenota la tua prossima visita.</h2>
-        <div class="book__act" data-reveal>
-          <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
-          <a class="btn btn--line-white" href={site.phone.href}>{site.phone.label}</a>
-        </div>
-      </div>
-      <p class="book__credit">Foto di apertura: <a href="https://unsplash.com/it/foto/un-medico-che-parla-con-un-paziente-AaVTg7jXUew" target="_blank" rel="noopener">Accuray su Unsplash</a></p>
-    </div>
-  </section>
+  <BookBand />
 </Base>
 
 <script>
@@ -502,12 +492,6 @@ const noText = reviews.reviews.filter((r) => !r.text);
   .conv__logos a:hover :global(img) { transform: scale(1.06); }
 
   /* ================= PRENOTA ================= */
-  .book { padding-block: clamp(4rem, 3rem + 4vw, 7rem); background: var(--deep); color: #cfe0e5; }
-  .book__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem 3rem; }
-  .book__t { max-width: 13ch; font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.8rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: #fff; }
-  .book__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .book__credit a { color: #fff; text-decoration: none; }
-  .book__credit { margin-top: 2.5rem; font-size: 0.72rem; color: #8fb0bb; }
 
   /* ================= RESPONSIVE ================= */
   @media (max-width: 1200px) {

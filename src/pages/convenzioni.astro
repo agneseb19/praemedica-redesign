@@ -2,6 +2,7 @@
 /** Convenzioni: i loghi originali con i loro link, nello schema della home. */
 import Base from '../layouts/Base.astro';
 import Tiles from '../components/Tiles.astro';
+import Img from '../components/Img.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookBand from '../components/BookBand.astro';
@@ -13,7 +14,11 @@ const [title, lead] = page.blocks.filter((b) => b.type === 'heading') as Extract
 const logos = page.blocks.filter((b) => b.type === 'image') as Extract<Block, { type: 'image' }>[];
 ---
 <Base title={page.seo?.title ?? 'Convenzioni'} description={page.seo?.description}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Convenzioni' }]} title={stripTags(title.html)} img="wp/2025/04/convenzioni-assicurative.jpg" alt="Convenzioni assicurative del centro Praemedica" />
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Convenzioni' }]} title={stripTags(title.html)} lead={`Praemedica è convenzionata con ${logos.length} tra compagnie assicurative e casse sanitarie.`} variant="center">
+    <ul class="marks" role="list" slot="strip">
+      {logos.slice(0, 6).map((l) => <li><Img src={l.src} alt={l.alt || 'UniSalute'} sizes="160px" widths={[200, 400]} loading="eager" /></li>)}
+    </ul>
+  </PageHero>
 
   <section class="sec" aria-labelledby="conv-t">
     <SectionHead n="01" id="conv-t" title="Le compagnie convenzionate" desc={stripTags(lead.html)} />
@@ -27,6 +32,10 @@ const logos = page.blocks.filter((b) => b.type === 'image') as Extract<Block, { 
 </Base>
 
 <style>
+  .marks { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; max-width: 980px; margin-inline: auto; }
+  .marks li { display: grid; place-items: center; aspect-ratio: 3 / 2; padding: 1rem 1.2rem; background: #fff; border-radius: 18px; }
+  .marks :global(picture), .marks :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  @media (max-width: 760px) { .marks { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .help { max-width: 52ch; margin: clamp(2.5rem, 4vw, 3.5rem) auto 0; text-align: center; font-size: 1.02rem; color: var(--ink-2); }
   .help a { color: var(--green-ink); }
 </style>

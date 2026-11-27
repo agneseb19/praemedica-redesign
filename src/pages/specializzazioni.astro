@@ -2,6 +2,7 @@
 /** Specializzazioni: in evidenza con foto, poi l'elenco completo con ricerca, nello schema della home. */
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
 import SpecList from '../components/SpecList.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHead from '../components/SectionHead.astro';
@@ -10,6 +11,7 @@ import { summaryOf } from '../lib/content';
 import { site, specializzazioniMenu } from '../data/site';
 
 const specs = specializzazioniMenu.map((s) => summaryOf(s.href!, s.label));
+const strip = ['/dermatologia/', '/oculistica/', '/pneumologia/', '/urologia/', '/endocrinologia/'].map((h) => specs.find((s) => s.href === h)!).filter(Boolean);
 const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'].map((h) => specs.find((s) => s.href === h)!).filter(Boolean);
 ---
 <Base title="Specializzazioni" description="Le specializzazioni del centro diagnostico Praemedica a Palestrina: medici, visite ed esami.">
@@ -17,9 +19,14 @@ const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'
     crumbs={[{ label: 'Home', href: '/' }, { label: 'Specializzazioni' }]}
     title="Specializzazioni"
     lead={`${specs.length} aree specialistiche con medici qualificati: scegli la specializzazione e scopri prestazioni e specialisti.`}
-    img="wp/2025/01/praemedica-centro-diagnostico.jpg"
-    alt="Centro diagnostico Praemedica che offre servizi di diagnostica avanzata"
-  />
+    variant="center"
+  >
+    <ul class="strip" role="list" slot="strip">
+      {strip.map((s) => (
+        <li><a href={s.href}><span class="strip__pic">{s.img && <Img src={s.img} alt={s.alt ?? ''} sizes="(min-width: 900px) 18vw, 40vw" widths={[300, 600]} loading="eager" />}</span><span class="strip__n">{s.label}</span></a></li>
+      ))}
+    </ul>
+  </PageHero>
 
   <section class="sec" aria-labelledby="ev-t">
     <SectionHead n="01" id="ev-t" title="In evidenza" desc="Alcune delle specializzazioni più richieste." />
@@ -45,6 +52,13 @@ const featured = ['/cardiologia/', '/senologia/', '/ortopedia/', '/ginecologia/'
 </Base>
 
 <style>
+  .strip { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(0.75rem, 1.5vw, 1.25rem); }
+  .strip a { display: grid; gap: 0.7rem; text-decoration: none; }
+  .strip__pic { display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: var(--r); background: #fff; }
+  .strip__pic :global(picture), .strip__pic :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .strip a:hover .strip__pic :global(img) { transform: scale(1.05); }
+  .strip__n { font-size: 0.98rem; font-weight: 500; color: var(--deep); }
+  @media (max-width: 760px) { .strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * var(--pad)); padding-inline: var(--pad); } .strip li { flex: none; width: 42vw; scroll-snap-align: start; } }
   .find { display: flex; align-items: center; gap: 0.9rem; width: min(100%, 720px); min-height: 64px; margin-top: 1rem; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; text-align: left; transition: border-color 0.3s, box-shadow 0.3s; }
   .find:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(56 124 145 / 0.14); }
   .find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1.05rem; }

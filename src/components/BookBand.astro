@@ -1,22 +1,40 @@
 ---
-/** Banda finale come nella home: invito a prenotare (indirizzo, orari e contatti sono nel footer). */
-import { site } from '../data/site';
+/**
+ * Banda prima del footer, in tutte le pagine: come si prenota, in tre passaggi.
+ * Niente pulsanti: "Prenota online" e telefono sono subito sotto, nel footer.
+ */
+import Icon from './Icon.astro';
+import { Picture } from 'astro:assets';
+import bandPhoto from '../assets/found/chi-visita.jpg';
 ---
 <section class="band" aria-labelledby="band-t">
-  <div class="wrap">
-    <div class="band__top">
-      <h2 id="band-t" class="band__t" data-lines>Prenota la tua prossima visita.</h2>
-      <div class="band__act" data-reveal>
-        <a class="btn btn--green" href={site.doctolib.href} target="_blank" rel="noopener">Prenota</a>
-        <a class="btn btn--line-white" href={site.phone.href}>{site.phone.label}</a>
-      </div>
-    </div>
+  <div class="band__bg" data-parallax="6" aria-hidden="true">
+    <Picture src={bandPhoto} alt="" formats={['webp']} widths={[960, 1600, 2400]} sizes="100vw" />
+  </div>
+  <div class="wrap band__in">
+    <p class="band__k" data-reveal>Prenotare è semplice</p>
+    <h2 id="band-t" class="band__t" data-lines>Prenota la tua prossima visita.</h2>
+    <ol class="band__steps" role="list">
+      <li data-reveal><span class="band__ic"><Icon name="list-search" /></span><span class="band__n">01</span><span class="band__s">Scegli la visita o l'esame</span></li>
+      <li data-reveal><span class="band__ic"><Icon name="calendar-check" /></span><span class="band__n">02</span><span class="band__s">Prenota online su Doctolib o al telefono</span></li>
+      <li data-reveal><span class="band__ic"><Icon name="heart-handshake" /></span><span class="band__n">03</span><span class="band__s">Ti aspettiamo nel nostro centro a Palestrina</span></li>
+    </ol>
   </div>
 </section>
 
 <style>
-  .band { padding-block: clamp(4rem, 3rem + 4vw, 7rem); background: var(--deep); color: #cfe0e5; }
-  .band__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem 3rem; }
-  .band__t { max-width: 13ch; font-size: clamp(2.2rem, 1.3rem + 2.6vw, 3.8rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: #fff; }
-  .band__act { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .band { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(5rem, 4rem + 5vw, 8.5rem); color: #fff; text-align: center; }
+  .band__bg { position: absolute; inset: -8% 0; z-index: -2; }
+  .band__bg :global(picture), .band__bg :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .band::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgb(18 60 80 / 0.84); }
+  .band__in { display: grid; justify-items: center; gap: 1.2rem; }
+  .band__k { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azure); }
+  .band__t { max-width: 16ch; font-size: clamp(2.4rem, 1.4rem + 3vw, 4.4rem); font-weight: 500; line-height: 1.02; letter-spacing: -0.05em; color: #fff; }
+  .band__steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); width: min(100%, 980px); margin-top: clamp(2rem, 3vw, 3rem); }
+  .band__steps li { display: grid; justify-items: center; gap: 0.7rem; padding: clamp(1.4rem, 2.5vw, 2rem) 1.2rem; background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.14); border-radius: var(--r); backdrop-filter: blur(6px); }
+  .band__ic { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #fff; color: var(--green); }
+  .band__ic :global(.icon) { width: 1.4rem; height: 1.4rem; }
+  .band__n { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: #8fd69a; }
+  .band__s { max-width: 22ch; font-size: 1.02rem; line-height: 1.45; color: #fff; }
+  @media (max-width: 760px) { .band__steps { grid-template-columns: 1fr; } }
 </style>

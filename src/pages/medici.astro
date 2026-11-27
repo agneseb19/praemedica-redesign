@@ -18,7 +18,11 @@ for (const b of page.blocks) {
 }
 ---
 <Base title={page.seo?.title ?? 'Medici'} description={page.seo?.description}>
-  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Medici' }]} title={stripTags(heading.html)} lead={`${docs.length} medici e professionisti, dalla cardiologia alla fisioterapia.`} />
+  <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Medici' }]} title={stripTags(heading.html)} lead={`${docs.length} medici e professionisti, dalla cardiologia alla fisioterapia.`} variant="center">
+    <ul class="faces" role="list" slot="strip">
+      {docs.slice(0, 7).map((d) => <li><span class="faces__pic"><Img src={d.img} alt={d.alt} sizes="160px" widths={[200, 400]} loading="eager" /></span><span class="faces__n">{d.name}</span></li>)}
+    </ul>
+  </PageHero>
 
   <section class="sec" aria-labelledby="docs-t">
     <SectionHead n="01" id="docs-t" title="I medici del centro" desc="Cerca per nome o per specialità.">
@@ -48,6 +52,12 @@ for (const b of page.blocks) {
 </Base>
 
 <style>
+  .faces { list-style: none; display: flex; justify-content: center; gap: clamp(0.6rem, 1.2vw, 1rem); }
+  .faces li { width: clamp(110px, 12vw, 160px); display: grid; gap: 0.5rem; }
+  .faces__pic { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 18px; background: #fff; }
+  .faces__pic :global(picture), .faces__pic :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .faces__n { font-size: 0.8rem; color: var(--ink-2); line-height: 1.3; }
+  @media (max-width: 760px) { .faces { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--pad)); padding-inline: var(--pad); } .faces li { flex: none; width: 30vw; } }
   .find { display: flex; align-items: center; gap: 0.9rem; width: min(100%, 620px); min-height: 64px; margin-top: 1rem; padding: 0 1.5rem; background: #fff; border: 1px solid var(--azure); border-radius: 999px; text-align: left; transition: border-color 0.3s, box-shadow 0.3s; }
   .find:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(56 124 145 / 0.14); }
   .find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1.05rem; }
